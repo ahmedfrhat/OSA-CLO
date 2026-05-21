@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { supabase } from "@/lib/supabase";
 import StorefrontClient from "@/components/storefront/StorefrontClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 60; // revalidate every 60 seconds
 
 export const metadata: Metadata = {
   title: "ASO CLO — The New Standard in Streetwear",
