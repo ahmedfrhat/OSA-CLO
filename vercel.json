@@ -3,11 +3,5 @@
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
   "devCommand": "npm run dev",
-  "installCommand": "npm install",
-  "env": {
-    "NEXT_PUBLIC_SUPABASE_URL": "@next_public_supabase_url",
-    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "@next_public_supabase_anon_key",
-    "PAYMOB_API_KEY": "@paymob_api_key",
-    "PAYMOB_INTEGRATION_ID": "@paymob_integration_id"
-  }
+  "installCommand": "npm install"
 }
