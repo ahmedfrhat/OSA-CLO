@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./transitions.css";
 import Header from "@/components/Header";
 import { LanguageProvider } from "@/context/LanguageContext";
 import { CartProvider } from "@/context/CartContext";
@@ -8,6 +9,7 @@ import { ToastProvider } from "@/context/ToastContext";
 import CartDrawer from "@/components/storefront/CartDrawer";
 import Analytics from "@/components/Analytics";
 import PWAInstall from "@/components/PWAInstall";
+import PageTransitionLoader from "@/components/PageTransitionLoader";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -55,9 +57,10 @@ export default function RootLayout({
         <LanguageProvider>
           <CartProvider>
             <ToastProvider>
+              <PageTransitionLoader />
               <Header />
               <CartDrawer />
-              <main className="min-h-screen">{children}</main>
+              <main className="min-h-screen page-content">{children}</main>
               <PWAInstall />
             </ToastProvider>
           </CartProvider>

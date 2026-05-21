@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { supabase } from "@/lib/supabase";
 import { decodeSessionValue, COOKIE_NAME } from "@/lib/session";
 import { getPartnerDbId } from "@/lib/partners";
@@ -134,6 +135,8 @@ export async function PUT(
     }
 
     LOG("PUT", "✅ Product updated:", data.id);
+    revalidatePath("/");
+    revalidatePath(`/product/${params.id}`);
     return NextResponse.json({ success: true, product: data });
 
   } catch (err) {
@@ -170,6 +173,7 @@ export async function DELETE(
     }
 
     LOG("DELETE", "✅ Product deleted");
+    revalidatePath("/");
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("[DELETE /api/admin/products/[id]] ❌ Unexpected error:", err);
@@ -211,6 +215,7 @@ export async function PATCH(
     }
 
     LOG("PATCH", "✅ Updated:", { [field]: value });
+    revalidatePath("/");
     return NextResponse.json({ success: true, product: data });
 
   } catch (err) {

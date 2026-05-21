@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
 import { useToast } from "@/context/ToastContext";
+import { supabase } from "@/lib/supabase";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 export interface StorefrontProduct {
@@ -19,6 +20,7 @@ export interface StorefrontProduct {
   sizes?: string[] | null;
   stock_quantity: number;
   image_url?: string | null;
+  image_urls?: string[] | null;
   is_available?: boolean;
   in_stock?: boolean;
 }
@@ -30,17 +32,90 @@ interface Props {
 
 const WA_NUMBER = "201038856486";
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+/** Add a cache-busting timestamp to Supabase image URLs so updates show immediately */
+function bustImageCache(url: string | null | undefined): string | undefined {
+  if (!url) return undefined;
+  // Only bust Supabase storage URLs — not Unsplash or other CDNs
+  if (url.includes("supabase.co/storage")) {
+    const separator = url.includes("?") ? "&" : "?";
+    return `${url}${separator}v=${Math.floor(Date.now() / 60000)}`; // rotates every minute
+  }
+  return url;
+}
+
 // ── Main Client Component ─────────────────────────────────────────────────────
-export default function StorefrontClient({ products, categories }: Props) {
+export default function StorefrontClient({ products: initialProducts, categories: initialCategories }: Props) {
   const { t, lang, isRTL } = useLanguage();
   const { addItem }        = useCart();
   const { success, info }  = useToast();
 
-  const [search,   setSearch]   = useState("");
-  const [category, setCategory] = useState("all");
-  const [mounted,  setMounted]  = useState(false);
+  const [products,  setProducts]  = useState<StorefrontProduct[]>(initialProducts);
+  const [search,    setSearch]    = useState("");
+  const [category,  setCategory]  = useState("all");
+  const [mounted,   setMounted]   = useState(false);
+  const channelRef = useRef<ReturnType<typeof supabase.channel> | null>(null);
 
   useEffect(() => { setMounted(true); }, []);
+
+  // ── Supabase Realtime Subscription ─────────────────────────────────────────
+  useEffect(() => {
+    // Subscribe to all changes on the products table
+    const channel = supabase
+      .channel("storefront-products-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "products" },
+        (payload) => {
+          const { eventType, new: newRecord, old: oldRecord } = payload;
+
+          setProducts((prev) => {
+            switch (eventType) {
+              case "INSERT": {
+                const inserted = newRecord as StorefrontProduct;
+                // Only show if available and in stock
+                if (!inserted.is_available || !inserted.in_stock) return prev;
+                // Avoid duplicates
+                if (prev.some((p) => p.id === inserted.id)) return prev;
+                return [inserted, ...prev];
+              }
+
+              case "UPDATE": {
+                const updated = newRecord as StorefrontProduct;
+                // If product is no longer available/in-stock, remove from list
+                if (!updated.is_available || !updated.in_stock) {
+                  return prev.filter((p) => p.id !== updated.id);
+                }
+                // Otherwise update in place
+                return prev.map((p) => (p.id === updated.id ? { ...p, ...updated } : p));
+              }
+
+              case "DELETE": {
+                const deleted = oldRecord as { id: string };
+                return prev.filter((p) => p.id !== deleted.id);
+              }
+
+              default:
+                return prev;
+            }
+          });
+        }
+      )
+      .subscribe();
+
+    channelRef.current = channel;
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
+
+  // Derived categories (recalculated when products update via realtime)
+  const categories = useMemo(() => {
+    return Array.from(
+      new Set(products.map((p) => p.category).filter((c): c is string => Boolean(c)))
+    );
+  }, [products]);
 
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim();
@@ -55,8 +130,7 @@ export default function StorefrontClient({ products, categories }: Props) {
     });
   }, [products, search, category]);
 
-
-  async function handleShare(p: StorefrontProduct) {
+  const handleShare = useCallback(async (p: StorefrontProduct) => {
     const url  = `${window.location.origin}/product/${p.id}`;
     const name = lang === "ar" && p.name_ar ? p.name_ar : p.name_en;
     if (typeof navigator !== "undefined" && "share" in navigator) {
@@ -64,7 +138,7 @@ export default function StorefrontClient({ products, categories }: Props) {
     }
     await navigator.clipboard.writeText(url);
     info(t("storefront.products.linkCopied"));
-  }
+  }, [lang, t, info]);
 
   // Skeleton loading
   if (!mounted) {
@@ -146,7 +220,7 @@ export default function StorefrontClient({ products, categories }: Props) {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
             {filtered.map((p) => (
               <ProductCard
-                key={p.id}
+                key={`${p.id}-${p.image_url ?? "no-img"}`}
                 product={p}
                 lang={lang}
                 isRTL={isRTL}
@@ -193,9 +267,10 @@ function ProductCard({
   const displayName = lang === "ar" && product.name_ar ? product.name_ar : product.name_en;
   const isLowStock  = product.stock_quantity > 0 && product.stock_quantity < 5;
   const hasSizes    = (product.sizes?.length ?? 0) > 0;
+  // Cache-busted image URL — ensures newly uploaded images show immediately
+  const imageSrc    = bustImageCache(product.image_url);
 
   function quickAdd() {
-    // If product has sizes, link to PDP for size selection
     if (hasSizes) return;
     onAdd({
       productId: product.id,
@@ -213,13 +288,14 @@ function ProductCard({
     <div className="group flex flex-col" dir={isRTL ? "rtl" : "ltr"}>
       {/* Image */}
       <Link href={`/product/${product.id}`} className="block relative overflow-hidden bg-gray-100 aspect-[3/4]">
-        {product.image_url ? (
+        {imageSrc ? (
           <Image
-            src={product.image_url}
+            src={imageSrc}
             alt={displayName}
             fill
             sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
             className="object-cover group-hover:scale-[1.04] transition-transform duration-500"
+            unoptimized={imageSrc.includes("supabase.co")} // skip next/image optimization for Supabase CDN URLs
           />
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-100">

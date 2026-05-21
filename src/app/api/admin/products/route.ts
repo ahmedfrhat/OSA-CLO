@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { supabase } from "@/lib/supabase";
 import { decodeSessionValue, COOKIE_NAME } from "@/lib/session";
 import { getPartnerDbId } from "@/lib/partners";
@@ -197,6 +198,8 @@ export async function POST(request: NextRequest) {
     }
 
     LOG("✅ Product created successfully:", data.id);
+    // Revalidate the storefront so new visitors also see the new product
+    revalidatePath("/");
     return NextResponse.json({ success: true, product: data }, { status: 201 });
 
   } catch (err) {
