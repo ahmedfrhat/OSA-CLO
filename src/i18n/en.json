@@ -1,0 +1,317 @@
+{
+  "common": {
+    "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit",
+    "close": "Close", "confirm": "Confirm", "loading": "Loading...",
+    "allTime": "All time", "egp": "EGP", "units": "units",
+    "export": "Export CSV", "print": "Print", "viewDetails": "View Details",
+    "repeatCustomer": "Repeat Customer"
+  },
+  "nav": { "shop": "Shop", "collections": "Collections", "contact": "Contact" },
+  "storefront": {
+    "hero": {
+      "eyebrow": "SS 2025 DROP 01",
+      "headline": "THE NEW\nSTANDARD.",
+      "subline": "Minimalist streetwear crafted for those who define the culture — not follow it.",
+      "shopNow": "Shop Now",
+      "viewCollections": "View Collections"
+    },
+    "search": {
+      "placeholder": "Search products...",
+      "noResults": "No products found",
+      "clear": "Clear"
+    },
+    "categories": { "all": "All" },
+    "products": {
+      "sectionEyebrow": "Current Drop",
+      "sectionTitle": "All Products",
+      "preorderBadge": "Pre-order",
+      "preorderBtn": "Pre-order Now",
+      "noProducts": "No products yet — check back soon.",
+      "loadError": "Failed to load products",
+      "onlyLeft": "Only {{n}} left!",
+      "outOfStock": "Out of Stock",
+      "share": "Share",
+      "linkCopied": "Link copied!",
+      "addToCart": "Add to Cart",
+      "buyWhatsApp": "Buy via WhatsApp",
+      "selectSize": "Select a size",
+      "sizeRequired": "Please select a size first",
+      "inCart": "In Cart ✓"
+    },
+    "product": {
+      "category": "Category",
+      "description": "Description",
+      "sizes": "Available Sizes",
+      "stock": "In Stock",
+      "back": "← Back"
+    },
+    "cart": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty",
+      "emptyDesc": "Browse our collection and add items.",
+      "browse": "Browse Products",
+      "checkout": "Checkout",
+      "continueShopping": "Continue Shopping",
+      "total": "Total",
+      "remove": "Remove",
+      "item": "item",
+      "items": "items"
+    },
+    "checkout": {
+      "title": "Complete Your Order",
+      "subtitle": "Fill in your details to place your order",
+      "customerName": "Full Name *",
+      "namePlaceholder": "Ahmed Mohamed",
+      "phone": "Phone Number *",
+      "phonePlaceholder": "01x xxxx xxxx",
+      "address": "Delivery Address *",
+      "addressPlaceholder": "Street, area, city (min 10 characters)",
+      "notes": "Order Notes",
+      "notesPlaceholder": "Special requests, color preference, etc.",
+      "payment": "Payment Method",
+      "payFull": "Pay in Full",
+      "payDeposit": "50% Deposit Now",
+      "total": "Order Total",
+      "paidNow": "Paid Now",
+      "remaining": "Remaining on Delivery",
+      "vodafoneCash": "Vodafone Cash",
+      "terms": "I have read and agree to the pre-order terms & conditions",
+      "submit": "Place Order",
+      "submitting": "Processing...",
+      "errors": {
+        "nameRequired": "Full name is required",
+        "nameInvalid": "Name must contain letters only — no numbers allowed",
+        "phoneRequired": "Phone number is required",
+        "phoneInvalid": "Enter a valid Egyptian number (010/011/012/015 + 8 digits)",
+        "addressRequired": "Delivery address is required",
+        "addressTooShort": "Address must be at least 10 characters",
+        "termsRequired": "You must agree to the terms to continue",
+        "serverError": "Something went wrong. Please try again."
+      }
+    },
+    "track": {
+      "title": "Track Your Order",
+      "subtitle": "Enter your Order ID to see the latest status",
+      "placeholder": "Paste your Order ID here",
+      "search": "Track",
+      "notFound": "Order not found. Please double-check your Order ID.",
+      "error": "Error looking up order. Please try again.",
+      "orderFor": "Order for",
+      "orderDate": "Order Date",
+      "orderTotal": "Order Total",
+      "paid": "Paid",
+      "remaining": "Remaining",
+      "status": {
+        "pending": "Order Received",
+        "processing": "Preparing Your Order",
+        "shipped": "Out for Delivery",
+        "closed": "Delivered"
+      },
+      "steps": {
+        "pending": "Received",
+        "processing": "Preparing",
+        "shipped": "Shipped",
+        "closed": "Delivered"
+      }
+    },
+    "success": {
+      "title": "Order Placed! 🎉",
+      "subtitle": "Thank you for your order. We'll contact you on WhatsApp to confirm.",
+      "orderId": "Order ID",
+      "multipleOrders": "Your Order IDs",
+      "whatsapp": "Contact Support",
+      "trackOrder": "Track My Order",
+      "continueShopping": "Continue Shopping"
+    },
+    "footer": {
+      "copyright": "© 2025 ASO CLO. All Rights Reserved.",
+      "privacy": "Privacy", "terms": "Terms", "contact": "Contact",
+      "track": "Track Order"
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Partner Portal",
+      "subtitle": "ASO CLO — Management Dashboard",
+      "partnerLabel": "Partner Name",
+      "passwordLabel": "Password",
+      "partnerPlaceholder": "e.g. Safia",
+      "passwordPlaceholder": "••••••••",
+      "submitBtn": "Enter Dashboard",
+      "loading": "Signing in...",
+      "footer": "ASO CLO © 2025 — Restricted Access",
+      "error": {
+        "required": "Name and password are required",
+        "invalid": "Invalid credentials",
+        "network": "Network error. Please try again."
+      }
+    },
+    "dashboard": {
+      "brand": "ASO CLO",
+      "subtitle": "Partner Dashboard",
+      "logout": "Logout",
+      "loggingOut": "...",
+      "tabs": {
+        "overview": "Overview",
+        "products": "Products",
+        "orders": "Orders",
+        "history": "History",
+        "financials": "Financials",
+        "manage": "Manage"
+      },
+      "overview": {
+        "welcome": "Welcome back,",
+        "summary": "Here's a summary of your store performance.",
+        "recentOrders": "Recent Orders",
+        "addProduct": "Add New Product",
+        "addProductDesc": "Upload a new item to your catalog",
+        "recordOrder": "Record Manual Order",
+        "recordOrderDesc": "Log a sale from Facebook or WhatsApp"
+      },
+      "kpi": {
+        "totalOrders": "Total Orders",
+        "pendingOrders": "Pending Orders",
+        "completedOrders": "Completed / Shipped",
+        "unitsSold": "Units Sold",
+        "revenue": "Total Revenue",
+        "profit": "Net Profit",
+        "sellingPrice": "selling price",
+        "margin": "margin",
+        "outstanding": "outstanding balance"
+      },
+      "manage": {
+        "title": "Manage Products",
+        "addBtn": "Add New",
+        "inStock": "In Stock",
+        "soldOut": "Sold Out",
+        "edit": "Edit",
+        "delete": "Delete",
+        "deleteConfirm": "Delete this product? This cannot be undone.",
+        "table": {
+          "product": "Product", "cost": "Cost", "selling": "Selling",
+          "profit": "Profit/Unit", "stock": "Stock",
+          "availability": "Availability", "actions": "Actions"
+        },
+        "empty": {
+          "title": "No products to manage",
+          "desc": "Add your first product",
+          "action": "Add Product"
+        }
+      },
+      "orders": {
+        "title": "Active Orders",
+        "historyTitle": "Order History",
+        "totalCount": "total orders",
+        "addBtn": "New Order",
+        "exportBtn": "Export CSV",
+        "filterAll": "All",
+        "filterPending": "Pending",
+        "filterProcessing": "Processing",
+        "filterShipped": "Shipped",
+        "empty": {
+          "title": "No orders yet",
+          "desc": "Record your first sale manually",
+          "action": "Add Order"
+        },
+        "table": {
+          "customer": "Customer", "phone": "Phone", "address": "Address",
+          "source": "Source", "items": "Items", "total": "Total",
+          "paid": "Paid", "remaining": "Remaining", "status": "Status", "date": "Date",
+          "actions": "Actions"
+        },
+        "status": {
+          "pending": "Pending",
+          "processing": "Processing",
+          "shipped": "Shipped",
+          "closed": "Closed"
+        }
+      },
+      "financials": {
+        "title": "My Financials",
+        "subtitle": "Based on confirmed orders with recorded cost prices",
+        "unitsSold": "Total Units Sold",
+        "revenue": "Total Revenue",
+        "profit": "Net Profit",
+        "outstanding": "Outstanding Balance",
+        "breakdown": "Per-Product Breakdown",
+        "chart": "Profit vs Cost (Last 30 Days)",
+        "total": "Total",
+        "table": {
+          "product": "Product", "units": "Units Sold", "revenue": "Revenue",
+          "cost": "Cost", "profit": "Profit", "margin": "Margin"
+        },
+        "chart_labels": {
+          "profit": "Net Profit",
+          "cost": "Total Cost",
+          "revenue": "Revenue"
+        },
+        "empty": {
+          "title": "No financial data yet",
+          "desc": "Record orders to see your profit breakdown",
+          "action": "Add First Order"
+        }
+      }
+    },
+    "addProduct": {
+      "title": "Add New Product",
+      "subtitle": "Add a new product to your catalog",
+      "editTitle": "Edit Product",
+      "editSubtitle": "Update product details",
+      "image": "Product Image",
+      "imageHint": "Click to upload image",
+      "nameEn": "Name (English) *",
+      "nameAr": "Name (Arabic)",
+      "namePlaceholderEn": "e.g. Oversized Tee",
+      "namePlaceholderAr": "e.g. تيشرت أوفرسايز",
+      "description": "Description",
+      "descPlaceholder": "Product description...",
+      "category": "Category",
+      "categoryPlaceholder": "Select category...",
+      "costPrice": "Cost Price (سعر الشراء) *",
+      "targetProfit": "Target Profit (المكسب المطلوب) *",
+      "sellingPrice": "Selling Price (Calculated)",
+      "profitPerUnit": "Profit per unit",
+      "marginLabel": "margin",
+      "sizes": "Sizes",
+      "sizesHint": "Or type custom: 38, 40, 42...",
+      "stockQty": "Stock Quantity",
+      "submitAdd": "Add Product",
+      "submitEdit": "Save Changes",
+      "submitting": "Saving...",
+      "uploading": "Uploading..."
+    },
+    "manualOrder": {
+      "title": "Manual Order Entry",
+      "subtitle": "Register a sale from Facebook, WhatsApp, or in-person",
+      "customerInfo": "Customer Info",
+      "customerName": "Customer Name *",
+      "customerPhone": "Phone",
+      "customerAddress": "Delivery Address",
+      "namePlaceholder": "Ahmed Mohamed",
+      "phonePlaceholder": "01x xxxx xxxx",
+      "addressPlaceholder": "Street, Area, City",
+      "source": "Order Source",
+      "orderItems": "Order Items",
+      "addItem": "+ Add Item",
+      "selectProduct": "Select product...",
+      "payment": "Payment",
+      "orderTotal": "Order Total",
+      "paidAmount": "Amount Paid",
+      "remaining": "Remaining Balance",
+      "notes": "Notes (optional)",
+      "notesPlaceholder": "Special requests or delivery notes...",
+      "submitBtn": "Confirm Order",
+      "submitting": "Saving...",
+      "sources": {
+        "facebook": "Facebook", "whatsapp": "WhatsApp",
+        "instagram": "Instagram", "walk_in": "Walk-in", "manual": "Other"
+      },
+      "headers": { "product": "Product", "size": "Size", "qty": "Qty" },
+      "error": {
+        "noItems": "Add at least one product",
+        "required": "Customer name and items are required",
+        "network": "Network error. Please try again."
+      }
+    }
+  }
+}

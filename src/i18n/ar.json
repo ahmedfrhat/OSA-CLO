@@ -1,0 +1,317 @@
+{
+  "common": {
+    "save": "حفظ", "cancel": "إلغاء", "delete": "حذف", "edit": "تعديل",
+    "close": "إغلاق", "confirm": "تأكيد", "loading": "جاري التحميل...",
+    "allTime": "كل الأوقات", "egp": "ج.م", "units": "وحدة",
+    "export": "تصدير CSV", "print": "طباعة", "viewDetails": "عرض التفاصيل",
+    "repeatCustomer": "عميل متكرر"
+  },
+  "nav": { "shop": "المتجر", "collections": "المجموعات", "contact": "تواصل معنا" },
+  "storefront": {
+    "hero": {
+      "eyebrow": "مجموعة 2025 — الإصدار الأول",
+      "headline": "المعيار\nالجديد.",
+      "subline": "ملابس ستريتوير راقية للمستقلين الذين يصنعون الترند، لا يتبعونه.",
+      "shopNow": "تسوق الآن",
+      "viewCollections": "استعرض المجموعات"
+    },
+    "search": {
+      "placeholder": "ابحث عن منتج...",
+      "noResults": "لا توجد منتجات مطابقة",
+      "clear": "مسح"
+    },
+    "categories": { "all": "الكل" },
+    "products": {
+      "sectionEyebrow": "الإصدار الحالي",
+      "sectionTitle": "جميع المنتجات",
+      "preorderBadge": "طلب مسبق",
+      "preorderBtn": "اطلب مسبقاً",
+      "noProducts": "لا توجد منتجات بعد — تابعنا قريباً.",
+      "loadError": "فشل تحميل المنتجات",
+      "onlyLeft": "باقي {{n}} فقط!",
+      "outOfStock": "نفد المخزون",
+      "share": "مشاركة",
+      "linkCopied": "تم نسخ الرابط!",
+      "addToCart": "أضف للسلة",
+      "buyWhatsApp": "اطلب عبر واتساب",
+      "selectSize": "اختر المقاس",
+      "sizeRequired": "يرجى اختيار المقاس أولاً",
+      "inCart": "في السلة ✓"
+    },
+    "product": {
+      "category": "الفئة",
+      "description": "الوصف",
+      "sizes": "المقاسات المتاحة",
+      "stock": "المخزون",
+      "back": "→ رجوع"
+    },
+    "cart": {
+      "title": "سلة التسوق",
+      "empty": "سلتك فارغة",
+      "emptyDesc": "تصفح مجموعتنا وأضف منتجات.",
+      "browse": "تصفح المنتجات",
+      "checkout": "إتمام الطلب",
+      "continueShopping": "متابعة التسوق",
+      "total": "الإجمالي",
+      "remove": "حذف",
+      "item": "منتج",
+      "items": "منتجات"
+    },
+    "checkout": {
+      "title": "أكمل طلبك",
+      "subtitle": "أدخل بياناتك لإتمام الطلب",
+      "customerName": "الاسم الكامل *",
+      "namePlaceholder": "أحمد محمد",
+      "phone": "رقم الهاتف *",
+      "phonePlaceholder": "01x xxxx xxxx",
+      "address": "عنوان التوصيل *",
+      "addressPlaceholder": "الشارع، المنطقة، المدينة (10 أحرف على الأقل)",
+      "notes": "ملاحظات الطلب",
+      "notesPlaceholder": "طلبات خاصة، تفضيل اللون، إلخ.",
+      "payment": "طريقة الدفع",
+      "payFull": "الدفع الكامل",
+      "payDeposit": "دفع 50% مقدماً",
+      "total": "إجمالي الطلب",
+      "paidNow": "المدفوع الآن",
+      "remaining": "المتبقي عند الاستلام",
+      "vodafoneCash": "فودافون كاش",
+      "terms": "قرأت وأوافق على سياسة الطلبات المسبقة",
+      "submit": "تأكيد الطلب",
+      "submitting": "جاري المعالجة...",
+      "errors": {
+        "nameRequired": "الاسم الكامل مطلوب",
+        "nameInvalid": "الاسم يجب أن يحتوي على حروف فقط — بدون أرقام",
+        "phoneRequired": "رقم الهاتف مطلوب",
+        "phoneInvalid": "أدخل رقماً مصرياً صالحاً (010/011/012/015 + 8 أرقام)",
+        "addressRequired": "عنوان التوصيل مطلوب",
+        "addressTooShort": "العنوان يجب أن يكون 10 أحرف على الأقل",
+        "termsRequired": "يجب الموافقة على الشروط للمتابعة",
+        "serverError": "حدث خطأ. يرجى المحاولة مرة أخرى."
+      }
+    },
+    "track": {
+      "title": "تتبع طلبك",
+      "subtitle": "أدخل رقم الطلب لمعرفة آخر تحديث",
+      "placeholder": "الصق رقم طلبك هنا",
+      "search": "تتبع",
+      "notFound": "الطلب غير موجود. يرجى التحقق من رقم الطلب.",
+      "error": "خطأ في البحث. يرجى المحاولة مرة أخرى.",
+      "orderFor": "طلب باسم",
+      "orderDate": "تاريخ الطلب",
+      "orderTotal": "إجمالي الطلب",
+      "paid": "المدفوع",
+      "remaining": "المتبقي",
+      "status": {
+        "pending": "تم استلام الطلب",
+        "processing": "جاري التجهيز",
+        "shipped": "في الطريق",
+        "closed": "تم التسليم"
+      },
+      "steps": {
+        "pending": "استلمنا",
+        "processing": "التجهيز",
+        "shipped": "الشحن",
+        "closed": "التسليم"
+      }
+    },
+    "success": {
+      "title": "تم تأكيد طلبك! 🎉",
+      "subtitle": "شكراً لطلبك. سنتواصل معك على واتساب قريباً.",
+      "orderId": "رقم الطلب",
+      "multipleOrders": "أرقام طلباتك",
+      "whatsapp": "تواصل مع الدعم",
+      "trackOrder": "تتبع طلبي",
+      "continueShopping": "متابعة التسوق"
+    },
+    "footer": {
+      "copyright": "© 2025 ASO CLO. جميع الحقوق محفوظة.",
+      "privacy": "الخصوصية", "terms": "الشروط", "contact": "تواصل معنا",
+      "track": "تتبع الطلب"
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "بوابة الشركاء",
+      "subtitle": "ASO CLO — لوحة الإدارة",
+      "partnerLabel": "اسم الشريك",
+      "passwordLabel": "كلمة المرور",
+      "partnerPlaceholder": "مثال: صفية",
+      "passwordPlaceholder": "••••••••",
+      "submitBtn": "الدخول للوحة التحكم",
+      "loading": "جاري الدخول...",
+      "footer": "ASO CLO © 2025 — وصول مقيد",
+      "error": {
+        "required": "الاسم وكلمة المرور مطلوبان",
+        "invalid": "اسم المستخدم أو كلمة المرور غير صحيحة",
+        "network": "خطأ في الشبكة. حاول مرة أخرى."
+      }
+    },
+    "dashboard": {
+      "brand": "ASO CLO",
+      "subtitle": "لوحة الشريك",
+      "logout": "تسجيل الخروج",
+      "loggingOut": "...",
+      "tabs": {
+        "overview": "نظرة عامة",
+        "products": "المنتجات",
+        "orders": "الطلبات",
+        "history": "الأرشيف",
+        "financials": "الماليات",
+        "manage": "الإدارة"
+      },
+      "overview": {
+        "welcome": "أهلاً بعودتك،",
+        "summary": "إليك ملخص أداء متجرك.",
+        "recentOrders": "أحدث الطلبات",
+        "addProduct": "إضافة منتج جديد",
+        "addProductDesc": "ارفع منتجاً جديداً في كتالوجك",
+        "recordOrder": "تسجيل طلب يدوي",
+        "recordOrderDesc": "سجّل بيعة من فيسبوك أو واتساب"
+      },
+      "kpi": {
+        "totalOrders": "إجمالي الطلبات",
+        "pendingOrders": "طلبات قيد التنفيذ",
+        "completedOrders": "مكتملة / مشحونة",
+        "unitsSold": "الوحدات المباعة",
+        "revenue": "إجمالي الإيرادات",
+        "profit": "صافي الربح",
+        "sellingPrice": "سعر البيع",
+        "margin": "هامش الربح",
+        "outstanding": "رصيد معلق"
+      },
+      "manage": {
+        "title": "إدارة المنتجات",
+        "addBtn": "إضافة جديد",
+        "inStock": "متوفر",
+        "soldOut": "نفدت الكمية",
+        "edit": "تعديل",
+        "delete": "حذف",
+        "deleteConfirm": "هل تريد حذف هذا المنتج؟ لا يمكن التراجع.",
+        "table": {
+          "product": "المنتج", "cost": "سعر الشراء", "selling": "سعر البيع",
+          "profit": "ربح/وحدة", "stock": "المخزون",
+          "availability": "التوفر", "actions": "إجراءات"
+        },
+        "empty": {
+          "title": "لا توجد منتجات للإدارة",
+          "desc": "أضف منتجك الأول",
+          "action": "إضافة منتج"
+        }
+      },
+      "orders": {
+        "title": "الطلبات النشطة",
+        "historyTitle": "أرشيف الطلبات",
+        "totalCount": "طلب في المجموع",
+        "addBtn": "طلب جديد",
+        "exportBtn": "تصدير CSV",
+        "filterAll": "الكل",
+        "filterPending": "قيد الانتظار",
+        "filterProcessing": "جاري التجهيز",
+        "filterShipped": "تم الشحن",
+        "empty": {
+          "title": "لا توجد طلبات بعد",
+          "desc": "سجّل بيعتك الأولى يدوياً",
+          "action": "إضافة طلب"
+        },
+        "table": {
+          "customer": "العميل", "phone": "الهاتف", "address": "العنوان",
+          "source": "المصدر", "items": "المنتجات", "total": "الإجمالي",
+          "paid": "المدفوع", "remaining": "المتبقي", "status": "الحالة", "date": "التاريخ",
+          "actions": "إجراءات"
+        },
+        "status": {
+          "pending": "قيد الانتظار",
+          "processing": "جاري التجهيز",
+          "shipped": "تم الشحن",
+          "closed": "مغلق"
+        }
+      },
+      "financials": {
+        "title": "ماليتي",
+        "subtitle": "بناءً على الطلبات المؤكدة مع أسعار الشراء المسجلة",
+        "unitsSold": "إجمالي الوحدات المباعة",
+        "revenue": "إجمالي الإيرادات",
+        "profit": "صافي الربح",
+        "outstanding": "الرصيد المعلق",
+        "breakdown": "تفصيل حسب المنتج",
+        "chart": "الربح مقابل التكلفة (آخر 30 يوم)",
+        "total": "الإجمالي",
+        "table": {
+          "product": "المنتج", "units": "الوحدات المباعة", "revenue": "الإيرادات",
+          "cost": "التكلفة", "profit": "الربح", "margin": "الهامش"
+        },
+        "chart_labels": {
+          "profit": "صافي الربح",
+          "cost": "إجمالي التكلفة",
+          "revenue": "الإيرادات"
+        },
+        "empty": {
+          "title": "لا توجد بيانات مالية بعد",
+          "desc": "سجّل طلبات لعرض تفصيل أرباحك",
+          "action": "إضافة أول طلب"
+        }
+      }
+    },
+    "addProduct": {
+      "title": "إضافة منتج جديد",
+      "subtitle": "أضف منتجاً جديداً في كتالوجك",
+      "editTitle": "تعديل المنتج",
+      "editSubtitle": "تحديث تفاصيل المنتج",
+      "image": "صورة المنتج",
+      "imageHint": "انقر لرفع صورة",
+      "nameEn": "الاسم بالإنجليزية *",
+      "nameAr": "الاسم بالعربية",
+      "namePlaceholderEn": "e.g. Oversized Tee",
+      "namePlaceholderAr": "مثال: تيشرت أوفرسايز",
+      "description": "الوصف",
+      "descPlaceholder": "وصف المنتج...",
+      "category": "الفئة",
+      "categoryPlaceholder": "اختر فئة...",
+      "costPrice": "سعر الشراء *",
+      "targetProfit": "المكسب المطلوب *",
+      "sellingPrice": "سعر البيع (محسوب)",
+      "profitPerUnit": "ربح الوحدة",
+      "marginLabel": "هامش",
+      "sizes": "المقاسات",
+      "sizesHint": "أو اكتب مخصصة: 38، 40، 42...",
+      "stockQty": "الكمية المتاحة",
+      "submitAdd": "إضافة المنتج",
+      "submitEdit": "حفظ التغييرات",
+      "submitting": "جاري الحفظ...",
+      "uploading": "جاري الرفع..."
+    },
+    "manualOrder": {
+      "title": "تسجيل طلب يدوي",
+      "subtitle": "سجّل بيعة من فيسبوك أو واتساب أو حضورياً",
+      "customerInfo": "بيانات العميل",
+      "customerName": "اسم العميل *",
+      "customerPhone": "الهاتف",
+      "customerAddress": "عنوان التوصيل",
+      "namePlaceholder": "أحمد محمد",
+      "phonePlaceholder": "01x xxxx xxxx",
+      "addressPlaceholder": "الشارع، المنطقة، المدينة",
+      "source": "مصدر الطلب",
+      "orderItems": "منتجات الطلب",
+      "addItem": "+ إضافة منتج",
+      "selectProduct": "اختر منتجاً...",
+      "payment": "الدفع",
+      "orderTotal": "إجمالي الطلب",
+      "paidAmount": "المبلغ المدفوع",
+      "remaining": "الرصيد المتبقي",
+      "notes": "ملاحظات (اختياري)",
+      "notesPlaceholder": "طلبات خاصة أو ملاحظات التوصيل...",
+      "submitBtn": "تأكيد الطلب",
+      "submitting": "جاري الحفظ...",
+      "sources": {
+        "facebook": "فيسبوك", "whatsapp": "واتساب",
+        "instagram": "إنستغرام", "walk_in": "حضوري", "manual": "أخرى"
+      },
+      "headers": { "product": "المنتج", "size": "المقاس", "qty": "الكمية" },
+      "error": {
+        "noItems": "أضف منتجاً واحداً على الأقل",
+        "required": "اسم العميل والمنتجات مطلوبة",
+        "network": "خطأ في الشبكة. حاول مرة أخرى."
+      }
+    }
+  }
+}

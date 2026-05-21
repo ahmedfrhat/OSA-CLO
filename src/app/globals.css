@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Brand Tokens ─────────────────────────────────────────────────────────── */
+:root {
+  --background: #FAF9F6;
+  --foreground: #1A1A1A;
+  --brand-offwhite: #FAF9F6;
+  --brand-black: #1A1A1A;
+  --brand-muted: #6B6B6B;
+  --brand-border: #E5E5E5;
+  --brand-accent: #C8FF00;
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Base Reset ───────────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Prevent horizontal scroll on mobile */
+  overflow-x: hidden;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* ── Selection Highlight ─────────────────────────────────────────────────── */
+::selection {
+  background: var(--brand-black);
+  color: var(--brand-offwhite);
+}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--brand-offwhite); }
+::-webkit-scrollbar-thumb { background: var(--brand-black); }
+
+/* ── Keyframe Animations ─────────────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-100%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.6; }
+}
+
+/* ── Animation Utility Classes ───────────────────────────────────────────── */
+.animate-fade-in        { animation: fadeIn        0.25s ease forwards; }
+.animate-slide-up       { animation: slideUp       0.35s var(--ease-out-expo) forwards; }
+.animate-slide-in-right { animation: slideInRight  0.35s var(--ease-out-expo) forwards; }
+.animate-slide-in-left  { animation: slideInLeft   0.35s var(--ease-out-expo) forwards; }
+.animate-scale-in       { animation: scaleIn       0.3s  var(--ease-out-expo) forwards; }
+
+/* Shimmer skeleton */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #fafafa 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ── Utilities ───────────────────────────────────────────────────────────── */
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .tracking-ultra { letter-spacing: 0.25em; }
+
+  /* Hide scrollbar (keep scroll functionality) */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+
+  /* GPU-accelerated transitions */
+  .gpu { transform: translateZ(0); will-change: transform; }
+
+  /* ── Admin Dashboard Utilities ─────────────────────────────────────── */
+  .label-style {
+    @apply text-[10px] font-semibold tracking-[0.1em] uppercase text-gray-500;
+  }
+
+  .input-style {
+    @apply w-full border border-gray-200 bg-white px-3 py-2.5 text-sm
+           text-[#1A1A1A] placeholder-gray-300 outline-none
+           focus:border-gray-400 focus:ring-0
+           transition-colors duration-150;
+  }
+
+  .section-title {
+    @apply text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400;
+  }
+
+  .btn-dark {
+    @apply bg-[#1A1A1A] text-white px-4 py-2.5 text-[11px] font-bold
+           tracking-widest uppercase hover:bg-[#333] transition-colors
+           active:scale-[0.98] active:transition-none
+           disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .th-style {
+    @apply text-left px-4 py-3 text-[10px] font-bold tracking-[0.12em]
+           uppercase text-gray-400;
+  }
+
+  /* Luxury hover underline effect */
+  .hover-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:w-0
+           after:h-px after:bg-current after:transition-all after:duration-300
+           hover:after:w-full;
+  }
+}
+
+/* ── Mobile Touch Optimization ───────────────────────────────────────────── */
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+/* Minimum touch target size (48×48 recommended) */
+button:not([class*="w-"]):not([class*="h-"]) {
+  min-height: 44px;
+}
+
+/* ── Focus Visible (Accessibility) ──────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--brand-black);
+  outline-offset: 2px;
+}
