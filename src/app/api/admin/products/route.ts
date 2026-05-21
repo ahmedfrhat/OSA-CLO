@@ -148,8 +148,16 @@ export async function POST(request: NextRequest) {
       .map((s) => s.trim())
       .filter(Boolean);
 
+    // Map partner string ID to actual UUID expected by the DB
+    const partnerIdMap: Record<string, string> = {
+      "safia": "596c4367-1491-481f-b0f2-1825c2540ebd",
+      "omaima": "2a304931-2230-4960-9e44-b19ed5e0178b",
+      "aisha": "652f4263-d4e3-4bf6-a5c4-778e8a08c710"
+    };
+    const dbPartnerId = partnerIdMap[session.partnerId] || session.partnerId;
+
     LOG("💾 Inserting into 'products' table...", {
-      partner_id: session.partnerId,
+      partner_id: dbPartnerId,
       name_en,
       cost_price: costNum,
       selling_price: sellingNum,
@@ -162,7 +170,7 @@ export async function POST(request: NextRequest) {
       .from("products")
       .insert([
         {
-          partner_id:    session.partnerId,
+          partner_id:    dbPartnerId,
           name_en:       name_en,
           name_ar:       name_ar       || null,
           description:   description   || null,
