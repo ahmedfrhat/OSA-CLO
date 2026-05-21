@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { getSession } from "@/lib/session";
 import { supabase } from "@/lib/supabase";
+import { getPartnerDbId } from "@/lib/partners";
 import DashboardShell from "./DashboardShell";
 
 export const dynamic = "force-dynamic"; // always fetch fresh data
@@ -9,12 +10,13 @@ export default async function DashboardPage() {
   // ── Auth Guard ──────────────────────────────────────────────────────────
   const session = getSession();
   if (!session) redirect("/admin/login");
+  const dbPartnerId = getPartnerDbId(session.partnerId);
 
   // ── Fetch Partner's Products ────────────────────────────────────────────
   const { data: products } = await supabase
     .from("products")
     .select("*")
-    .eq("partner_id", session.partnerId)
+    .eq("partner_id", dbPartnerId)
     .order("created_at", { ascending: false });
 
   // ── Fetch Partner's Orders + Items ──────────────────────────────────────
@@ -30,7 +32,7 @@ export default async function DashboardPage() {
       )
     `
     )
-    .eq("partner_id", session.partnerId)
+    .eq("partner_id", dbPartnerId)
     .order("created_at", { ascending: false });
 
   return (

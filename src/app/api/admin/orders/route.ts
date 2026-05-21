@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { decodeSessionValue, COOKIE_NAME } from "@/lib/session";
-import { getPartnerById } from "@/lib/partners";
+import { getPartnerById, getPartnerDbId } from "@/lib/partners";
 
 interface OrderItemInput {
   product_id: string;
@@ -16,6 +16,7 @@ function getSession(req: NextRequest) {
 export async function POST(request: NextRequest) {
   const session = getSession(request);
   if (!session) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  const dbPartnerId = getPartnerDbId(session.partnerId);
 
   try {
     const body = await request.json();
@@ -47,7 +48,7 @@ export async function POST(request: NextRequest) {
       .from("products")
       .select("id, selling_price, cost_price, name_en, stock_quantity")
       .in("id", productIds)
-      .eq("partner_id", session.partnerId);
+      .eq("partner_id", dbPartnerId);
 
     if (fetchError || !products?.length) {
       return NextResponse.json({ error: "بعض المنتجات غير موجودة أو لا تنتمي لحسابك" }, { status: 404 });
@@ -75,7 +76,7 @@ export async function POST(request: NextRequest) {
     const { data: order, error: orderError } = await supabase
       .from("orders")
       .insert([{
-        partner_id:       session.partnerId,
+        partner_id:       dbPartnerId,
         customer_name:    customer_name.trim(),
         customer_phone:   customer_phone?.trim()   || null,
         customer_address: customer_address?.trim() || null,

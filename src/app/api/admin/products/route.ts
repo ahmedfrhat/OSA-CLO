@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { decodeSessionValue, COOKIE_NAME } from "@/lib/session";
+import { getPartnerDbId } from "@/lib/partners";
 
 const LOG = (msg: string, data?: unknown) =>
   console.log(`[POST /api/admin/products] ${msg}`, data ?? "");
@@ -148,13 +149,7 @@ export async function POST(request: NextRequest) {
       .map((s) => s.trim())
       .filter(Boolean);
 
-    // Map partner string ID to actual UUID expected by the DB
-    const partnerIdMap: Record<string, string> = {
-      "safia": "596c4367-1491-481f-b0f2-1825c2540ebd",
-      "omaima": "2a304931-2230-4960-9e44-b19ed5e0178b",
-      "aisha": "652f4263-d4e3-4bf6-a5c4-778e8a08c710"
-    };
-    const dbPartnerId = partnerIdMap[session.partnerId] || session.partnerId;
+    const dbPartnerId = getPartnerDbId(session.partnerId);
 
     LOG("💾 Inserting into 'products' table...", {
       partner_id: dbPartnerId,

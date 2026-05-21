@@ -3,7 +3,8 @@
 // ─────────────────────────────────────────────────────────────────────────────
 
 export interface Partner {
-  id: string;       // used as partner_id in the database
+  id: string;       // stable login/session id
+  dbId: string;     // UUID stored in Supabase partner_id columns
   name: string;
   password: string; // plaintext — hash with bcrypt in production
   initials: string;
@@ -13,6 +14,7 @@ export interface Partner {
 export const PARTNERS: Partner[] = [
   {
     id: "safia",
+    dbId: "596c4367-1491-481f-b0f2-1825c2540ebd",
     name: "Safia",
     password: "safia2025",   // ← CHANGE THIS
     initials: "SF",
@@ -20,6 +22,7 @@ export const PARTNERS: Partner[] = [
   },
   {
     id: "omaima",
+    dbId: "2a304931-2230-4960-9e44-b19ed5e0178b",
     name: "Omaima",
     password: "omaima2025",  // ← CHANGE THIS
     initials: "OM",
@@ -27,6 +30,7 @@ export const PARTNERS: Partner[] = [
   },
   {
     id: "aisha",
+    dbId: "652f4263-d4e3-4bf6-a5c4-778e8a08c710",
     name: "Aisha",
     password: "aisha2025",   // ← CHANGE THIS
     initials: "AI",
@@ -45,5 +49,9 @@ export function findPartner(name: string, password: string): Partner | null {
 }
 
 export function getPartnerById(id: string): Partner | null {
-  return PARTNERS.find((p) => p.id === id) ?? null;
+  return PARTNERS.find((p) => p.id === id || p.dbId === id) ?? null;
+}
+
+export function getPartnerDbId(id: string): string {
+  return getPartnerById(id)?.dbId ?? id;
 }

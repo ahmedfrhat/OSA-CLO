@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
-import { decodeSessionValue } from "@/lib/session";
+import { decodeSessionValue, COOKIE_NAME } from "@/lib/session";
 import { cookies } from "next/headers";
 
 function getSession() {
-  const sessionCookie = cookies().get("admin_session")?.value;
+  const sessionCookie = cookies().get(COOKIE_NAME)?.value;
   if (!sessionCookie) return null;
   try { return decodeSessionValue(sessionCookie); } catch { return null; }
 }

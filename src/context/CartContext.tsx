@@ -16,6 +16,7 @@ export interface CartItem {
 
 interface CartContextType {
   items: CartItem[];
+  isHydrated: boolean;
   isOpen: boolean;
   setIsOpen: (v: boolean) => void;
   addItem: (item: CartItem) => void;
@@ -34,19 +35,25 @@ const STORAGE_KEY = "aso-cart-v1";
 export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems]   = useState<CartItem[]>([]);
   const [isOpen, setIsOpen] = useState(false);
+  const [isHydrated, setIsHydrated] = useState(false);
 
   // Hydrate from localStorage once mounted
   useEffect(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
-      if (raw) setItems(JSON.parse(raw));
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed)) setItems(parsed);
+      }
     } catch { /* ignore */ }
+    finally { setIsHydrated(true); }
   }, []);
 
   // Persist on change
   useEffect(() => {
+    if (!isHydrated) return;
     localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
-  }, [items]);
+  }, [items, isHydrated]);
 
   const addItem = useCallback((item: CartItem) => {
     setItems((prev) => {
@@ -83,7 +90,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <CartContext.Provider
-      value={{ items, isOpen, setIsOpen, addItem, removeItem, updateQty, clearCart, total, count }}
+      value={{ items, isHydrated, isOpen, setIsOpen, addItem, removeItem, updateQty, clearCart, total, count }}
     >
       {children}
     </CartContext.Provider>

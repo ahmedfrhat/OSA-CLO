@@ -28,7 +28,7 @@ interface FormErrors {
 export default function CheckoutPage() {
   const router = useRouter();
   const { t, lang, isRTL } = useLanguage();
-  const { items, total, clearCart } = useCart();
+  const { items, total, clearCart, isHydrated } = useCart();
 
   const [name,    setName]    = useState("");
   const [phone,   setPhone]   = useState("");
@@ -70,8 +70,8 @@ export default function CheckoutPage() {
 
   // Redirect to home if cart is empty
   useEffect(() => {
-    if (items.length === 0) router.push("/");
-  }, [items.length, router]);
+    if (isHydrated && items.length === 0) router.push("/");
+  }, [isHydrated, items.length, router]);
 
   const paidNow   = payType === "deposit" ? Math.round(discountedTotal * 0.5) : discountedTotal;
   const remaining = discountedTotal - paidNow;
@@ -390,4 +390,3 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
     </div>
   );
 }
-

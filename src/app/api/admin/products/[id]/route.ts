@@ -1,22 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { supabase } from "@/lib/supabase";
 import { decodeSessionValue, COOKIE_NAME } from "@/lib/session";
+import { getPartnerDbId } from "@/lib/partners";
 
 const LOG = (tag: string, msg: string, data?: unknown) =>
   console.log(`[${tag} /api/admin/products/[id]] ${msg}`, data ?? "");
 
 function getSession(request: NextRequest) {
   return decodeSessionValue(request.cookies.get(COOKIE_NAME)?.value);
-}
-
-// Map partner string ID to actual UUID expected by the DB
-function getPartnerUuid(partnerId: string): string {
-  const partnerIdMap: Record<string, string> = {
-    "safia": "596c4367-1491-481f-b0f2-1825c2540ebd",
-    "omaima": "2a304931-2230-4960-9e44-b19ed5e0178b",
-    "aisha": "652f4263-d4e3-4bf6-a5c4-778e8a08c710"
-  };
-  return partnerIdMap[partnerId.toLowerCase()] || partnerId;
 }
 
 // ── Helper: upload image buffer to Supabase Storage ──────────────────────────
@@ -100,7 +91,7 @@ export async function PUT(
       .eq("id", params.id)
       .single();
 
-    const dbPartnerId = getPartnerUuid(session.partnerId);
+    const dbPartnerId = getPartnerDbId(session.partnerId);
 
     if (!existing || existing.partner_id !== dbPartnerId) {
       LOG("PUT", "❌ Forbidden — wrong partner");
@@ -165,7 +156,7 @@ export async function DELETE(
   LOG("DELETE", `Product: ${params.id}`);
 
   try {
-    const dbPartnerId = getPartnerUuid(session.partnerId);
+    const dbPartnerId = getPartnerDbId(session.partnerId);
 
     const { error } = await supabase
       .from("products")
@@ -204,7 +195,7 @@ export async function PATCH(
       return NextResponse.json({ error: "Invalid field" }, { status: 400 });
     }
 
-    const dbPartnerId = getPartnerUuid(session.partnerId);
+    const dbPartnerId = getPartnerDbId(session.partnerId);
 
     const { data, error: dbError } = await supabase
       .from("products")
