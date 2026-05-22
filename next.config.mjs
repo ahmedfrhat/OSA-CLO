@@ -14,6 +14,11 @@ const nextConfig = {
         protocol: "https",
         hostname: "images.unsplash.com",
       },
+      // LoremFlickr for 1000 unique images
+      {
+        protocol: "https",
+        hostname: "loremflickr.com",
+      },
       // Allow any supabase project url pattern (future-proof)
       {
         protocol: "https",
