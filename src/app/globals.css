@@ -165,3 +165,79 @@ button:not([class*="w-"]):not([class*="h-"]) {
   outline: 2px solid var(--brand-black);
   outline-offset: 2px;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PREMIUM STREETWEAR BACKGROUND TEXTURE
+   A subtle dark noise grain SVG pattern layered over the off-white body.
+   To change: replace the SVG data URI below with any other texture.
+   ══════════════════════════════════════════════════════════════════════════ */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+}
+
+/* Ensure all content sits above the grain overlay */
+body > * { position: relative; z-index: 1; }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   PREMIUM FAST UI ANIMATIONS — 150ms–250ms feel
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Tactile Button Press ── */
+button:not([disabled]):active,
+a[role="button"]:not([disabled]):active {
+  transform: scale(0.96);
+  transition: transform 80ms ease !important;
+}
+
+/* ── Card Hover Lift ── */
+@keyframes card-lift {
+  to { box-shadow: 0 8px 24px -4px rgba(0,0,0,0.1); }
+}
+
+.group:hover .group-hover\:scale-\[1\.04\] {
+  transition-duration: 350ms !important;
+}
+
+/* ── Snappy Link / Button Hover ── */
+a, button {
+  transition-duration: 150ms;
+}
+
+/* ── Smooth Product Grid Item entrance ── */
+@keyframes grid-item-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to   { opacity: 1; transform: translateY(0)   scale(1);    }
+}
+
+.product-grid-item {
+  animation: grid-item-in 0.3s var(--ease-out-expo) both;
+}
+
+/* Staggered delay for grid items */
+.product-grid-item:nth-child(1)  { animation-delay: 0ms; }
+.product-grid-item:nth-child(2)  { animation-delay: 40ms; }
+.product-grid-item:nth-child(3)  { animation-delay: 80ms; }
+.product-grid-item:nth-child(4)  { animation-delay: 120ms; }
+.product-grid-item:nth-child(5)  { animation-delay: 160ms; }
+.product-grid-item:nth-child(6)  { animation-delay: 200ms; }
+.product-grid-item:nth-child(7)  { animation-delay: 240ms; }
+.product-grid-item:nth-child(8)  { animation-delay: 280ms; }
+
+/* ── Input field focus transition ── */
+input, textarea, select {
+  transition: border-color 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+}
+input:focus, textarea:focus, select:focus {
+  box-shadow: 0 0 0 3px rgba(26,26,26,0.06);
+}
+
+/* ── Premium image hover zoom is already handled via Tailwind group-hover ── */
+

@@ -4,8 +4,41 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useCart, type CartItem } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
+import { useToast } from "@/context/ToastContext";
+import { supabase } from "@/lib/supabase";
 
 const WA_NUMBER = "201038856486";
+
+// ── Egyptian Governorates & Cities ────────────────────────────────────────────
+const EGYPT_GOVERNORATES: Record<string, string[]> = {
+  "القاهرة": ["مدينة نصر", "هليوبوليس", "المعادي", "الزيتون", "شبرا", "السيدة زينب", "مصر الجديدة", "العباسية", "باب الشعرية", "التجمع الخامس", "المقطم", "عين شمس", "مصر القديمة"],
+  "الجيزة": ["الجيزة", "6 أكتوبر", "الشيخ زايد", "الهرم", "فيصل", "المنيل", "بولاق الدكرور", "عين الصيرة", "حوامدية", "البدرشين", "الصف", "أطفيح"],
+  "الإسكندرية": ["محرم بك", "ميامي", "سيدي جابر", "العجمي", "المنتزه", "العامرية", "اللبان", "كليوباترا", "بحري", "الإبراهيمية"],
+  "القليوبية": ["بنها", "قليوب", "شبرا الخيمة", "الخانكة", "العبور", "طوخ", "قها", "كفر شكر"],
+  "الشرقية": ["الزقازيق", "العاشر من رمضان", "بلبيس", "منيا القمح", "أبو حماد", "كفر صقر", "فاقوس"],
+  "الغربية": ["طنطا", "المحلة الكبرى", "كفر الزيات", "سمنود", "بسيون", "زفتى"],
+  "المنوفية": ["شبين الكوم", "مينوف", "أشمون", "تلا", "الشهداء", "سرس الليان"],
+  "الدقهلية": ["المنصورة", "ميت غمر", "دكرنس", "أجا", "بلقاس", "السنبلاوين", "طلخا", "شربين"],
+  "البحيرة": ["دمنهور", "كفر الدوار", "إيتاي البارود", "أبو حمص", "رشيد", "شبراخيت", "الدلنجات"],
+  "الفيوم": ["الفيوم", "سنورس", "طامية", "يوسف الصديق", "إطسا"],
+  "بني سويف": ["بني سويف", "الواسطى", "ناصر", "إهناسيا", "ببا", "الفشن"],
+  "المنيا": ["المنيا", "ملوي", "أبو قرقاص", "مطاي", "بني مزار", "سمالوط", "العدوة"],
+  "أسيوط": ["أسيوط", "ديروط", "أبنوب", "القوصية", "منفلوط", "الغنايم", "أبو تيج", "ساحل سليم"],
+  "سوهاج": ["سوهاج", "أخميم", "طهطا", "طما", "جرجا", "دار السلام", "البلينا", "المراغة"],
+  "قنا": ["قنا", "نجع حمادي", "دشنا", "قوص", "فرشوط", "نقادة", "الوقف"],
+  "الأقصر": ["الأقصر", "إسنا", "الطود", "أرمنت", "البياضية"],
+  "أسوان": ["أسوان", "كوم أمبو", "إدفو", "دراو", "نصر النوبة"],
+  "الإسماعيلية": ["الإسماعيلية", "أبو صوير", "القنطرة", "فايد", "القصاصين"],
+  "بورسعيد": ["بورسعيد", "بورفؤاد"],
+  "السويس": ["السويس", "عتاقة", "الجناين"],
+  "دمياط": ["دمياط", "رأس البر", "فارسكور", "كفر سعد", "الزرقا"],
+  "كفر الشيخ": ["كفر الشيخ", "دسوق", "فوه", "سيدي سالم", "بلطيم", "الرياض"],
+  "مطروح": ["مرسى مطروح", "سيوة", "الضبعة", "سلوم", "الحمام"],
+  "شمال سيناء": ["العريش", "رفح", "الشيخ زويد", "بئر العبد", "نخل"],
+  "جنوب سيناء": ["طور سيناء", "شرم الشيخ", "دهب", "نويبع", "سانت كاترين"],
+  "البحر الأحمر": ["الغردقة", "سفاجا", "القصير", "مرسى علم", "رأس غارب"],
+  "الوادي الجديد": ["الخارجة", "الداخلة", "الفرافرة", "باريس"],
+};
 
 // ── Validation helpers ────────────────────────────────────────────────────────
 function isValidPhone(phone: string) {
@@ -20,7 +53,9 @@ type PayType = "full" | "deposit";
 interface FormErrors {
   name?: string;
   phone?: string;
-  address?: string;
+  governorate?: string;
+  city?: string;
+  detailedAddress?: string;
   terms?: string;
   server?: string;
 }
@@ -28,16 +63,19 @@ interface FormErrors {
 export default function CheckoutPage() {
   const router = useRouter();
   const { t, lang, isRTL } = useLanguage();
-  const { items, total, clearCart, isHydrated } = useCart();
+  const { items, total, clearCart, isHydrated, removeItem } = useCart();
+  const { warning } = useToast();
 
-  const [name,    setName]    = useState("");
-  const [phone,   setPhone]   = useState("");
-  const [address, setAddress] = useState("");
-  const [notes,   setNotes]   = useState("");
-  const [payType, setPayType] = useState<PayType>("full");
-  const [terms,   setTerms]   = useState(false);
-  const [errors,  setErrors]  = useState<FormErrors>({});
-  const [loading, setLoading] = useState(false);
+  const [name,            setName]            = useState("");
+  const [phone,           setPhone]           = useState("");
+  const [governorate,     setGovernorate]     = useState("");
+  const [city,            setCity]            = useState("");
+  const [detailedAddress, setDetailedAddress] = useState("");
+  const [notes,           setNotes]           = useState("");
+  const [payType,         setPayType]         = useState<PayType>("full");
+  const [terms,           setTerms]           = useState(false);
+  const [errors,          setErrors]          = useState<FormErrors>({});
+  const [loading,         setLoading]         = useState(false);
 
   // Discount
   const [discountCode,    setDiscountCode]    = useState("");
@@ -47,6 +85,48 @@ export default function CheckoutPage() {
   const [discountError,   setDiscountError]   = useState("");
 
   const discountedTotal = Math.max(0, total - discountAmount);
+  const availableCities = governorate ? (EGYPT_GOVERNORATES[governorate] ?? []) : [];
+
+  // Reset city when governorate changes
+  useEffect(() => { setCity(""); }, [governorate]);
+
+  // ── Cart Realtime Sync: auto-remove deleted/out-of-stock items ──────────────
+  useEffect(() => {
+    if (!isHydrated || items.length === 0) return;
+
+    const channel = supabase
+      .channel("cart-validation-realtime")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "products" },
+        (payload) => {
+          const { eventType, new: newRecord, old: oldRecord } = payload;
+
+          if (eventType === "DELETE") {
+            const deletedId = (oldRecord as { id: string }).id;
+            const deletedItem = items.find((i) => i.productId === deletedId);
+            if (deletedItem) {
+              removeItem(deletedId, deletedItem.size);
+              warning(`"${deletedItem.nameEn}" has been removed from your cart — it's no longer available.`);
+            }
+          }
+
+          if (eventType === "UPDATE") {
+            const updated = newRecord as { id: string; in_stock: boolean; is_available: boolean; stock_quantity: number };
+            if (!updated.in_stock || !updated.is_available || updated.stock_quantity === 0) {
+              const affectedItem = items.find((i) => i.productId === updated.id);
+              if (affectedItem) {
+                removeItem(updated.id, affectedItem.size);
+                warning(`"${affectedItem.nameEn}" is now out of stock and has been removed from your cart.`);
+              }
+            }
+          }
+        }
+      )
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
+  }, [isHydrated, items, removeItem, warning]);
 
   async function applyDiscount() {
     if (!discountCode.trim()) return;
@@ -75,19 +155,23 @@ export default function CheckoutPage() {
 
   const paidNow   = payType === "deposit" ? Math.round(discountedTotal * 0.5) : discountedTotal;
   const remaining = discountedTotal - paidNow;
-
   const fmtP = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
+
+  // Compose the full address for storage
+  const fullAddress = [governorate, city, detailedAddress.trim()].filter(Boolean).join(" — ");
 
   // Client-side validation
   function validate(): FormErrors {
     const e: FormErrors = {};
-    if (!name.trim())               e.name    = t("storefront.checkout.errors.nameRequired");
-    else if (!isLettersOnly(name))  e.name    = t("storefront.checkout.errors.nameInvalid");
-    if (!phone.trim())              e.phone   = t("storefront.checkout.errors.phoneRequired");
-    else if (!isValidPhone(phone))  e.phone   = t("storefront.checkout.errors.phoneInvalid");
-    if (!address.trim())            e.address = t("storefront.checkout.errors.addressRequired");
-    else if (address.trim().length < 10) e.address = t("storefront.checkout.errors.addressTooShort");
-    if (!terms)                     e.terms   = t("storefront.checkout.errors.termsRequired");
+    if (!name.trim())                    e.name            = "الاسم مطلوب";
+    else if (!isLettersOnly(name))       e.name            = "الاسم يحتوي على حروف غير مقبولة";
+    if (!phone.trim())                   e.phone           = "رقم الهاتف مطلوب";
+    else if (!isValidPhone(phone))       e.phone           = "رقم الهاتف غير صحيح (ابدأ بـ 010 أو 011 أو 012 أو 015)";
+    if (!governorate)                    e.governorate     = "اختر المحافظة";
+    if (!city)                           e.city            = "اختر المدينة / المركز";
+    if (!detailedAddress.trim())         e.detailedAddress = "العنوان التفصيلي مطلوب";
+    else if (detailedAddress.trim().length < 5) e.detailedAddress = "العنوان قصير جداً";
+    if (!terms)                          e.terms           = "يجب الموافقة على الشروط";
     return e;
   }
 
@@ -105,7 +189,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           customer_name:    name.trim(),
           customer_phone:   phone.trim(),
-          customer_address: address.trim(),
+          customer_address: fullAddress,
           notes:            notes.trim() || undefined,
           payment_type:     payType,
           discount_amount:  discountAmount,
@@ -128,17 +212,24 @@ export default function CheckoutPage() {
       router.push(`/order/success?ids=${ids}`);
 
     } catch {
-      setErrors({ server: t("storefront.checkout.errors.serverError") });
+      setErrors({ server: "حدث خطأ في السيرفر. يرجى المحاولة مرة أخرى." });
       setLoading(false);
     }
   }
+
+  // ── Select style helper ──────────────────────────────────────────────────────
+  const selectStyle = (hasError?: string) =>
+    `input-style appearance-none cursor-pointer ${hasError ? "border-red-400 bg-red-50" : ""}`;
 
   return (
     <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#FAF9F6]">
       <div className="max-w-3xl mx-auto px-4 py-8">
 
         {/* Back */}
-        <button onClick={() => router.back()} className="text-xs text-gray-400 hover:text-[#1A1A1A] mb-6 flex items-center gap-1 transition-colors">
+        <button
+          onClick={() => router.back()}
+          className="text-xs text-gray-400 hover:text-[#1A1A1A] mb-6 flex items-center gap-1 transition-colors active:scale-95"
+        >
           ← {t("storefront.product.back")}
         </button>
 
@@ -170,23 +261,71 @@ export default function CheckoutPage() {
                 type="tel"
                 value={phone}
                 onChange={(e) => { setPhone(e.target.value); setErrors((p) => ({ ...p, phone: undefined })); }}
-                placeholder={t("storefront.checkout.phonePlaceholder")}
+                placeholder="010XXXXXXXX"
                 className={`input-style font-mono ${errors.phone ? "border-red-400 bg-red-50" : ""}`}
                 dir="ltr"
               />
             </Field>
 
-            {/* Address */}
-            <Field label={t("storefront.checkout.address")} error={errors.address}>
-              <textarea
-                value={address}
-                onChange={(e) => { setAddress(e.target.value); setErrors((p) => ({ ...p, address: undefined })); }}
-                placeholder={t("storefront.checkout.addressPlaceholder")}
-                rows={2}
-                className={`input-style resize-none ${errors.address ? "border-red-400 bg-red-50" : ""}`}
-              />
-              <p className="text-[10px] text-gray-400 mt-1">{address.trim().length}/10 min</p>
-            </Field>
+            {/* ── Address — 3 Fields ──────────────────────────────────────── */}
+            <div className="border border-gray-100 bg-white p-4 flex flex-col gap-4">
+              <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">
+                📍 بيانات الشحن
+              </p>
+
+              {/* Governorate */}
+              <Field label="المحافظة *" error={errors.governorate}>
+                <div className="relative">
+                  <select
+                    value={governorate}
+                    onChange={(e) => { setGovernorate(e.target.value); setErrors((p) => ({ ...p, governorate: undefined, city: undefined })); }}
+                    className={selectStyle(errors.governorate)}
+                  >
+                    <option value="">— اختر المحافظة —</option>
+                    {Object.keys(EGYPT_GOVERNORATES).map((gov) => (
+                      <option key={gov} value={gov}>{gov}</option>
+                    ))}
+                  </select>
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+                </div>
+              </Field>
+
+              {/* City / Region */}
+              <Field label="المدينة / المركز *" error={errors.city}>
+                <div className="relative">
+                  <select
+                    value={city}
+                    onChange={(e) => { setCity(e.target.value); setErrors((p) => ({ ...p, city: undefined })); }}
+                    disabled={!governorate}
+                    className={`${selectStyle(errors.city)} disabled:opacity-40 disabled:cursor-not-allowed`}
+                  >
+                    <option value="">— اختر المدينة —</option>
+                    {availableCities.map((c) => (
+                      <option key={c} value={c}>{c}</option>
+                    ))}
+                  </select>
+                  <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-xs">▾</span>
+                </div>
+              </Field>
+
+              {/* Detailed Address */}
+              <Field label="العنوان التفصيلي * (اسم الشارع، رقم المبنى، الدور)" error={errors.detailedAddress}>
+                <input
+                  type="text"
+                  value={detailedAddress}
+                  onChange={(e) => { setDetailedAddress(e.target.value); setErrors((p) => ({ ...p, detailedAddress: undefined })); }}
+                  placeholder="مثال: شارع التحرير، مبنى 12، شقة 3"
+                  className={`input-style ${errors.detailedAddress ? "border-red-400 bg-red-50" : ""}`}
+                />
+              </Field>
+
+              {/* Composed address preview */}
+              {fullAddress && (
+                <div className="bg-gray-50 border border-gray-100 px-3 py-2 text-[10px] text-gray-500 leading-relaxed">
+                  📦 سيتم الشحن إلى: <span className="font-semibold text-[#1A1A1A]">{fullAddress}</span>
+                </div>
+              )}
+            </div>
 
             {/* Notes */}
             <Field label={t("storefront.checkout.notes")}>
@@ -216,12 +355,12 @@ export default function CheckoutPage() {
               {/* Full vs Deposit toggle */}
               <div className="grid grid-cols-2 gap-2 mt-1">
                 <button type="button" onClick={() => setPayType("full")}
-                  className={`py-3 text-[11px] font-bold tracking-wide border transition-all
+                  className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
                     ${payType === "full" ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
                   {t("storefront.checkout.payFull")}
                 </button>
                 <button type="button" onClick={() => setPayType("deposit")}
-                  className={`py-3 text-[11px] font-bold tracking-wide border transition-all
+                  className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
                     ${payType === "deposit" ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
                   {t("storefront.checkout.payDeposit")}
                 </button>
@@ -230,8 +369,8 @@ export default function CheckoutPage() {
               {/* Deposit breakdown */}
               {payType === "deposit" && (
                 <div className="grid grid-cols-3 gap-2 border border-blue-200 bg-blue-50 p-3">
-                  <FinLine label={t("storefront.checkout.total")}   value={fmtP(total)}     />
-                  <FinLine label={t("storefront.checkout.paidNow")} value={fmtP(paidNow)}   highlight />
+                  <FinLine label={t("storefront.checkout.total")}     value={fmtP(total)}     />
+                  <FinLine label={t("storefront.checkout.paidNow")}   value={fmtP(paidNow)}   highlight />
                   <FinLine label={t("storefront.checkout.remaining")} value={fmtP(remaining)} warning />
                 </div>
               )}
@@ -264,12 +403,12 @@ export default function CheckoutPage() {
                   className="input-style flex-1 font-mono tracking-widest text-sm"
                 />
                 <button type="button" onClick={applyDiscount} disabled={discountLoading || !discountCode.trim()}
-                  className="px-4 py-2 border border-gray-300 text-xs font-bold text-gray-600 hover:border-gray-500 disabled:opacity-40 transition-all shrink-0">
+                  className="px-4 py-2 border border-gray-300 text-xs font-bold text-gray-600 hover:border-gray-500 disabled:opacity-40 transition-all active:scale-95 shrink-0">
                   {discountLoading ? "..." : "Apply"}
                 </button>
               </div>
-              {discountError  && <p className="text-xs text-red-500">{discountError}</p>}
-              {discountLabel  && <p className="text-xs text-green-600 font-bold">✓ {discountLabel} applied!</p>}
+              {discountError && <p className="text-xs text-red-500">{discountError}</p>}
+              {discountLabel && <p className="text-xs text-green-600 font-bold">✓ {discountLabel} applied!</p>}
             </div>
 
             {/* Server error */}
@@ -282,7 +421,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#1A1A1A] text-white py-4 text-xs font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-colors"
+              className="w-full bg-[#1A1A1A] text-white py-4 text-xs font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-all active:scale-[0.98]"
             >
               {loading ? t("storefront.checkout.submitting") : t("storefront.checkout.submit")}
             </button>
@@ -325,7 +464,6 @@ function FinLine({ label, value, highlight, warning }: { label: string; value: s
   );
 }
 
-
 function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow, payType, lang }: {
   items: CartItem[];
   total: number;
@@ -335,8 +473,8 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
   payType: PayType;
   lang: string;
 }) {
-  const fmtP          = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
-  const finalTotal     = Math.max(0, total - discountAmount);
+  const fmtP       = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
+  const finalTotal = Math.max(0, total - discountAmount);
   return (
     <div className="bg-white border border-gray-200 p-5 h-fit sticky top-20">
       <h2 className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">Order Summary</h2>

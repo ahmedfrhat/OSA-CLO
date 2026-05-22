@@ -218,16 +218,17 @@ export default function StorefrontClient({ products: initialProducts, categories
           </div>
         ) : (
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
-            {filtered.map((p) => (
-              <ProductCard
-                key={`${p.id}-${p.image_url ?? "no-img"}`}
-                product={p}
-                lang={lang}
-                isRTL={isRTL}
-                t={t}
-                onShare={handleShare}
-                onAdd={(item) => { addItem(item); success("✓ " + (lang === "ar" && p.name_ar ? p.name_ar : p.name_en) + " — added to cart"); }}
-              />
+            {filtered.map((p, idx) => (
+              <div key={`${p.id}-${p.image_url ?? "no-img"}`} className="product-grid-item" style={{ animationDelay: `${Math.min(idx * 40, 320)}ms` }}>
+                <ProductCard
+                  product={p}
+                  lang={lang}
+                  isRTL={isRTL}
+                  t={t}
+                  onShare={handleShare}
+                  onAdd={(item) => { addItem(item); success("✓ " + (lang === "ar" && p.name_ar ? p.name_ar : p.name_en) + " — added to cart"); }}
+                />
+              </div>
             ))}
           </div>
         )}

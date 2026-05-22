@@ -45,7 +45,7 @@ export async function generateWhatsAppStatus(product: {
   ctx.font         = "bold 52px Arial, sans-serif";
   ctx.textAlign    = "center";
   ctx.letterSpacing = "8px";
-  ctx.fillText("OSHA STORE", W / 2, 160);
+  ctx.fillText("ASO CLO", W / 2, 160);
 
   // Thin divider line
   ctx.strokeStyle = "rgba(255,255,255,0.2)";
