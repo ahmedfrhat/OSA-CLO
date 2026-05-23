@@ -45,7 +45,7 @@ function bustImageCache(url: string | null | undefined): string | undefined {
 }
 
 // ── Main Client Component ─────────────────────────────────────────────────────
-export default function StorefrontClient({ products: initialProducts, categories: initialCategories }: Props) {
+export default function StorefrontClient({ products: initialProducts }: Props) {
   const { t, lang, isRTL } = useLanguage();
   const { addItem }        = useCart();
   const { success, info }  = useToast();
