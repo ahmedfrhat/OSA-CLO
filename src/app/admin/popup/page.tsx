@@ -3,7 +3,7 @@
 // Feature 7: Admin page to manage the promotional popup
 
 import { useState, useEffect } from "react";
-import { supabaseAdmin } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 
 interface PopupSettings {
   enabled: boolean;

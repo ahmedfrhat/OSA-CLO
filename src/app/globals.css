@@ -242,21 +242,6 @@ input:focus, textarea:focus, select:focus {
 /* ── Premium image hover zoom is already handled via Tailwind group-hover ── */
 
 
-
-/* --- MERGED FROM NEW --- */
-
-/* src/app/globals.css */
-/* Features: 4 (background/micro-interactions), 6 (dark mode vars), 8 (RTL), 9 (mobile) */
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/* ── CSS Variables ────────────────────────────────────────── */
-:root {
-  --background: #FAF9F6;
-  --foreground: #0A0A0A;
-  --card-bg: #FFFFFF;
   --card-border: #E5E5E5;
   --muted: #6B6B6B;
   --accent: #C8FF00;

@@ -207,7 +207,7 @@ export default function StorefrontClient({ products: initialProducts }: Props) {
             <p className="text-sm font-semibold text-gray-400">{t("storefront.search.noResults")}</p>
             {search && (
               <button onClick={() => setSearch("")}
-                className="mt-4 text-xs text-gray-400 underline hover:text-[#1A1A1A]">
+                className="mt-4 text-xs text-gray-400 underline hover:text-brand-black dark:hover:text-offwhite">
                 {t("storefront.search.clear")}
               </button>
             )}
@@ -231,11 +231,11 @@ export default function StorefrontClient({ products: initialProducts }: Props) {
       </div>
 
       {/* ── Footer ── */}
-      <footer className="border-t border-gray-100 bg-white mt-8">
+      <footer className="border-t border-brand-border dark:border-brand-border/20 bg-white dark:bg-brand-black mt-8">
         <div className="max-w-7xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs font-black tracking-[0.2em] text-[#1A1A1A]">ASO CLO.</p>
+          <p className="text-xs font-black tracking-[0.2em] text-brand-black dark:text-offwhite">ASO CLO.</p>
           <div className="flex gap-6">
-            <Link href="/track" className="text-xs text-gray-400 hover:text-[#1A1A1A] transition-colors">
+            <Link href="/track" className="text-xs text-gray-400 dark:text-gray-500 hover:text-brand-black dark:hover:text-offwhite dark:hover:text-offwhite transition-colors">
               {t("storefront.footer.track")}
             </Link>
             <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noreferrer"
@@ -284,7 +284,7 @@ function ProductCard({
   return (
     <div className="group flex flex-col" dir={isRTL ? "rtl" : "ltr"}>
       {/* Image */}
-      <Link href={`/product/${product.id}`} className="block relative overflow-hidden bg-gray-100 aspect-[3/4]">
+      <Link href={`/product/${product.id}`} className="block relative overflow-hidden bg-gray-100 dark:bg-brand-gray aspect-[3/4]">
         {imageSrc ? (
           <Image
             src={imageSrc}
@@ -295,7 +295,7 @@ function ProductCard({
             unoptimized={imageSrc.includes("supabase.co")} // skip next/image optimization for Supabase CDN URLs
           />
         ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
+          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-brand-gray">
             <span className="text-2xl font-black text-gray-300">{displayName.slice(0, 2).toUpperCase()}</span>
           </div>
         )}
@@ -308,7 +308,7 @@ function ProductCard({
             </span>
           )}
           {hasSizes && (
-            <span className="bg-[#1A1A1A] text-white text-[9px] font-bold px-2 py-0.5 tracking-wide">
+            <span className="bg-brand-black dark:bg-offwhite text-white dark:text-brand-black text-[9px] font-bold px-2 py-0.5 tracking-wide">
               {t("storefront.products.preorderBadge")}
             </span>
           )}
@@ -317,7 +317,7 @@ function ProductCard({
         {/* Share Button */}
         <button
           onClick={(e) => { e.preventDefault(); e.stopPropagation(); onShare(product); }}
-          className={`absolute top-2 ${isRTL ? "left-2" : "right-2"} w-7 h-7 bg-white/90 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white shadow-sm`}
+          className={`absolute top-2 ${isRTL ? "left-2" : "right-2"} w-7 h-7 bg-white/90 dark:bg-brand-gray/90 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white shadow-sm`}
           title={t("storefront.products.share")}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -330,7 +330,7 @@ function ProductCard({
       {/* Info */}
       <div className="pt-3 flex-1 flex flex-col gap-1.5">
         <Link href={`/product/${product.id}`} className="hover:underline underline-offset-2">
-          <h3 className="text-xs font-bold text-[#1A1A1A] leading-tight line-clamp-2">{displayName}</h3>
+          <h3 className="text-xs font-bold text-brand-black dark:text-offwhite leading-tight line-clamp-2">{displayName}</h3>
         </Link>
 
         {product.category && (
@@ -338,18 +338,18 @@ function ProductCard({
         )}
 
         <div className="flex items-center justify-between mt-auto pt-1">
-          <p className="text-sm font-black text-[#1A1A1A] font-mono tracking-tight">
+          <p className="text-sm font-black text-brand-black dark:text-offwhite font-mono tracking-tight">
             EGP {product.selling_price.toLocaleString("en-EG")}
           </p>
 
           {hasSizes ? (
             <Link href={`/product/${product.id}`}
-              className="text-[10px] font-bold tracking-wide border border-[#1A1A1A] text-[#1A1A1A] px-3 py-1.5 hover:bg-[#1A1A1A] hover:text-white transition-all">
+              className="text-[10px] font-bold tracking-wide border border-brand-black dark:border-offwhite text-brand-black dark:text-offwhite px-3 py-1.5 hover:bg-brand-black dark:hover:bg-offwhite hover:text-white dark:hover:text-brand-black transition-all">
               {t("storefront.products.selectSize")}
             </Link>
           ) : (
             <button onClick={quickAdd}
-              className="text-[10px] font-bold tracking-wide border border-[#1A1A1A] text-[#1A1A1A] px-3 py-1.5 hover:bg-[#1A1A1A] hover:text-white transition-all">
+              className="text-[10px] font-bold tracking-wide border border-brand-black dark:border-offwhite text-brand-black dark:text-offwhite px-3 py-1.5 hover:bg-brand-black dark:hover:bg-offwhite hover:text-white dark:hover:text-brand-black transition-all">
               {t("storefront.products.addToCart")}
             </button>
           )}
