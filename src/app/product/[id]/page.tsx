@@ -1,14 +1,14 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import ProductDetailClient, { type PDPProduct } from "./ProductDetailClient";
 
 // ── OpenGraph SEO ─────────────────────────────────────────────────────────────
 export async function generateMetadata(
   { params }: { params: { id: string } }
 ): Promise<Metadata> {
-  const { data } = await supabase
+  const { data } = await supabaseAdmin
     .from("products")
     .select("name_en, name_ar, description, selling_price, image_url, category")
     .eq("id", params.id)
@@ -40,7 +40,7 @@ export async function generateMetadata(
 
 // ── Page ──────────────────────────────────────────────────────────────────────
 export default async function ProductPage({ params }: { params: { id: string } }) {
-  const { data } = await supabase
+  const { data } = await supabaseAdmin
     .from("products")
     .select("id, partner_id, name_en, name_ar, description, category, selling_price, sizes, stock_quantity, image_url, image_urls")
     .eq("id", params.id)
@@ -50,7 +50,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
   if (!data) notFound();
 
   // ── Upsell: fetch 4 related products from same category ──────────────────
-  const { data: relatedRaw } = await supabase
+  const { data: relatedRaw } = await supabaseAdmin
     .from("products")
     .select("id, name_en, selling_price, image_url, category, stock_quantity")
     .eq("is_available", true)
@@ -62,7 +62,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
   // Fallback: if not enough from same category, fetch latest products
   let related = relatedRaw ?? [];
   if (related.length < 2) {
-    const { data: fallback } = await supabase
+    const { data: fallback } = await supabaseAdmin
       .from("products")
       .select("id, name_en, selling_price, image_url, category, stock_quantity")
       .eq("is_available", true)

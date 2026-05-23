@@ -33,14 +33,10 @@ interface Props {
 const WA_NUMBER = "201038856486";
 
 // ── Helpers ───────────────────────────────────────────────────────────────────
-/** Add a cache-busting timestamp to Supabase image URLs so updates show immediately */
+/** Return image URL as-is — each upload already gets a unique timestamped filename.
+ *  We only need to bust cache when an image is replaced (URL changes automatically). */
 function bustImageCache(url: string | null | undefined): string | undefined {
   if (!url) return undefined;
-  // Only bust Supabase storage URLs — not Unsplash or other CDNs
-  if (url.includes("supabase.co/storage")) {
-    const separator = url.includes("?") ? "&" : "?";
-    return `${url}${separator}v=${Math.floor(Date.now() / 60000)}`; // rotates every minute
-  }
   return url;
 }
 

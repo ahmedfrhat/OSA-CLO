@@ -87,7 +87,7 @@ export async function PUT(
     }
 
     // Verify ownership before update
-    const { data: existing } = await supabase
+    const { data: existing } = await supabaseAdmin
       .from("products")
       .select("id, partner_id, image_url")
       .eq("id", params.id)
@@ -112,7 +112,7 @@ export async function PUT(
       .map((s) => s.trim())
       .filter(Boolean);
 
-    const { data, error: dbError } = await supabase
+    const { data, error: dbError } = await supabaseAdmin
       .from("products")
       .update({
         name_en:       name_en,
@@ -162,7 +162,7 @@ export async function DELETE(
   try {
     const dbPartnerId = getPartnerDbId(session.partnerId);
 
-    const { error } = await supabase
+    const { error } = await supabaseAdmin
       .from("products")
       .delete()
       .eq("id", params.id)
@@ -202,7 +202,7 @@ export async function PATCH(
 
     const dbPartnerId = getPartnerDbId(session.partnerId);
 
-    const { data, error: dbError } = await supabase
+    const { data, error: dbError } = await supabaseAdmin
       .from("products")
       .update({ [field]: value })
       .eq("id", params.id)

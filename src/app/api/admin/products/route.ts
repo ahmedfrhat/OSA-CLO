@@ -163,7 +163,7 @@ export async function POST(request: NextRequest) {
     });
 
     // ── Insert ────────────────────────────────────────────────────────────────
-    const { data, error: dbError } = await supabase
+    const { data, error: dbError } = await supabaseAdmin
       .from("products")
       .insert([
         {

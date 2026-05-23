@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
-import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import StorefrontClient from "@/components/storefront/StorefrontClient";
 
-export const revalidate = 60; // revalidate every 60 seconds
+export const dynamic = "force-dynamic"; // ✅ FIXED: always SSR — no stale cache
+// (previously: revalidate = 60, which caused up-to-60s delay even after revalidatePath)
 
 export const metadata: Metadata = {
   title: "ASO CLO — The New Standard in Streetwear",
@@ -16,8 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default async function StorefrontPage() {
-  // Fetch all available products
-  const { data: products } = await supabase
+  // Fetch all available products (admin client bypasses RLS — always fresh)
+  const { data: products } = await supabaseAdmin
     .from("products")
     .select("id, partner_id, name_en, name_ar, description, category, selling_price, sizes, stock_quantity, image_url, is_available, in_stock")
     .eq("is_available", true)

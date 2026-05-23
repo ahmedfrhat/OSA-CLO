@@ -857,7 +857,7 @@ function ProductsView({ products, onAdd, t }: { products: Product[]; onAdd: () =
                 <div className="aspect-square bg-gray-100 overflow-hidden">
                   {p.image_url
                     // eslint-disable-next-line @next/next/no-img-element
-                    ? <img src={p.image_url} alt={p.name_en} className="w-full h-full object-cover" />
+                    ? <img src={p.image_url} alt={p.name_en} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
                     : <div className="w-full h-full flex items-center justify-center text-gray-300 text-2xl font-black">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                 </div>
                 <div className="p-3 sm:p-4">
@@ -921,7 +921,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                           <div className="flex items-center gap-3">
                             {p.image_url
                               // eslint-disable-next-line @next/next/no-img-element
-                              ? <img src={p.image_url} alt={p.name_en} className="w-10 h-10 object-cover shrink-0" />
+                              ? <img src={p.image_url} alt={p.name_en} className="w-10 h-10 object-cover shrink-0" onError={(e) => { e.currentTarget.style.display="none"; }} />
                               : <div className="w-10 h-10 bg-gray-100 flex items-center justify-center text-[9px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                             <div className="min-w-0">
                               <p className="text-xs font-semibold text-[#1A1A1A] truncate">{p.name_en}</p>
@@ -978,7 +978,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                     <div className="flex items-center gap-3 mb-3">
                       {p.image_url
                         // eslint-disable-next-line @next/next/no-img-element
-                        ? <img src={p.image_url} alt={p.name_en} className="w-12 h-12 object-cover shrink-0" />
+                        ? <img src={p.image_url} alt={p.name_en} className="w-12 h-12 object-cover shrink-0" onError={(e) => { e.currentTarget.style.display="none"; }} />
                         : <div className="w-12 h-12 bg-gray-100 flex items-center justify-center text-[10px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-[#1A1A1A] truncate">{p.name_en}</p>
