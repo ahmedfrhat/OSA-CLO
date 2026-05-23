@@ -42,29 +42,55 @@ export const metadata: Metadata = {
   },
 };
 
+import { ThemeProvider } from "@/providers/ThemeProvider";
+import PromotionalPopup from "@/components/PromotionalPopup";
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" dir="ltr">
+    <html lang="en" dir="ltr" suppressHydrationWarning>
       <head>
         <link rel="apple-touch-icon" href="/aso-logo.png" />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#FAF9F6] text-[#1A1A1A]`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-offwhite text-brand-black dark:bg-brand-black dark:text-offwhite transition-colors duration-300`}
+        suppressHydrationWarning
       >
         <Analytics />
-        <LanguageProvider>
-          <CartProvider>
-            <ToastProvider>
-              <PageTransitionLoader />
-              <Header />
-              <CartDrawer />
-              <main className="min-h-screen page-content">{children}</main>
-              <PWAInstall />
-            </ToastProvider>
-          </CartProvider>
-        </LanguageProvider>
+        <ThemeProvider>
+          <LanguageProvider>
+            <CartProvider>
+              <ToastProvider>
+                {/* Feature 4: subtle branded background texture */}
+                <div className="fixed inset-0 -z-10 pointer-events-none">
+                  {/* Light mode: warm off-white with subtle grain */}
+                  <div className="absolute inset-0 bg-offwhite dark:bg-brand-black" />
+                  {/* Grain texture overlay */}
+                  <div
+                    className="absolute inset-0 opacity-[0.025] dark:opacity-[0.04]"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                      backgroundRepeat: "repeat",
+                      backgroundSize: "128px",
+                    }}
+                  />
+                  {/* Top-left accent glow */}
+                  <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-brand-accent/5 dark:bg-brand-accent/10 blur-3xl" />
+                  {/* Bottom-right accent glow */}
+                  <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full bg-brand-accent/5 dark:bg-brand-accent/10 blur-3xl" />
+                </div>
+
+                <PageTransitionLoader />
+                <PromotionalPopup />
+                <Header />
+                <CartDrawer />
+                <main className="min-h-screen page-content relative z-10">{children}</main>
+                <PWAInstall />
+              </ToastProvider>
+            </CartProvider>
+          </LanguageProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -241,3 +241,185 @@ input:focus, textarea:focus, select:focus {
 
 /* ── Premium image hover zoom is already handled via Tailwind group-hover ── */
 
+
+
+/* --- MERGED FROM NEW --- */
+
+/* src/app/globals.css */
+/* Features: 4 (background/micro-interactions), 6 (dark mode vars), 8 (RTL), 9 (mobile) */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Variables ────────────────────────────────────────── */
+:root {
+  --background: #FAF9F6;
+  --foreground: #0A0A0A;
+  --card-bg: #FFFFFF;
+  --card-border: #E5E5E5;
+  --muted: #6B6B6B;
+  --accent: #C8FF00;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 32px rgba(0, 0, 0, 0.14);
+  --radius: 2px;
+}
+
+.dark {
+  --background: #0A0A0A;
+  --foreground: #FAF9F6;
+  --card-bg: #1C1C1C;
+  --card-border: #2A2A2A;
+  --muted: #888888;
+  --accent: #C8FF00;
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Base ─────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Prevent horizontal overflow in RTL */
+  overflow-x: hidden;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Feature 8: RTL Utilities ─────────────────────────────── */
+[dir="rtl"] {
+  font-family: "Cairo", "Tajawal", var(--font-geist-sans), sans-serif;
+  letter-spacing: 0;
+}
+
+/* RTL: flip flex row directions where needed */
+[dir="rtl"] .rtl-flip {
+  flex-direction: row-reverse;
+}
+
+/* RTL: swap margin/padding shorthands */
+[dir="rtl"] .ltr-only { display: none; }
+[dir="ltr"] .rtl-only { display: none; }
+
+/* Prevent layout shift in RTL */
+[dir="rtl"] input,
+[dir="rtl"] textarea {
+  text-align: right;
+}
+
+/* ── Feature 4: Micro-Interaction Utilities ───────────────── */
+@layer utilities {
+  /* Button press */
+  .btn-press {
+    @apply active:scale-95 transition-transform duration-100;
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    @apply transition-all duration-300 ease-out;
+    box-shadow: var(--shadow);
+  }
+  .card-hover:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Feature 1: Product image hover zoom */
+  .img-zoom-wrap {
+    @apply overflow-hidden;
+  }
+  .img-zoom-wrap img,
+  .img-zoom-wrap .zoom-target {
+    @apply transition-transform duration-500 ease-out;
+  }
+  .img-zoom-wrap:hover img,
+  .img-zoom-wrap:hover .zoom-target {
+    @apply scale-110;
+  }
+
+  /* Ripple effect on click */
+  .ripple-container {
+    position: relative;
+    overflow: hidden;
+  }
+  .ripple-container::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(200, 255, 0, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+  }
+  .ripple-container:active::after {
+    opacity: 1;
+    transition: opacity 0s;
+  }
+
+  /* Focus ring (accessibility) */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-accent focus-visible:ring-offset-2 focus-visible:ring-offset-transparent;
+  }
+}
+
+/* ── Scrollbar (minimal) ──────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--muted);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--foreground);
+}
+
+/* ── Selection ────────────────────────────────────────────── */
+::selection {
+  background-color: #C8FF00;
+  color: #0A0A0A;
+}
+
+/* ── Mobile: prevent iOS input zoom ──────────────────────── */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ── Feature 5: Loading Spinner ──────────────────────────── */
+@keyframes logo-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.95); }
+}
+
+@keyframes orbit {
+  from { transform: rotate(0deg) translateX(20px) rotate(0deg); }
+  to   { transform: rotate(360deg) translateX(20px) rotate(-360deg); }
+}
+
+.logo-spinner {
+  animation: logo-pulse 1.4s ease-in-out infinite;
+}
+
+.orbit-dot {
+  animation: orbit 1.4s linear infinite;
+}
+.orbit-dot:nth-child(2) { animation-delay: -0.46s; }
+.orbit-dot:nth-child(3) { animation-delay: -0.93s; }

@@ -1,40 +1,26 @@
+// src/lib/supabase.ts
+// Supabase clients — anon (public) + service_role (admin)
+
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+const SUPABASE_URL = "https://espqrrunhekvjsoxdfbx.supabase.co";
 
-// ── Environment Variable Guard ──────────────────────────────────────────────
-if (!supabaseUrl) {
-  throw new Error(
-    "[Supabase] Missing environment variable: NEXT_PUBLIC_SUPABASE_URL\n" +
-      "Please add it to your .env.local file and restart the dev server."
-  );
-}
+// ── Public (anon) client — for storefront ─────────────────────
+// Uses the anon/publishable key — safe to expose in client JS
+const SUPABASE_ANON_KEY =
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
-if (!supabaseAnonKey) {
-  throw new Error(
-    "[Supabase] Missing environment variable: NEXT_PUBLIC_SUPABASE_ANON_KEY\n" +
-      "Please add it to your .env.local file and restart the dev server."
-  );
-}
+export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// ── Supabase Client ─────────────────────────────────────────────────────────
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+// ── Admin client — for server-side / admin dashboard ONLY ─────
+// Uses the service_role key — NEVER expose to client bundles
+// Only use in Server Components, API Routes, or Server Actions
+const SUPABASE_SERVICE_KEY =
+  process.env.SUPABASE_SERVICE_ROLE_KEY || "";
+
+export const supabaseAdmin = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY, {
   auth: {
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true,
-  },
-  realtime: {
-    params: {
-      eventsPerSecond: 10,
-    },
-  },
-  global: {
-    headers: {
-      "Cache-Control": "no-cache",
-    },
+    autoRefreshToken: false,
+    persistSession: false,
   },
 });
-
-export default supabase;

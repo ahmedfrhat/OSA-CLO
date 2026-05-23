@@ -1,63 +1,78 @@
 "use client";
+// src/context/LanguageContext.tsx
+// Feature 8: i18n + RTL/LTR switching
 
-import {
+import React, {
   createContext,
   useContext,
   useState,
   useEffect,
   useCallback,
-  type ReactNode,
+  ReactNode,
 } from "react";
-import { translate, type Language } from "@/i18n";
+import { translations, Lang, TranslationKey } from "@/i18n/translations";
 
 interface LanguageContextValue {
-  lang: Language;
-  setLang: (lang: Language) => void;
-  t: (key: string, vars?: Record<string, string>) => string;
+  lang: Lang;
+  dir: "ltr" | "rtl";
+  t: (key: TranslationKey) => string;
+  toggleLang: () => void;
+  setLang: (lang: Lang) => void;
   isRTL: boolean;
 }
 
-const LanguageContext = createContext<LanguageContextValue>({
-  lang: "en",
-  setLang: () => {},
-  t: (key) => key,
-  isRTL: false,
-});
+const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>("en");
+  const [lang, setLang] = useState<Lang>("en");
 
-  const setLang = useCallback((newLang: Language) => {
-    setLangState(newLang);
-    try {
-      localStorage.setItem("aso_lang", newLang);
-    } catch {}
-    document.documentElement.lang = newLang;
-    document.documentElement.dir = newLang === "ar" ? "rtl" : "ltr";
+  // On mount: read from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("lang") as Lang | null;
+    if (saved === "ar" || saved === "en") {
+      setLang(saved);
+    }
   }, []);
 
-  // Restore saved language on first mount
+  // Whenever lang changes: update <html> dir + lang + localStorage
   useEffect(() => {
-    try {
-      const saved = localStorage.getItem("aso_lang") as Language | null;
-      if (saved === "ar" || saved === "en") {
-        setLang(saved);
-      }
-    } catch {}
-  }, [setLang]);
+    const html = document.documentElement;
+    html.setAttribute("lang", lang);
+    html.setAttribute("dir", lang === "ar" ? "rtl" : "ltr");
+    localStorage.setItem("lang", lang);
+  }, [lang]);
+
+  const toggleLang = useCallback(() => {
+    setLang((prev) => (prev === "en" ? "ar" : "en"));
+  }, []);
 
   const t = useCallback(
-    (key: string, vars?: Record<string, string>) => translate(lang, key, vars),
+    (key: TranslationKey): string => {
+      return (translations[lang] as Record<string, string>)[key] ?? key;
+    },
     [lang]
   );
 
   return (
-    <LanguageContext.Provider value={{ lang, setLang, t, isRTL: lang === "ar" }}>
+    <LanguageContext.Provider
+      value={{
+        lang,
+        dir: lang === "ar" ? "rtl" : "ltr",
+        t,
+        toggleLang,
+        setLang, // backward compatibility
+        isRTL: lang === "ar",
+      }}
+    >
       {children}
     </LanguageContext.Provider>
   );
 }
 
-export function useLanguage(): LanguageContextValue {
-  return useContext(LanguageContext);
+export function useLang(): LanguageContextValue {
+  const ctx = useContext(LanguageContext);
+  if (!ctx) throw new Error("useLang must be inside LanguageProvider");
+  return ctx;
 }
+
+export const useLanguage = useLang;

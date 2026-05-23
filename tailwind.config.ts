@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class", // ✅ Feature 6: enables .dark class on <html>
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -41,8 +42,33 @@ const config: Config = {
       transitionTimingFunction: {
         "expo-out": "cubic-bezier(0.19, 1, 0.22, 1)",
       },
+      keyframes: {
+        "spin-slow": {
+          "0%": { transform: "rotate(0deg)" },
+          "100%": { transform: "rotate(360deg)" },
+        },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(8px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
+        "popup-in": {
+          "0%": { opacity: "0", transform: "scale(0.92) translateY(12px)" },
+          "100%": { opacity: "1", transform: "scale(1) translateY(0)" },
+        },
+        ripple: {
+          "0%": { transform: "scale(0)", opacity: "0.6" },
+          "100%": { transform: "scale(2.5)", opacity: "0" },
+        },
+      },
+      animation: {
+        "spin-slow": "spin-slow 2s linear infinite",
+        "fade-in": "fade-in 0.3s ease-out",
+        "popup-in": "popup-in 0.4s cubic-bezier(0.19, 1, 0.22, 1)",
+        ripple: "ripple 0.5s ease-out",
+      },
     },
   },
   plugins: [],
 };
+
 export default config;
