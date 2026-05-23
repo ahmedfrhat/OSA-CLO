@@ -3,13 +3,17 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
 
 export default function Header() {
+  const pathname = usePathname();
   const { t, lang, setLang, isRTL } = useLanguage();
   const { count, setIsOpen } = useCart();
   const [menuOpen, setMenuOpen] = useState(false);
+
+  if (pathname?.startsWith("/admin")) return null;
 
   const NAV_LINKS = [
     { label: t("nav.shop"),        href: "/" },

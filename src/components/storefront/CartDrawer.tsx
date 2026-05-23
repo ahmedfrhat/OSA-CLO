@@ -4,11 +4,14 @@ import { useCart } from "@/context/CartContext";
 import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function CartDrawer() {
+  const pathname = usePathname();
   const { items, isOpen, setIsOpen, removeItem, updateQty, total, count } = useCart();
   const { t, lang, isRTL } = useLanguage();
 
+  if (pathname?.startsWith("/admin")) return null;
   if (!isOpen) return null;
 
   const fmtP = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
