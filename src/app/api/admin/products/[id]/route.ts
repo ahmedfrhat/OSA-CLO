@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { supabase } from "@/lib/supabase";
+import { supabaseAdmin } from "@/lib/supabase-admin";
 import { decodeSessionValue, COOKIE_NAME } from "@/lib/session";
 import { getPartnerDbId } from "@/lib/partners";
 
@@ -22,7 +23,7 @@ async function uploadToStorage(
     const arrayBuffer = await file.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
 
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { data: uploadData, error: uploadError } = await supabaseAdmin.storage
       .from("product-images")
       .upload(fileName, buffer, {
         contentType: file.type || "image/jpeg",
