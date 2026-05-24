@@ -91,14 +91,14 @@ export default function ManualOrderModal({ products, onSuccess, onClose }: Props
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div dir={isRTL ? "rtl" : "ltr"} className="bg-white w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl">
+      <div dir={isRTL ? "rtl" : "ltr"} className="bg-white dark:bg-gray-900 w-full max-w-xl max-h-[90vh] overflow-y-auto shadow-2xl">
 
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
           <div>
-            <h2 className="text-sm font-bold tracking-[0.08em] uppercase text-[#1A1A1A]">{t("admin.manualOrder.title")}</h2>
+            <h2 className="text-sm font-bold tracking-[0.08em] uppercase text-[#1A1A1A] dark:text-gray-100">{t("admin.manualOrder.title")}</h2>
             <p className="text-xs text-gray-400 mt-0.5">{t("admin.manualOrder.subtitle")}</p>
           </div>
-          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors">✕</button>
+          <button onClick={onClose} className="w-8 h-8 flex items-center justify-center text-gray-400 dark:text-gray-500 hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">✕</button>
         </div>
 
         <form onSubmit={handleSubmit} className="p-6 flex flex-col gap-5">
@@ -129,7 +129,9 @@ export default function ManualOrderModal({ products, onSuccess, onClose }: Props
               {SOURCE_KEYS.map((key) => (
                 <button key={key} type="button" onClick={() => setField("source", key)}
                   className={`px-3 py-1.5 text-[11px] font-semibold tracking-wide border transition-all
-                    ${form.source === key ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "bg-white text-gray-500 border-gray-200 hover:border-gray-400"}`}>
+                    ${form.source === key 
+                      ? "bg-[#1A1A1A] text-white border-[#1A1A1A] dark:bg-offwhite dark:text-brand-black dark:border-offwhite" 
+                      : "bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"}`}>
                   {t(`admin.manualOrder.sources.${key}`)}
                 </button>
               ))}
@@ -141,7 +143,7 @@ export default function ManualOrderModal({ products, onSuccess, onClose }: Props
             <div className="flex items-center justify-between">
               <h3 className="label-style">{t("admin.manualOrder.orderItems")}</h3>
               <button type="button" onClick={() => setItems((p) => [...p, { product_id: "", size: "", quantity: 1 }])}
-                className="text-[11px] font-semibold text-[#1A1A1A] underline underline-offset-2 hover:text-gray-500">
+                className="text-[11px] font-semibold text-[#1A1A1A] dark:text-offwhite underline underline-offset-2 hover:text-gray-500">
                 {t("admin.manualOrder.addItem")}
               </button>
             </div>
@@ -183,12 +185,12 @@ export default function ManualOrderModal({ products, onSuccess, onClose }: Props
           </div>
 
           {/* Payment Section */}
-          <div className="border border-gray-100 p-4 flex flex-col gap-3">
+          <div className="border border-gray-100 dark:border-gray-800 p-4 flex flex-col gap-3">
             <h3 className="label-style">{t("admin.manualOrder.payment")}</h3>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1.5">
                 <label className="label-style">{t("admin.manualOrder.orderTotal")}</label>
-                <div className="input-style bg-gray-50 font-mono font-bold text-[#1A1A1A]">
+                <div className="input-style bg-gray-50 dark:bg-gray-800 font-mono font-bold text-[#1A1A1A] dark:text-offwhite">
                   EGP {orderTotal.toLocaleString("en-EG")}
                 </div>
               </div>
@@ -200,9 +202,9 @@ export default function ManualOrderModal({ products, onSuccess, onClose }: Props
               </div>
             </div>
             {orderTotal > 0 && (
-              <div className={`flex items-center justify-between px-3 py-2 border ${remaining > 0 ? "bg-red-50 border-red-200" : "bg-green-50 border-green-200"}`}>
-                <span className="text-[11px] font-semibold text-gray-500">{t("admin.manualOrder.remaining")}</span>
-                <span className={`text-sm font-bold ${remaining > 0 ? "text-red-600" : "text-green-700"}`}>
+              <div className={`flex items-center justify-between px-3 py-2 border ${remaining > 0 ? "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50" : "bg-green-50 dark:bg-green-950/30 border-green-200 dark:border-green-900/50"}`}>
+                <span className="text-[11px] font-semibold text-gray-500 dark:text-gray-400">{t("admin.manualOrder.remaining")}</span>
+                <span className={`text-sm font-bold ${remaining > 0 ? "text-red-600 dark:text-red-400" : "text-green-700 dark:text-green-400"}`}>
                   EGP {remaining.toLocaleString("en-EG")}
                 </span>
               </div>
@@ -215,13 +217,13 @@ export default function ManualOrderModal({ products, onSuccess, onClose }: Props
             <textarea value={form.notes} onChange={(e) => setField("notes", e.target.value)} placeholder={t("admin.manualOrder.notesPlaceholder")} rows={2} className="input-style resize-none text-xs" />
           </div>
 
-          {error && <div className="bg-red-50 border border-red-200 px-4 py-3"><p className="text-red-600 text-xs font-medium">{error}</p></div>}
+          {error && <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 px-4 py-3"><p className="text-red-600 dark:text-red-400 text-xs font-medium">{error}</p></div>}
 
-          <div className="flex gap-3 pt-2 border-t border-gray-100">
-            <button type="button" onClick={onClose} className="flex-1 py-3 border border-gray-200 text-gray-500 text-xs font-semibold tracking-widest uppercase hover:bg-gray-50 transition-colors">
+          <div className="flex gap-3 pt-2 border-t border-gray-100 dark:border-gray-800">
+            <button type="button" onClick={onClose} className="flex-1 py-3 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs font-semibold tracking-widest uppercase hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors">
               {t("common.cancel")}
             </button>
-            <button type="submit" disabled={loading} className="flex-1 py-3 bg-[#1A1A1A] text-white text-xs font-bold tracking-widest uppercase hover:bg-[#333] disabled:opacity-40 transition-colors">
+            <button type="submit" disabled={loading} className="flex-1 py-3 bg-[#1A1A1A] dark:bg-offwhite text-white dark:text-brand-black text-xs font-bold tracking-widest uppercase hover:bg-[#333] dark:hover:bg-gray-200 disabled:opacity-40 transition-colors">
               {loading ? t("admin.manualOrder.submitting") : t("admin.manualOrder.submitBtn")}
             </button>
           </div>

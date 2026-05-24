@@ -216,12 +216,12 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
       <div
         dir={isRTL ? "rtl" : "ltr"}
-        className="bg-white w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
+        className="bg-white dark:bg-gray-900 w-full max-w-2xl max-h-[90vh] overflow-y-auto shadow-2xl"
       >
         {/* ── Header ─────────────────────────────────────────────────────── */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-gray-800">
           <div>
-            <h2 className="text-sm font-bold tracking-[0.08em] uppercase text-[#1A1A1A]">
+            <h2 className="text-sm font-bold tracking-[0.08em] uppercase text-[#1A1A1A] dark:text-gray-100">
               {isEdit ? t("admin.addProduct.editTitle") : t("admin.addProduct.title")}
             </h2>
             <p className="text-xs text-gray-400 mt-0.5">
@@ -231,8 +231,8 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
           <button
             onClick={onClose}
             type="button"
-            className="w-8 h-8 flex items-center justify-center text-gray-400
-                       hover:text-gray-700 hover:bg-gray-100 transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-gray-400 dark:text-gray-500
+                       hover:text-gray-700 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           >
             ✕
           </button>
@@ -246,8 +246,8 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
             <label className="label-style">{t("admin.addProduct.image")} — Primary</label>
             <div
               onClick={() => fileRef.current?.click()}
-              className="relative border-2 border-dashed border-gray-200 cursor-pointer
-                         hover:border-gray-400 transition-colors bg-gray-50
+              className="relative border-2 border-dashed border-gray-200 dark:border-gray-700 cursor-pointer
+                         hover:border-gray-400 dark:hover:border-gray-500 transition-colors bg-gray-50 dark:bg-gray-800
                          flex items-center justify-center h-36 overflow-hidden group"
             >
               {preview ? (
@@ -282,7 +282,7 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
               ))}
               {/* Add more button */}
               <button type="button" onClick={() => extraFileRef.current?.click()}
-                className="w-20 h-20 border-2 border-dashed border-gray-200 hover:border-gray-400 flex items-center justify-center text-gray-300 hover:text-gray-500 transition-all">
+                className="w-20 h-20 border-2 border-dashed border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 flex items-center justify-center bg-gray-50 dark:bg-gray-800 text-gray-300 hover:text-gray-500 transition-all">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
               </button>
             </div>
@@ -400,8 +400,8 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
                   onClick={() => toggleSize(size)}
                   className={`px-3 py-1.5 text-[11px] font-semibold tracking-wide border transition-all duration-150
                     ${selectedSizes.includes(size)
-                      ? "bg-[#1A1A1A] text-white border-[#1A1A1A]"
-                      : "bg-white text-gray-500 border-gray-200 hover:border-gray-400"
+                      ? "bg-[#1A1A1A] text-white border-[#1A1A1A] dark:bg-offwhite dark:text-brand-black dark:border-offwhite"
+                      : "bg-white dark:bg-gray-800 text-gray-500 dark:text-gray-400 border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500"
                     }`}
                 >
                   {size}
@@ -428,26 +428,26 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
 
           {/* Error */}
           {error && (
-            <div className="bg-red-50 border border-red-200 px-4 py-3">
-              <p className="text-red-600 text-xs font-medium">{error}</p>
+            <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 px-4 py-3">
+              <p className="text-red-600 dark:text-red-400 text-xs font-medium">{error}</p>
             </div>
           )}
 
           {/* Actions */}
-          <div className="flex gap-3 pt-2 border-t border-gray-100">
+          <div className="flex gap-3 pt-2 border-t border-gray-100 dark:border-gray-800">
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 py-3 border border-gray-200 text-gray-500 text-xs
-                         font-semibold tracking-widest uppercase hover:bg-gray-50 transition-colors"
+              className="flex-1 py-3 border border-gray-200 dark:border-gray-700 text-gray-500 dark:text-gray-400 text-xs
+                         font-semibold tracking-widest uppercase hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors"
             >
               {t("common.cancel")}
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 py-3 bg-[#1A1A1A] text-white text-xs font-bold
-                         tracking-widest uppercase hover:bg-[#333] disabled:opacity-40
+              className="flex-1 py-3 bg-[#1A1A1A] dark:bg-offwhite text-white dark:text-brand-black text-xs font-bold
+                         tracking-widest uppercase hover:bg-[#333] dark:hover:bg-gray-200 disabled:opacity-40
                          disabled:cursor-not-allowed transition-colors"
             >
               {loading

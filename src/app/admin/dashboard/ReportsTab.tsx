@@ -100,7 +100,7 @@ function Stat({ label, value, sub }: { label: string; value: string; sub?: strin
   return (
     <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4">
       <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{label}</p>
-      <p className="text-lg font-bold text-[#1A1A1A] mt-1">{value}</p>
+      <p className="text-lg font-bold text-[#1A1A1A] dark:text-offwhite mt-1">{value}</p>
       {sub && <p className="text-[10px] text-gray-400 mt-0.5">{sub}</p>}
     </div>
   );
@@ -135,7 +135,7 @@ export default function ReportsTab({ orders, products }: Props) {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.reports.title")}</h2>
+        <h2 className="text-base font-bold text-[#1A1A1A] dark:text-offwhite">{t("admin.reports.title")}</h2>
         <p className="text-xs text-gray-400">{t("admin.reports.subtitle")}</p>
       </div>
 
@@ -144,7 +144,7 @@ export default function ReportsTab({ orders, products }: Props) {
         {(["week","month","all"] as const).map((p) => (
           <button key={p} onClick={() => setPeriod(p)}
             className={`px-4 py-2 text-[10px] font-bold tracking-widest uppercase border transition-all
-              ${period === p ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:border-gray-400"}`}>
+              ${period === p ? "bg-[#1A1A1A] text-white border-[#1A1A1A] dark:bg-offwhite dark:text-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:border-gray-400"}`}>
             {p === "week" ? t("admin.reports.thisWeek") : p === "month" ? t("admin.reports.thisMonth") : t("admin.reports.allTime")}
           </button>
         ))}
@@ -171,7 +171,7 @@ export default function ReportsTab({ orders, products }: Props) {
           >
             <span className="text-2xl">📊</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.weekly")}</p>
+              <p className="text-xs font-bold text-[#1A1A1A] dark:text-offwhite">{t("admin.reports.weekly")}</p>
               <p className="text-[10px] text-gray-400">{t("admin.reports.weeklyDesc")}</p>
             </div>
           </button>
@@ -182,7 +182,7 @@ export default function ReportsTab({ orders, products }: Props) {
           >
             <span className="text-2xl">📅</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.monthly")}</p>
+              <p className="text-xs font-bold text-[#1A1A1A] dark:text-offwhite">{t("admin.reports.monthly")}</p>
               <p className="text-[10px] text-gray-400">{t("admin.reports.monthlyDesc")}</p>
             </div>
           </button>
@@ -193,7 +193,7 @@ export default function ReportsTab({ orders, products }: Props) {
           >
             <span className="text-2xl">📁</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.full")}</p>
+              <p className="text-xs font-bold text-[#1A1A1A] dark:text-offwhite">{t("admin.reports.full")}</p>
               <p className="text-[10px] text-gray-400">{t("admin.reports.fullDesc")}</p>
             </div>
           </button>
@@ -204,7 +204,7 @@ export default function ReportsTab({ orders, products }: Props) {
           >
             <span className="text-2xl">🛍️</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.products")}</p>
+              <p className="text-xs font-bold text-[#1A1A1A] dark:text-offwhite">{t("admin.reports.products")}</p>
               <p className="text-[10px] text-gray-400">{t("admin.reports.productsDesc")}</p>
             </div>
           </button>

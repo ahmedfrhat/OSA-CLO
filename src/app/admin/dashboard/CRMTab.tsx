@@ -67,7 +67,7 @@ export default function CRMTab({ orders }: Props) {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.crm.title")}</h2>
+        <h2 className="text-base font-bold text-[#1A1A1A] dark:text-offwhite">{t("admin.crm.title")}</h2>
         <p className="text-xs text-gray-400">{customers.length} {t("admin.crm.uniqueCustomers")}</p>
       </div>
 
@@ -75,15 +75,15 @@ export default function CRMTab({ orders }: Props) {
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4">
           <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{t("admin.crm.totalCustomers")}</p>
-          <p className="text-xl font-bold text-[#1A1A1A] mt-1">{customers.length}</p>
+          <p className="text-xl font-bold text-[#1A1A1A] dark:text-offwhite mt-1">{customers.length}</p>
         </div>
         <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4">
           <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{t("admin.crm.repeatBuyers")}</p>
-          <p className="text-xl font-bold text-green-700 mt-1">{repeatBuyers}</p>
+          <p className="text-xl font-bold text-green-700 dark:text-green-400 mt-1">{repeatBuyers}</p>
         </div>
         <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 col-span-2 sm:col-span-1">
           <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{t("admin.crm.totalRevenue")}</p>
-          <p className="text-lg font-bold text-[#1A1A1A] mt-1">EGP {totalRevenue.toLocaleString("en-EG")}</p>
+          <p className="text-lg font-bold text-[#1A1A1A] dark:text-offwhite mt-1">EGP {totalRevenue.toLocaleString("en-EG")}</p>
         </div>
       </div>
 
@@ -120,7 +120,7 @@ export default function CRMTab({ orders }: Props) {
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <p className="text-sm font-bold text-[#1A1A1A] truncate">{c.name}</p>
+                      <p className="text-sm font-bold text-[#1A1A1A] dark:text-offwhite truncate">{c.name}</p>
                       {c.orderCount > 1 && (
                         <span className="text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 shrink-0">
                           {t("common.repeatCustomer")}
@@ -132,7 +132,7 @@ export default function CRMTab({ orders }: Props) {
                     )}
                   </div>
                   <div className="text-right shrink-0 rtl:text-left">
-                    <p className="text-sm font-bold text-[#1A1A1A]">EGP {c.totalSpent.toLocaleString("en-EG")}</p>
+                    <p className="text-sm font-bold text-[#1A1A1A] dark:text-offwhite">EGP {c.totalSpent.toLocaleString("en-EG")}</p>
                     <p className="text-[10px] text-gray-400">{c.orderCount} {t("admin.crm.orders")}</p>
                   </div>
                   <span className={`text-gray-400 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`}>▾</span>
@@ -144,15 +144,15 @@ export default function CRMTab({ orders }: Props) {
                     <div className="grid grid-cols-3 gap-3 mb-4">
                       <div>
                         <p className="text-[9px] text-gray-400 uppercase font-bold">{t("admin.crm.orders")}</p>
-                        <p className="text-sm font-bold">{c.orderCount}</p>
+                        <p className="text-sm font-bold text-[#1A1A1A] dark:text-offwhite">{c.orderCount}</p>
                       </div>
                       <div>
                         <p className="text-[9px] text-gray-400 uppercase font-bold">{t("admin.crm.avgOrder")}</p>
-                        <p className="text-sm font-bold">EGP {Math.round(avgOrder).toLocaleString("en-EG")}</p>
+                        <p className="text-sm font-bold text-[#1A1A1A] dark:text-offwhite">EGP {Math.round(avgOrder).toLocaleString("en-EG")}</p>
                       </div>
                       <div>
                         <p className="text-[9px] text-gray-400 uppercase font-bold">{t("admin.crm.lastOrder")}</p>
-                        <p className="text-sm font-bold">{new Date(c.lastOrder).toLocaleDateString("en-GB")}</p>
+                        <p className="text-sm font-bold text-[#1A1A1A] dark:text-offwhite">{new Date(c.lastOrder).toLocaleDateString("en-GB")}</p>
                       </div>
                     </div>
 
@@ -162,7 +162,7 @@ export default function CRMTab({ orders }: Props) {
                         <div key={o.id} className="flex items-center justify-between bg-white dark:bg-brand-gray border border-gray-100 px-3 py-2">
                           <div>
                             <p className="text-[10px] font-mono text-gray-400">#{o.id.slice(0, 8).toUpperCase()}</p>
-                            <p className="text-[11px] font-semibold text-[#1A1A1A]">{new Date(o.created_at).toLocaleDateString("en-GB")}</p>
+                            <p className="text-[11px] font-semibold text-[#1A1A1A] dark:text-offwhite">{new Date(o.created_at).toLocaleDateString("en-GB")}</p>
                           </div>
                           <div className="flex items-center gap-2">
                             <span className={`text-[9px] font-bold px-2 py-0.5 border ${
@@ -171,7 +171,7 @@ export default function CRMTab({ orders }: Props) {
                               o.status === "processing" ? "border-blue-200 text-blue-700 bg-blue-50" :
                               "border-yellow-200 text-yellow-700 bg-yellow-50"
                             }`}>{o.status}</span>
-                            <p className="text-xs font-mono font-bold text-[#1A1A1A]">EGP {o.total_amount.toLocaleString("en-EG")}</p>
+                            <p className="text-xs font-mono font-bold text-[#1A1A1A] dark:text-offwhite">EGP {o.total_amount.toLocaleString("en-EG")}</p>
                           </div>
                         </div>
                       ))}

@@ -1037,7 +1037,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
 function KpiCard({ title, value, sub, color, onClick }: {
   title: string; value: string; sub?: string; color?: "green" | "red" | "yellow"; onClick?: () => void;
 }) {
-  const accent = color === "green" ? "text-green-700" : color === "red" ? "text-red-600" : color === "yellow" ? "text-yellow-600" : "text-brand-black dark:text-offwhite";
+  const accent = color === "green" ? "text-green-700 dark:text-green-400" : color === "red" ? "text-red-600 dark:text-red-400" : color === "yellow" ? "text-yellow-600 dark:text-yellow-400" : "text-brand-black dark:text-gray-200";
   return (
     <button onClick={onClick} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 sm:p-5 text-left hover:border-gray-400 hover:shadow-sm transition-all active:scale-[0.98]">
       <p className="text-[9px] sm:text-[10px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-1.5">{title}</p>
@@ -1051,10 +1051,10 @@ function FinCard({ label, value, unit, highlight, danger }: {
   label: string; value: string; unit?: string; highlight?: boolean; danger?: boolean;
 }) {
   return (
-    <div className={`p-4 sm:p-5 border ${highlight ? "bg-brand-black dark:bg-offwhite border-brand-black dark:border-offwhite" : danger ? "bg-red-50 border-red-200" : "bg-white dark:bg-brand-gray border-gray-200 dark:border-brand-border/20"}`}>
-      <p className={`text-[9px] sm:text-[10px] font-bold tracking-[0.12em] uppercase mb-1.5 ${highlight ? "text-white/50" : "text-gray-400"}`}>{label}</p>
-      <p className={`text-base sm:text-lg font-bold ${highlight ? "text-white" : danger ? "text-red-600" : "text-brand-black dark:text-offwhite"}`}>{value}</p>
-      {unit && <p className={`text-[9px] mt-0.5 ${highlight ? "text-white/40" : "text-gray-400"}`}>{unit}</p>}
+    <div className={`p-4 sm:p-5 border ${highlight ? "bg-brand-black dark:bg-gray-800 border-brand-black dark:border-gray-800" : danger ? "bg-red-50 dark:bg-red-950/30 border-red-200 dark:border-red-900/50" : "bg-white dark:bg-brand-gray border-gray-200 dark:border-brand-border/20"}`}>
+      <p className={`text-[9px] sm:text-[10px] font-bold tracking-[0.12em] uppercase mb-1.5 ${highlight ? "text-white/50 dark:text-gray-400" : "text-gray-400"}`}>{label}</p>
+      <p className={`text-base sm:text-lg font-bold ${highlight ? "text-white dark:text-gray-100" : danger ? "text-red-600 dark:text-red-400" : "text-brand-black dark:text-gray-200"}`}>{value}</p>
+      {unit && <p className={`text-[9px] mt-0.5 ${highlight ? "text-white/40 dark:text-gray-500" : "text-gray-400"}`}>{unit}</p>}
     </div>
   );
 }

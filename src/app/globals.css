@@ -205,8 +205,8 @@ input:focus, textarea:focus, select:focus {
   }
   .input-style {
     @apply w-full border border-gray-200 dark:border-brand-border/30
-           bg-white dark:bg-brand-gray px-3 py-2.5 text-sm
-           text-brand-black dark:text-offwhite
+           bg-gray-50 dark:bg-gray-800 px-3 py-2.5 text-sm
+           text-gray-900 dark:text-gray-100
            placeholder-gray-300 dark:placeholder-gray-600 outline-none
            focus:border-gray-400 dark:focus:border-brand-border focus:ring-0
            transition-colors duration-150;
