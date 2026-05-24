@@ -216,7 +216,7 @@ export default function DiscountsTab() {
                         {d.expires_at ? new Date(d.expires_at).toLocaleDateString("en-GB") : "—"}
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`text-[10px] font-bold px-2 py-0.5 border ${isValid ? "border-green-200 text-green-700 bg-green-50" : "border-red-200 text-red-600 bg-red-50"}`}>
+                        <span className={`text-[10px] font-bold px-2 py-0.5 border ${isValid ? "border-green-200 text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/40" : "border-red-200 text-red-600 bg-red-50 dark:bg-red-950/40"}`}>
                           {isValid ? t("admin.discounts.statusActive") : expired ? t("admin.discounts.statusExpired") : maxed ? t("admin.discounts.statusMaxUsed") : t("admin.discounts.statusInactive")}
                         </span>
                       </td>
@@ -243,7 +243,7 @@ export default function DiscountsTab() {
                 <div key={d.id} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-brand-border/10 p-4">
                   <div className="flex items-center justify-between mb-2">
                     <p className="font-mono font-black text-sm tracking-widest text-gray-900 dark:text-gray-100">{d.code}</p>
-                    <span className={`text-[10px] font-bold px-2 py-0.5 border ${isValid ? "border-green-200 text-green-700 bg-green-50" : "border-red-200 text-red-600 bg-red-50"}`}>
+                    <span className={`text-[10px] font-bold px-2 py-0.5 border ${isValid ? "border-green-200 text-green-700 dark:text-green-400 bg-green-50 dark:bg-green-950/40" : "border-red-200 text-red-600 bg-red-50 dark:bg-red-950/40"}`}>
                       {isValid ? t("admin.discounts.statusActive") : expired ? t("admin.discounts.statusExpired") : t("admin.discounts.statusInactive")}
                     </span>
                   </div>

@@ -46,7 +46,7 @@ type Status = typeof STATUSES[number];
 
 const STATUS_LABELS: Record<Status, { en: string; ar: string; color: string }> = {
   pending:    { en: "Pending",    ar: "قيد الانتظار", color: "bg-yellow-50 text-yellow-700 border-yellow-200" },
-  processing: { en: "Processing", ar: "جاري التجهيز",  color: "bg-blue-50 text-blue-700 border-blue-200"      },
+  processing: { en: "Processing", ar: "جاري التجهيز",  color: "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border-blue-200 dark:border-blue-900" },
   shipped:    { en: "Shipped",    ar: "تم الشحن",      color: "bg-purple-50 text-purple-700 border-purple-200" },
   closed:     { en: "Closed",     ar: "مغلق",          color: "bg-green-50 text-green-700 border-green-200"   },
 };

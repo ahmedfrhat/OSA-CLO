@@ -87,7 +87,7 @@ export default async function ProductPage({ params }: { params: { id: string } }
             {related.map((p) => (
               <Link key={p.id} href={`/product/${p.id}`}
                 className="group bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 hover:border-gray-400 dark:hover:border-brand-border/60 hover:shadow-md transition-all overflow-hidden">
-                <div className="aspect-[3/4] overflow-hidden bg-gray-100">
+                <div className="aspect-[3/4] overflow-hidden bg-gray-100 dark:bg-brand-gray">
                   {p.image_url
                     // eslint-disable-next-line @next/next/no-img-element
                     ? <img src={p.image_url} alt={p.name_en}

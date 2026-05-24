@@ -53,7 +53,7 @@ const ACTIVE_STATUSES  = ["pending", "processing", "shipped"] as const;
 const CLOSED_STATUS    = "closed";
 const STATUS_COLORS: Record<string, string> = {
   pending:    "bg-yellow-50 text-yellow-700 border border-yellow-200",
-  processing: "bg-blue-50 text-blue-700 border border-blue-200",
+  processing: "bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 border border-blue-200 dark:border-blue-900",
   shipped:    "bg-purple-50 text-purple-700 border border-purple-200",
   closed:     "bg-green-50 text-green-700 border border-green-200",
 };
@@ -723,7 +723,7 @@ function OrderCards({
                   <td className="px-4 py-3">
                     <div>
                       <p className="text-xs font-semibold text-brand-black dark:text-offwhite">{o.customer_name}</p>
-                      {isRepeat && <span className="inline-block text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 mt-0.5">{t("common.repeatCustomer")}</span>}
+                      {isRepeat && <span className="inline-block text-[9px] font-bold bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900 px-1.5 py-0.5 mt-0.5">{t("common.repeatCustomer")}</span>}
                     </div>
                   </td>
                   <td className="px-4 py-3">
@@ -779,7 +779,7 @@ function OrderCards({
                 <div>
                   <p className="text-sm font-bold text-brand-black dark:text-offwhite leading-tight">{o.customer_name}</p>
                   <div className="flex items-center gap-1.5 mt-0.5">
-                    {isRepeat && <span className="text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5">{t("common.repeatCustomer")}</span>}
+                    {isRepeat && <span className="text-[9px] font-bold bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900 px-1.5 py-0.5">{t("common.repeatCustomer")}</span>}
                     <span className="text-[10px] text-gray-400 font-mono">{o.id.slice(0, 8).toUpperCase()}</span>
                   </div>
                 </div>

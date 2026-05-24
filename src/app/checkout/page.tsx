@@ -268,7 +268,7 @@ export default function CheckoutPage() {
             </Field>
 
             {/* ── Address — 3 Fields ──────────────────────────────────────── */}
-            <div className="border border-gray-100 dark:border-brand-border/10 bg-white dark:bg-brand-gray p-4 flex flex-col gap-4">
+            <div className="border border-gray-100 dark:border-white/10 bg-white dark:bg-white/5 p-4 flex flex-col gap-4">
               <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-500 dark:text-gray-400">
                 📍 {t("storefront.checkout.shippingInfo")}
               </p>
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
 
               {/* Composed address preview */}
               {fullAddress && (
-                <div className="bg-gray-50 dark:bg-brand-black border border-gray-100 dark:border-brand-border/10 px-3 py-2 text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                <div className="bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/10 px-3 py-2 text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
                   📦 {t("storefront.checkout.shippingTo")} <span className="font-semibold text-brand-black dark:text-offwhite">{fullAddress}</span>
                 </div>
               )}
@@ -343,7 +343,7 @@ export default function CheckoutPage() {
               <label className="label-style">{t("storefront.checkout.payment")}</label>
 
               {/* Vodafone Cash badge */}
-              <div className="flex items-center gap-2 px-4 py-3 border border-gray-200 dark:border-brand-border/20 bg-gray-50 dark:bg-brand-black">
+              <div className="flex items-center gap-2 px-4 py-3 border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5">
                 <span className="text-lg">📱</span>
                 <div>
                   <p className="text-xs font-bold text-brand-black dark:text-offwhite">{t("storefront.checkout.vodafoneCash")}</p>
@@ -368,7 +368,7 @@ export default function CheckoutPage() {
 
               {/* Deposit breakdown */}
               {payType === "deposit" && (
-                <div className="grid grid-cols-3 gap-2 border border-blue-200 bg-blue-50 p-3">
+                <div className="grid grid-cols-3 gap-2 border border-blue-200 dark:border-blue-900 bg-blue-50 dark:bg-blue-950/40 p-3">
                   <FinLine label={t("storefront.checkout.total")}     value={fmtP(total)}     />
                   <FinLine label={t("storefront.checkout.paidNow")}   value={fmtP(paidNow)}   highlight />
                   <FinLine label={t("storefront.checkout.remaining")} value={fmtP(remaining)} warning />
@@ -413,7 +413,7 @@ export default function CheckoutPage() {
 
             {/* Server error */}
             {errors.server && (
-              <div className="bg-red-50 border border-red-200 px-4 py-3">
+              <div className="bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900 px-4 py-3">
                 <p className="text-xs text-red-600 font-medium">{errors.server}</p>
               </div>
             )}
@@ -421,7 +421,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-brand-black dark:bg-offwhite text-white py-4 text-xs font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-all active:scale-[0.98]"
+              className="w-full bg-brand-black dark:bg-offwhite text-white dark:text-brand-black py-4 text-xs font-black tracking-[0.15em] uppercase hover:bg-[#333] dark:hover:bg-gray-200 disabled:opacity-40 transition-all active:scale-[0.98]"
             >
               {loading ? t("storefront.checkout.submitting") : t("storefront.checkout.submit")}
             </button>
@@ -459,7 +459,7 @@ function FinLine({ label, value, highlight, warning }: { label: string; value: s
   return (
     <div className="text-center">
       <p className="text-[9px] font-bold tracking-wide uppercase text-gray-500 dark:text-gray-400 mb-0.5">{label}</p>
-      <p className={`text-sm font-black font-mono ${highlight ? "text-blue-700" : warning ? "text-orange-600" : "text-brand-black dark:text-offwhite"}`}>{value}</p>
+      <p className={`text-sm font-black font-mono ${highlight ? "text-blue-700 dark:text-blue-400" : warning ? "text-orange-600 dark:text-orange-400" : "text-brand-black dark:text-offwhite"}`}>{value}</p>
     </div>
   );
 }
@@ -477,7 +477,7 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
   const fmtP       = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
   const finalTotal = Math.max(0, total - discountAmount);
   return (
-    <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-5 h-fit sticky top-20">
+    <div className="bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-5 h-fit sticky top-20">
       <h2 className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-500 dark:text-gray-400 mb-4">{t("storefront.checkout.orderSummary")}</h2>
       <ul className="space-y-3 mb-4">
         {items.map((item) => (

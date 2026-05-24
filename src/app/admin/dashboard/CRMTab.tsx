@@ -122,7 +122,7 @@ export default function CRMTab({ orders }: Props) {
                     <div className="flex items-center gap-2">
                       <p className="text-sm font-bold text-[#1A1A1A] dark:text-offwhite truncate">{c.name}</p>
                       {c.orderCount > 1 && (
-                        <span className="text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 shrink-0">
+                        <span className="text-[9px] font-bold bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 border border-blue-200 dark:border-blue-900 px-1.5 py-0.5 shrink-0">
                           {t("common.repeatCustomer")}
                         </span>
                       )}
@@ -168,7 +168,7 @@ export default function CRMTab({ orders }: Props) {
                             <span className={`text-[9px] font-bold px-2 py-0.5 border ${
                               o.status === "closed"     ? "border-green-200 text-green-700 bg-green-50" :
                               o.status === "shipped"    ? "border-purple-200 text-purple-700 bg-purple-50" :
-                              o.status === "processing" ? "border-blue-200 text-blue-700 bg-blue-50" :
+                              o.status === "processing" ? "border-blue-200 dark:border-blue-900 text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40" :
                               "border-yellow-200 text-yellow-700 bg-yellow-50"
                             }`}>{o.status}</span>
                             <p className="text-xs font-mono font-bold text-[#1A1A1A] dark:text-offwhite">EGP {o.total_amount.toLocaleString("en-EG")}</p>

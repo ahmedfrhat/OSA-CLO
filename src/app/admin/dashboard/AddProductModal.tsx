@@ -275,7 +275,7 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={ep.url} alt={`extra-${i}`} className="w-full h-full object-cover" />
                   <button type="button" onClick={() => removeExtraImage(i)}
-                    className="absolute top-0.5 right-0.5 w-5 h-5 bg-red-500 text-white text-[10px] font-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                    className="absolute top-0.5 right-0.5 w-5 h-5 bg-red-50 dark:bg-red-950/400 text-white text-[10px] font-black flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                     ✕
                   </button>
                 </div>
@@ -428,7 +428,7 @@ export default function ProductModal({ product, partnerName, onSuccess, onClose 
 
           {/* Error */}
           {error && (
-            <div className="bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 px-4 py-3">
+            <div className="bg-red-50 dark:bg-red-950/40 dark:bg-red-950/30 border border-red-200 dark:border-red-900/50 px-4 py-3">
               <p className="text-red-600 dark:text-red-400 text-xs font-medium">{error}</p>
             </div>
           )}

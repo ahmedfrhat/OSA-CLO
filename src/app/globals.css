@@ -209,19 +209,19 @@ input:focus, textarea:focus, select:focus {
     @apply text-[10px] font-semibold tracking-[0.1em] uppercase text-gray-500 dark:text-gray-400;
   }
   .input-style {
-    @apply w-full border border-gray-200 dark:border-brand-border/30
-           bg-gray-50 dark:bg-gray-800 px-3 py-2.5 text-sm
+    @apply w-full border border-gray-200 dark:border-white/10
+           bg-gray-50 dark:bg-white/5 px-3 py-2.5 text-sm
            text-gray-900 dark:text-gray-100
-           placeholder-gray-300 dark:placeholder-gray-600 outline-none
-           focus:border-gray-400 dark:focus:border-brand-border focus:ring-0
+           placeholder-gray-400 dark:placeholder-white/25 outline-none
+           focus:border-gray-400 dark:focus:border-white/30 focus:ring-0
            transition-colors duration-150;
   }
   .section-title {
     @apply text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400;
   }
   .btn-dark {
-    @apply bg-brand-black text-white px-4 py-2.5 text-[11px] font-bold
-           tracking-widest uppercase hover:bg-brand-gray transition-colors
+    @apply bg-brand-black dark:bg-offwhite text-white dark:text-brand-black px-4 py-2.5 text-[11px] font-bold
+           tracking-widest uppercase hover:bg-brand-gray dark:hover:bg-gray-200 transition-colors
            active:scale-[0.98] active:transition-none
            disabled:opacity-40 disabled:cursor-not-allowed;
   }
@@ -248,4 +248,15 @@ input:focus, textarea:focus, select:focus {
     box-shadow: var(--shadow-hover);
     transform: translateY(-2px);
   }
+}
+
+/* ── Dark Mode Select Fix ── */
+.dark select {
+  color-scheme: dark;
+  background-color: rgba(255,255,255,0.05);
+  color: #f3f4f6;
+}
+.dark select option {
+  background-color: #1C1C1C;
+  color: #f3f4f6;
 }

@@ -30,6 +30,8 @@ export async function POST(request: NextRequest) {
       customer_address,
       notes,
       payment_type,  // "full" | "deposit"
+      discount_amount,
+      discount_code,
       items,
     } = body as {
       customer_name: string;
@@ -37,6 +39,8 @@ export async function POST(request: NextRequest) {
       customer_address: string;
       notes?: string;
       payment_type: "full" | "deposit";
+      discount_amount?: number;
+      discount_code?: string;
       items: CheckoutItem[];
     };
 
@@ -101,21 +105,50 @@ export async function POST(request: NextRequest) {
         : "[FULL PAYMENT]";
       const combinedNotes = [paymentNote, notes?.trim()].filter(Boolean).join(" | ");
 
-      const { data: order, error: orderError } = await supabase
-        .from("orders")
-        .insert([{
+      // Build order payload — notes column is optional (may not exist in all schemas)
+      const orderPayload: Record<string, unknown> = {
           partner_id:       partnerId,
           customer_name:    customer_name.trim(),
           customer_phone:   customer_phone.trim().replace(/[\s\-()]/g, ""),
           customer_address: customer_address.trim(),
           source:           "storefront",
           status:           "pending",
-          notes:            combinedNotes || null,
           total_amount,
           paid_amount,
-        }])
+      };
+      if (combinedNotes) orderPayload.notes = combinedNotes;
+
+      const { data: order, error: orderError } = await supabase
+        .from("orders")
+        .insert([orderPayload])
         .select()
         .single();
+      
+      // If notes column doesn't exist, retry without it
+      if (orderError?.message?.includes("notes")) {
+        delete orderPayload.notes;
+        const { data: order2, error: orderError2 } = await supabase
+          .from("orders")
+          .insert([orderPayload])
+          .select()
+          .single();
+        if (orderError2) {
+          console.error("Order insert error:", orderError2);
+          return NextResponse.json({ error: orderError2.message }, { status: 500 });
+        }
+        const orderItems2 = partnerItems.map((item) => ({
+          order_id:   order2.id,
+          product_id: item.productId,
+          size:       item.size || null,
+          quantity:   item.quantity,
+          unit_price: priceMap[item.productId]?.selling_price ?? 0,
+          cost_price: 0,
+        }));
+        const { error: itemsError2 } = await supabase.from("order_items").insert(orderItems2);
+        if (itemsError2) return NextResponse.json({ error: itemsError2.message }, { status: 500 });
+        orderIds.push(order2.id);
+        continue;
+      }
 
       if (orderError) {
         console.error("Order insert error:", orderError);
