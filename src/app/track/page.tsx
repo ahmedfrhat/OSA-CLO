@@ -44,13 +44,13 @@ export default function TrackPage() {
   const stepIndex = result ? STEPS.indexOf(result.status) : -1;
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#FAF9F6]">
+    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-offwhite dark:bg-brand-black">
       <div className="max-w-xl mx-auto px-4 py-12">
 
         {/* Header */}
         <div className="text-center mb-10">
-          <Link href="/" className="text-xs font-black tracking-[0.2em] text-[#1A1A1A] uppercase">ASO CLO.</Link>
-          <h1 className="text-2xl font-black tracking-[-0.02em] text-[#1A1A1A] mt-4">{t("storefront.track.title")}</h1>
+          <Link href="/" className="text-xs font-black tracking-[0.2em] text-brand-black dark:text-offwhite uppercase">ASO CLO.</Link>
+          <h1 className="text-2xl font-black tracking-[-0.02em] text-brand-black dark:text-offwhite mt-4">{t("storefront.track.title")}</h1>
           <p className="text-xs text-gray-400 mt-2">{t("storefront.track.subtitle")}</p>
         </div>
 
@@ -61,12 +61,12 @@ export default function TrackPage() {
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
             placeholder={t("storefront.track.placeholder")}
-            className="flex-1 border border-gray-200 px-4 py-3 text-xs font-mono focus:outline-none focus:border-[#1A1A1A] transition-colors"
+            className="flex-1 border border-gray-200 px-4 py-3 text-xs font-mono focus:outline-none focus:border-brand-black dark:border-offwhite transition-colors"
           />
           <button
             type="submit"
             disabled={loading || !orderId.trim()}
-            className="px-6 py-3 bg-[#1A1A1A] text-white text-xs font-bold tracking-widest uppercase hover:bg-[#333] disabled:opacity-40 transition-colors"
+            className="px-6 py-3 bg-brand-black dark:bg-offwhite text-white text-xs font-bold tracking-widest uppercase hover:bg-[#333] disabled:opacity-40 transition-colors"
           >
             {loading ? "..." : t("storefront.track.search")}
           </button>
@@ -84,7 +84,7 @@ export default function TrackPage() {
           <div className="bg-white border border-gray-200 overflow-hidden">
 
             {/* Status Header */}
-            <div className="bg-[#1A1A1A] px-6 py-4">
+            <div className="bg-brand-black dark:bg-offwhite px-6 py-4">
               <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/50">Order #{result.id.slice(0, 8).toUpperCase()}</p>
               <p className="text-sm font-bold text-white mt-1">{t(`storefront.track.status.${result.status}`)}</p>
               <p className="text-[10px] text-white/40 mt-0.5">{t("storefront.track.orderFor")}: {result.customer}</p>
@@ -96,7 +96,7 @@ export default function TrackPage() {
                 {/* Track line */}
                 <div className="absolute top-4 left-4 right-4 h-0.5 bg-gray-200" />
                 <div
-                  className="absolute top-4 left-4 h-0.5 bg-[#1A1A1A] transition-all duration-700"
+                  className="absolute top-4 left-4 h-0.5 bg-brand-black dark:bg-offwhite transition-all duration-700"
                   style={{ width: `${(stepIndex / (STEPS.length - 1)) * 100}%` }}
                 />
 
@@ -110,7 +110,7 @@ export default function TrackPage() {
                         <div
                           className={`w-8 h-8 rounded-full border-2 flex items-center justify-center z-10 transition-all duration-300
                             ${done
-                              ? "bg-[#1A1A1A] border-[#1A1A1A]"
+                              ? "bg-brand-black dark:bg-offwhite border-brand-black dark:border-offwhite"
                               : "bg-white border-gray-300"
                             }
                             ${current ? "ring-2 ring-[#1A1A1A] ring-offset-2" : ""}`}
@@ -122,7 +122,7 @@ export default function TrackPage() {
                           )}
                         </div>
                         <p className={`text-[9px] font-bold text-center leading-tight
-                          ${done ? "text-[#1A1A1A]" : "text-gray-300"}`}>
+                          ${done ? "text-brand-black dark:text-offwhite" : "text-gray-300"}`}>
                           {t(`storefront.track.steps.${step}`)}
                         </p>
                       </div>
@@ -136,7 +136,7 @@ export default function TrackPage() {
             <div className="border-t border-gray-100 px-6 py-4 grid grid-cols-3 gap-4">
               <div>
                 <p className="text-[9px] font-bold uppercase tracking-wide text-gray-400">{t("storefront.track.orderTotal")}</p>
-                <p className="text-sm font-black font-mono text-[#1A1A1A]">EGP {result.total.toLocaleString("en-EG")}</p>
+                <p className="text-sm font-black font-mono text-brand-black dark:text-offwhite">EGP {result.total.toLocaleString("en-EG")}</p>
               </div>
               <div>
                 <p className="text-[9px] font-bold uppercase tracking-wide text-gray-400">{t("storefront.track.paid")}</p>
@@ -161,7 +161,7 @@ export default function TrackPage() {
 
         {/* Back */}
         <div className="mt-8 text-center">
-          <Link href="/" className="text-xs text-gray-400 hover:text-[#1A1A1A] transition-colors">
+          <Link href="/" className="text-xs text-gray-400 hover:text-brand-black dark:text-offwhite transition-colors">
             ← Back to Store
           </Link>
         </div>

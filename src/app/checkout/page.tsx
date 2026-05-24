@@ -222,13 +222,13 @@ export default function CheckoutPage() {
     `input-style appearance-none cursor-pointer ${hasError ? "border-red-400 bg-red-50" : ""}`;
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#FAF9F6]">
+    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-offwhite dark:bg-brand-black">
       <div className="max-w-3xl mx-auto px-4 py-8">
 
         {/* Back */}
         <button
           onClick={() => router.back()}
-          className="text-xs text-gray-400 hover:text-[#1A1A1A] mb-6 flex items-center gap-1 transition-colors active:scale-95"
+          className="text-xs text-gray-400 hover:text-brand-black dark:text-offwhite mb-6 flex items-center gap-1 transition-colors active:scale-95"
         >
           ← {t("storefront.product.back")}
         </button>
@@ -238,7 +238,7 @@ export default function CheckoutPage() {
           {/* ── Form ─────────────────────────────────────────────────────── */}
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
-              <h1 className="text-xl font-black tracking-[-0.02em] text-[#1A1A1A]">
+              <h1 className="text-xl font-black tracking-[-0.02em] text-brand-black dark:text-offwhite">
                 {t("storefront.checkout.title")}
               </h1>
               <p className="text-xs text-gray-400 mt-1">{t("storefront.checkout.subtitle")}</p>
@@ -322,7 +322,7 @@ export default function CheckoutPage() {
               {/* Composed address preview */}
               {fullAddress && (
                 <div className="bg-gray-50 border border-gray-100 px-3 py-2 text-[10px] text-gray-500 leading-relaxed">
-                  📦 سيتم الشحن إلى: <span className="font-semibold text-[#1A1A1A]">{fullAddress}</span>
+                  📦 سيتم الشحن إلى: <span className="font-semibold text-brand-black dark:text-offwhite">{fullAddress}</span>
                 </div>
               )}
             </div>
@@ -346,7 +346,7 @@ export default function CheckoutPage() {
               <div className="flex items-center gap-2 px-4 py-3 border border-gray-200 bg-gray-50">
                 <span className="text-lg">📱</span>
                 <div>
-                  <p className="text-xs font-bold text-[#1A1A1A]">{t("storefront.checkout.vodafoneCash")}</p>
+                  <p className="text-xs font-bold text-brand-black dark:text-offwhite">{t("storefront.checkout.vodafoneCash")}</p>
                   <p className="text-[10px] text-gray-400">Only accepted payment method</p>
                 </div>
                 <span className="ml-auto text-[10px] font-bold text-green-600 border border-green-200 bg-green-50 px-2 py-0.5">Active</span>
@@ -356,12 +356,12 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-2 gap-2 mt-1">
                 <button type="button" onClick={() => setPayType("full")}
                   className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
-                    ${payType === "full" ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
+                    ${payType === "full" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
                   {t("storefront.checkout.payFull")}
                 </button>
                 <button type="button" onClick={() => setPayType("deposit")}
                   className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
-                    ${payType === "deposit" ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
+                    ${payType === "deposit" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
                   {t("storefront.checkout.payDeposit")}
                 </button>
               </div>
@@ -384,7 +384,7 @@ export default function CheckoutPage() {
                 onChange={(e) => { setTerms(e.target.checked); setErrors((p) => ({ ...p, terms: undefined })); }}
                 className="mt-0.5 w-4 h-4 accent-[#1A1A1A]"
               />
-              <span className="text-xs text-gray-600 leading-relaxed group-hover:text-[#1A1A1A] transition-colors">
+              <span className="text-xs text-gray-600 leading-relaxed group-hover:text-brand-black dark:text-offwhite transition-colors">
                 {t("storefront.checkout.terms")}
               </span>
             </label>
@@ -421,7 +421,7 @@ export default function CheckoutPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full bg-[#1A1A1A] text-white py-4 text-xs font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-all active:scale-[0.98]"
+              className="w-full bg-brand-black dark:bg-offwhite text-white py-4 text-xs font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-all active:scale-[0.98]"
             >
               {loading ? t("storefront.checkout.submitting") : t("storefront.checkout.submit")}
             </button>
@@ -459,7 +459,7 @@ function FinLine({ label, value, highlight, warning }: { label: string; value: s
   return (
     <div className="text-center">
       <p className="text-[9px] font-bold tracking-wide uppercase text-gray-500 mb-0.5">{label}</p>
-      <p className={`text-sm font-black font-mono ${highlight ? "text-blue-700" : warning ? "text-orange-600" : "text-[#1A1A1A]"}`}>{value}</p>
+      <p className={`text-sm font-black font-mono ${highlight ? "text-blue-700" : warning ? "text-orange-600" : "text-brand-black dark:text-offwhite"}`}>{value}</p>
     </div>
   );
 }
@@ -489,18 +489,18 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
               }
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-semibold text-[#1A1A1A] truncate">{lang === "ar" && item.nameAr ? item.nameAr : item.nameEn}</p>
+              <p className="text-xs font-semibold text-brand-black dark:text-offwhite truncate">{lang === "ar" && item.nameAr ? item.nameAr : item.nameEn}</p>
               {item.size && <p className="text-[9px] text-gray-400">Size: {item.size}</p>}
               <p className="text-[10px] text-gray-500">× {item.quantity}</p>
             </div>
-            <p className="text-xs font-mono font-bold text-[#1A1A1A] shrink-0">{fmtP(item.price * item.quantity)}</p>
+            <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite shrink-0">{fmtP(item.price * item.quantity)}</p>
           </li>
         ))}
       </ul>
       <div className="border-t border-gray-100 pt-4 space-y-2">
         <div className="flex justify-between text-xs">
           <span className="text-gray-500">Subtotal</span>
-          <span className="font-mono font-bold text-[#1A1A1A]">{fmtP(total)}</span>
+          <span className="font-mono font-bold text-brand-black dark:text-offwhite">{fmtP(total)}</span>
         </div>
         {discountAmount > 0 && discountLabel && (
           <div className="flex justify-between text-xs">
@@ -509,8 +509,8 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
           </div>
         )}
         <div className="flex justify-between text-xs border-t border-gray-100 pt-2 mt-1">
-          <span className="font-bold text-[#1A1A1A]">Total</span>
-          <span className="font-mono font-black text-[#1A1A1A]">{fmtP(finalTotal)}</span>
+          <span className="font-bold text-brand-black dark:text-offwhite">Total</span>
+          <span className="font-mono font-black text-brand-black dark:text-offwhite">{fmtP(finalTotal)}</span>
         </div>
         {payType === "deposit" && (
           <>
