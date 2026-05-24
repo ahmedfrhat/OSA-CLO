@@ -268,7 +268,7 @@ export default function CheckoutPage() {
             </Field>
 
             {/* ── Address — 3 Fields ──────────────────────────────────────── */}
-            <div className="border border-gray-100 bg-white p-4 flex flex-col gap-4">
+            <div className="border border-gray-100 bg-white dark:bg-brand-gray p-4 flex flex-col gap-4">
               <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">
                 📍 بيانات الشحن
               </p>
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
 
               {/* Composed address preview */}
               {fullAddress && (
-                <div className="bg-gray-50 border border-gray-100 px-3 py-2 text-[10px] text-gray-500 leading-relaxed">
+                <div className="bg-gray-50 dark:bg-brand-black border border-gray-100 px-3 py-2 text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
                   📦 سيتم الشحن إلى: <span className="font-semibold text-brand-black dark:text-offwhite">{fullAddress}</span>
                 </div>
               )}
@@ -343,7 +343,7 @@ export default function CheckoutPage() {
               <label className="label-style">{t("storefront.checkout.payment")}</label>
 
               {/* Vodafone Cash badge */}
-              <div className="flex items-center gap-2 px-4 py-3 border border-gray-200 bg-gray-50">
+              <div className="flex items-center gap-2 px-4 py-3 border border-gray-200 dark:border-brand-border/20 bg-gray-50 dark:bg-brand-black">
                 <span className="text-lg">📱</span>
                 <div>
                   <p className="text-xs font-bold text-brand-black dark:text-offwhite">{t("storefront.checkout.vodafoneCash")}</p>
@@ -356,12 +356,12 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-2 gap-2 mt-1">
                 <button type="button" onClick={() => setPayType("full")}
                   className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
-                    ${payType === "full" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
+                    ${payType === "full" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-500 dark:text-gray-400 hover:border-gray-400"}`}>
                   {t("storefront.checkout.payFull")}
                 </button>
                 <button type="button" onClick={() => setPayType("deposit")}
                   className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
-                    ${payType === "deposit" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 text-gray-500 hover:border-gray-400"}`}>
+                    ${payType === "deposit" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-500 dark:text-gray-400 hover:border-gray-400"}`}>
                   {t("storefront.checkout.payDeposit")}
                 </button>
               </div>
@@ -458,7 +458,7 @@ function Field({ label, error, children }: { label: string; error?: string; chil
 function FinLine({ label, value, highlight, warning }: { label: string; value: string; highlight?: boolean; warning?: boolean }) {
   return (
     <div className="text-center">
-      <p className="text-[9px] font-bold tracking-wide uppercase text-gray-500 mb-0.5">{label}</p>
+      <p className="text-[9px] font-bold tracking-wide uppercase text-gray-500 dark:text-gray-400 mb-0.5">{label}</p>
       <p className={`text-sm font-black font-mono ${highlight ? "text-blue-700" : warning ? "text-orange-600" : "text-brand-black dark:text-offwhite"}`}>{value}</p>
     </div>
   );
@@ -476,12 +476,12 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
   const fmtP       = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
   const finalTotal = Math.max(0, total - discountAmount);
   return (
-    <div className="bg-white border border-gray-200 p-5 h-fit sticky top-20">
+    <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-5 h-fit sticky top-20">
       <h2 className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">Order Summary</h2>
       <ul className="space-y-3 mb-4">
         {items.map((item) => (
           <li key={`${item.nameEn}-${item.size}`} className="flex items-center gap-3">
-            <div className="w-10 h-12 bg-gray-100 shrink-0 overflow-hidden">
+            <div className="w-10 h-12 bg-gray-100 dark:bg-brand-black shrink-0 overflow-hidden">
               {item.imageUrl
                 // eslint-disable-next-line @next/next/no-img-element
                 ? <img src={item.imageUrl} alt={item.nameEn} className="w-full h-full object-cover" />
@@ -491,7 +491,7 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-brand-black dark:text-offwhite truncate">{lang === "ar" && item.nameAr ? item.nameAr : item.nameEn}</p>
               {item.size && <p className="text-[9px] text-gray-400">Size: {item.size}</p>}
-              <p className="text-[10px] text-gray-500">× {item.quantity}</p>
+              <p className="text-[10px] text-gray-500 dark:text-gray-400">× {item.quantity}</p>
             </div>
             <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite shrink-0">{fmtP(item.price * item.quantity)}</p>
           </li>
@@ -499,7 +499,7 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
       </ul>
       <div className="border-t border-gray-100 pt-4 space-y-2">
         <div className="flex justify-between text-xs">
-          <span className="text-gray-500">Subtotal</span>
+          <span className="text-gray-500 dark:text-gray-400">Subtotal</span>
           <span className="font-mono font-bold text-brand-black dark:text-offwhite">{fmtP(total)}</span>
         </div>
         {discountAmount > 0 && discountLabel && (

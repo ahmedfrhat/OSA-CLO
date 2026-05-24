@@ -292,7 +292,7 @@ export default function DashboardShell({ session, products: initProducts, orders
             {/* Quick Action — + Product (visible on mobile) */}
             <button
               onClick={() => setShowAddProduct(true)}
-              className="sm:hidden w-8 h-8 bg-brand-black dark:bg-offwhite dark:text-brand-black flex items-center justify-center text-white"
+              className="sm:hidden w-8 h-8 bg-brand-black dark:bg-offwhite dark:text-brand-black dark:text-offwhite flex items-center justify-center text-white"
               title="Add Product"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -400,7 +400,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               </div>
               <div className="flex items-center gap-2">
                 <button onClick={() => exportCSV(activeOrders, lang)}
-                  className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 dark:border-brand-border/30 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-gray-400 transition-all">
+                  className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 dark:border-brand-border/30 text-[10px] font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 hover:border-gray-400 transition-all">
                   <DownloadIcon /> {t("admin.dashboard.orders.exportBtn")}
                 </button>
                 <button onClick={() => setShowManualOrder(true)} className="btn-dark flex items-center gap-2 text-[11px]">
@@ -414,7 +414,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               {(["all", "pending", "processing", "shipped"] as StatusFilter[]).map((f) => (
                 <button key={f} onClick={() => setStatusFilter(f)}
                   className={`shrink-0 px-3 py-2 text-[10px] font-bold tracking-widest uppercase border transition-all
-                    ${statusFilter === f ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black border-brand-black dark:border-offwhite" : "border-gray-200 text-gray-400 hover:border-gray-400"}`}>
+                    ${statusFilter === f ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:border-gray-400"}`}>
                   {f === "all" ? t("admin.dashboard.orders.filterAll") : STATUS_LABEL(f)}
                 </button>
               ))}
@@ -443,7 +443,7 @@ export default function DashboardShell({ session, products: initProducts, orders
                 <p className="text-xs text-gray-400">{closedOrders.length} {t("admin.dashboard.orders.totalCount")}</p>
               </div>
               <button onClick={() => exportCSV(closedOrders, lang)}
-                className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 dark:border-brand-border/30 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-gray-400 transition-all">
+                className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 dark:border-brand-border/30 text-[10px] font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 hover:border-gray-400 transition-all">
                 <DownloadIcon /> {t("admin.dashboard.orders.exportBtn")}
               </button>
             </div>
@@ -521,11 +521,11 @@ export default function DashboardShell({ session, products: initProducts, orders
                         const profit = rev - cost;
                         const pct    = rev > 0 ? ((profit / rev) * 100).toFixed(1) : "0.0";
                         return (
-                          <tr key={product.id} className="border-b border-gray-50 hover:bg-gray-50">
+                          <tr key={product.id} className="border-b border-gray-50 hover:bg-gray-50 dark:bg-brand-black">
                             <td className="px-4 py-3 text-xs font-semibold text-brand-black dark:text-offwhite">{product.name_en}</td>
                             <td className="px-4 py-3 text-xs font-mono">{units}</td>
                             <td className="px-4 py-3 text-xs font-mono">{fmt(rev)}</td>
-                            <td className="px-4 py-3 text-xs font-mono text-gray-500">{fmt(cost)}</td>
+                            <td className="px-4 py-3 text-xs font-mono text-gray-500 dark:text-gray-400">{fmt(cost)}</td>
                             <td className="px-4 py-3 text-xs font-mono font-bold text-green-700">{fmt(profit)}</td>
                             <td className="px-4 py-3"><span className="text-[10px] font-bold bg-green-50 text-green-700 px-2 py-0.5">{pct}%</span></td>
                           </tr>
@@ -533,11 +533,11 @@ export default function DashboardShell({ session, products: initProducts, orders
                       })}
                     </tbody>
                     <tfoot>
-                      <tr className="bg-gray-50 border-t-2 border-gray-200">
-                        <td className="px-4 py-3 text-[10px] font-bold tracking-widest uppercase text-gray-500">{t("admin.dashboard.financials.total")}</td>
+                      <tr className="bg-gray-50 dark:bg-brand-black border-t-2 border-gray-200 dark:border-brand-border/20">
+                        <td className="px-4 py-3 text-[10px] font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400">{t("admin.dashboard.financials.total")}</td>
                         <td className="px-4 py-3 text-xs font-mono font-bold">{allItems.reduce((s, i) => s + i.quantity, 0)}</td>
                         <td className="px-4 py-3 text-xs font-mono font-bold">{fmt(totalRevenue)}</td>
-                        <td className="px-4 py-3 text-xs font-mono font-bold text-gray-500">{fmt(totalCost)}</td>
+                        <td className="px-4 py-3 text-xs font-mono font-bold text-gray-500 dark:text-gray-400">{fmt(totalCost)}</td>
                         <td className="px-4 py-3 text-xs font-mono font-bold text-green-700">{fmt(netProfit)}</td>
                         <td className="px-4 py-3"><span className="text-[10px] font-bold bg-green-100 text-green-800 px-2 py-0.5">{profitMargin}%</span></td>
                       </tr>
@@ -719,7 +719,7 @@ function OrderCards({
               const itemCount = o.order_items?.length ?? 0;
               return (
                 <tr key={o.id} onClick={() => onView(o.id)}
-                  className={`border-b border-gray-50 cursor-pointer transition-colors hover:bg-gray-50 ${remaining > 0 ? "bg-red-50/30" : ""}`}>
+                  className={`border-b border-gray-50 cursor-pointer transition-colors hover:bg-gray-50 dark:bg-brand-black ${remaining > 0 ? "bg-red-50/30" : ""}`}>
                   <td className="px-4 py-3">
                     <div>
                       <p className="text-xs font-semibold text-brand-black dark:text-offwhite">{o.customer_name}</p>
@@ -731,8 +731,8 @@ function OrderCards({
                       ? <a href={`https://wa.me/${o.customer_phone.replace(/\D/g, "")}`} target="_blank" rel="noreferrer" onClick={(e) => e.stopPropagation()} className="text-[11px] text-green-600 font-mono hover:underline">{o.customer_phone}</a>
                       : <span className="text-xs text-gray-300">—</span>}
                   </td>
-                  <td className="px-4 py-3"><span className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 bg-gray-100 px-2 py-0.5">{o.source ?? "—"}</span></td>
-                  <td className="px-4 py-3 text-xs text-gray-500">{itemCount}</td>
+                  <td className="px-4 py-3"><span className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 bg-gray-100 dark:bg-brand-black px-2 py-0.5">{o.source ?? "—"}</span></td>
+                  <td className="px-4 py-3 text-xs text-gray-500 dark:text-gray-400">{itemCount}</td>
                   <td className="px-4 py-3 text-xs font-mono font-semibold text-brand-black dark:text-offwhite">EGP {o.total_amount.toLocaleString("en-EG")}</td>
                   <td className="px-4 py-3 text-xs font-mono text-green-700">EGP {paid.toLocaleString("en-EG")}</td>
                   <td className="px-4 py-3">
@@ -771,8 +771,8 @@ function OrderCards({
             <div
               key={o.id}
               onClick={() => onView(o.id)}
-              className={`bg-white dark:bg-brand-gray border rounded-sm p-4 cursor-pointer active:bg-gray-50 transition-colors
-                ${remaining > 0 ? "border-red-200 bg-red-50/20" : "border-gray-200"}`}
+              className={`bg-white dark:bg-brand-gray border rounded-sm p-4 cursor-pointer active:bg-gray-50 dark:bg-brand-black transition-colors
+                ${remaining > 0 ? "border-red-200 bg-red-50/20" : "border-gray-200 dark:border-brand-border/20"}`}
             >
               {/* Row 1: Name + Status */}
               <div className="flex items-start justify-between gap-2 mb-2">
@@ -857,7 +857,7 @@ function ProductsView({ products, onAdd, t }: { products: Product[]; onAdd: () =
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {products.map((p) => (
               <div key={p.id} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 overflow-hidden hover:shadow-sm transition-shadow">
-                <div className="aspect-square bg-gray-100 overflow-hidden">
+                <div className="aspect-square bg-gray-100 dark:bg-brand-black overflow-hidden">
                   {p.image_url
                     // eslint-disable-next-line @next/next/no-img-element
                     ? <img src={p.image_url} alt={p.name_en} className="w-full h-full object-cover" onError={(e) => { e.currentTarget.style.display = "none"; }} />
@@ -919,20 +919,20 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                     const isToggling = togglingId === p.id;
                     const inStock    = p.in_stock ?? true;
                     return (
-                      <tr key={p.id} className={`border-b border-gray-50 transition-colors ${isDeleting ? "opacity-30" : "hover:bg-gray-50"}`}>
+                      <tr key={p.id} className={`border-b border-gray-50 transition-colors ${isDeleting ? "opacity-30" : "hover:bg-gray-50 dark:bg-brand-black"}`}>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-3">
                             {p.image_url
                               // eslint-disable-next-line @next/next/no-img-element
                               ? <img src={p.image_url} alt={p.name_en} className="w-10 h-10 object-cover shrink-0" onError={(e) => { e.currentTarget.style.display="none"; }} />
-                              : <div className="w-10 h-10 bg-gray-100 flex items-center justify-center text-[9px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
+                              : <div className="w-10 h-10 bg-gray-100 dark:bg-brand-black flex items-center justify-center text-[9px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                             <div className="min-w-0">
                               <p className="text-xs font-semibold text-brand-black dark:text-offwhite truncate">{p.name_en}</p>
                               {p.category && <p className="text-[9px] text-gray-300">{p.category}</p>}
                             </div>
                           </div>
                         </td>
-                        <td className="px-4 py-3 text-xs font-mono text-gray-500">EGP {p.cost_price.toLocaleString("en-EG")}</td>
+                        <td className="px-4 py-3 text-xs font-mono text-gray-500 dark:text-gray-400">EGP {p.cost_price.toLocaleString("en-EG")}</td>
                         <td className="px-4 py-3 text-xs font-mono font-bold text-brand-black dark:text-offwhite">EGP {p.selling_price.toLocaleString("en-EG")}</td>
                         <td className="px-4 py-3"><span className={`text-[10px] font-bold px-2 py-0.5 ${profit >= 0 ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}`}>+EGP {profit.toLocaleString("en-EG")}</span></td>
                         <td className="px-4 py-3 text-xs font-mono">{p.stock_quantity}</td>
@@ -957,7 +957,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="3" width="6" height="9" rx="1"/><path d="M5 12v2a7 7 0 0 0 14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
                             </button>
                             <button onClick={() => onEdit(p)} title={t("admin.dashboard.manage.edit")} className="w-7 h-7 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-400 hover:text-brand-black dark:text-offwhite hover:border-gray-400 transition-colors"><EditIcon /></button>
-                            <button onClick={() => onToggleAvailability(p)} disabled={isToggling} className={`w-7 h-7 flex items-center justify-center border transition-colors disabled:opacity-40 ${p.is_available ? "border-gray-200 text-gray-400 hover:text-orange-500 hover:border-orange-300" : "border-orange-200 text-orange-500"}`}>{p.is_available ? <EyeIcon /> : <EyeOffIcon />}</button>
+                            <button onClick={() => onToggleAvailability(p)} disabled={isToggling} className={`w-7 h-7 flex items-center justify-center border transition-colors disabled:opacity-40 ${p.is_available ? "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:text-orange-500 hover:border-orange-300" : "border-orange-200 text-orange-500"}`}>{p.is_available ? <EyeIcon /> : <EyeOffIcon />}</button>
                             <button onClick={() => onDelete(p.id)} disabled={isDeleting} className="w-7 h-7 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-400 hover:text-red-500 hover:border-red-300 transition-colors disabled:opacity-40"><TrashIcon /></button>
                           </div>
                         </td>
@@ -982,7 +982,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                       {p.image_url
                         // eslint-disable-next-line @next/next/no-img-element
                         ? <img src={p.image_url} alt={p.name_en} className="w-12 h-12 object-cover shrink-0" onError={(e) => { e.currentTarget.style.display="none"; }} />
-                        : <div className="w-12 h-12 bg-gray-100 flex items-center justify-center text-[10px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
+                        : <div className="w-12 h-12 bg-gray-100 dark:bg-brand-black flex items-center justify-center text-[10px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-brand-black dark:text-offwhite truncate">{p.name_en}</p>
                         {p.category && <p className="text-[10px] text-gray-400">{p.category}</p>}
@@ -1003,7 +1003,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                       </button>
                       {/* Edit */}
                       <button onClick={() => onEdit(p)}
-                        className="py-2.5 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-500 hover:text-brand-black dark:text-offwhite hover:border-gray-400 transition-colors">
+                        className="py-2.5 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-500 dark:text-gray-400 hover:text-brand-black dark:text-offwhite hover:border-gray-400 transition-colors">
                         <EditIcon />
                       </button>
                       {/* Delete */}
@@ -1052,7 +1052,7 @@ function FinCard({ label, value, unit, highlight, danger }: {
   label: string; value: string; unit?: string; highlight?: boolean; danger?: boolean;
 }) {
   return (
-    <div className={`p-4 sm:p-5 border ${highlight ? "bg-brand-black dark:bg-offwhite border-brand-black dark:border-offwhite" : danger ? "bg-red-50 border-red-200" : "bg-white border-gray-200"}`}>
+    <div className={`p-4 sm:p-5 border ${highlight ? "bg-brand-black dark:bg-offwhite border-brand-black dark:border-offwhite" : danger ? "bg-red-50 border-red-200" : "bg-white dark:bg-brand-gray border-gray-200 dark:border-brand-border/20"}`}>
       <p className={`text-[9px] sm:text-[10px] font-bold tracking-[0.12em] uppercase mb-1.5 ${highlight ? "text-white/50" : "text-gray-400"}`}>{label}</p>
       <p className={`text-base sm:text-lg font-bold ${highlight ? "text-white" : danger ? "text-red-600" : "text-brand-black dark:text-offwhite"}`}>{value}</p>
       {unit && <p className={`text-[9px] mt-0.5 ${highlight ? "text-white/40" : "text-gray-400"}`}>{unit}</p>}
@@ -1063,7 +1063,7 @@ function FinCard({ label, value, unit, highlight, danger }: {
 function ActionCard({ title, desc, icon, onClick }: { title: string; desc: string; icon: React.ReactNode; onClick: () => void }) {
   return (
     <button onClick={onClick} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 sm:p-5 text-left flex items-start gap-4 hover:border-gray-400 hover:shadow-sm transition-all group active:scale-[0.99]">
-      <div className="w-9 h-9 bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-brand-black dark:group-hover:bg-offwhite group-hover:text-white dark:group-hover:text-brand-black transition-all">{icon}</div>
+      <div className="w-9 h-9 bg-gray-100 dark:bg-brand-black flex items-center justify-center shrink-0 group-hover:bg-brand-black dark:group-hover:bg-offwhite group-hover:text-white dark:group-hover:text-brand-black dark:text-offwhite transition-all">{icon}</div>
       <div>
         <p className="text-sm font-bold text-brand-black dark:text-offwhite">{title}</p>
         <p className="text-xs text-gray-400 mt-0.5">{desc}</p>

@@ -65,7 +65,7 @@ export default function Header() {
             alt="ASO CLO"
             width={80}
             height={32}
-            className="h-8 w-auto object-contain dark:invert-0 invert"
+            className="h-8 w-auto object-contain dark:invert"
             priority
           />
         </Link>

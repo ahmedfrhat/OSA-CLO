@@ -154,7 +154,7 @@ export default function OrderDetailsModal({
       {/* Sheet: full-screen on mobile, max-w dialog on desktop */}
       <div
         dir={isRTL ? "rtl" : "ltr"}
-        className="bg-white w-full sm:max-w-2xl sm:max-h-[90vh] h-full sm:h-auto flex flex-col shadow-2xl animate-slide-up sm:animate-scale-in"
+        className="bg-white dark:bg-brand-gray w-full sm:max-w-2xl sm:max-h-[90vh] h-full sm:h-auto flex flex-col shadow-2xl animate-slide-up sm:animate-scale-in"
       >
         {/* ── Sticky Header ── */}
         <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-gray-100 shrink-0">
@@ -169,14 +169,14 @@ export default function OrderDetailsModal({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setShowInvoice(true)}
-              className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-gray-400 hover:text-[#1A1A1A] transition-all"
+              className="flex items-center gap-1.5 px-3 py-2 border border-gray-200 dark:border-brand-border/20 text-[10px] font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 hover:border-gray-400 hover:text-[#1A1A1A] transition-all"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
               </svg>
               {t("admin.orderDetails.invoice")}
             </button>
-            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors text-lg">✕</button>
+            <button onClick={onClose} className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 dark:bg-brand-black transition-colors text-lg">✕</button>
           </div>
         </div>
 
@@ -185,7 +185,7 @@ export default function OrderDetailsModal({
           {/* Loading */}
           {loading && (
             <div className="p-10 flex justify-center">
-              <div className="w-6 h-6 border-2 border-gray-200 border-t-[#1A1A1A] rounded-full animate-spin" />
+              <div className="w-6 h-6 border-2 border-gray-200 dark:border-brand-border/20 border-t-[#1A1A1A] rounded-full animate-spin" />
             </div>
           )}
 
@@ -212,7 +212,7 @@ export default function OrderDetailsModal({
                       className={`py-3 sm:py-1.5 sm:px-3 text-[11px] font-bold tracking-wide border transition-all duration-150 disabled:opacity-50
                         ${order.status === s
                           ? STATUS_LABELS[s].color
-                          : "border-gray-200 text-gray-400 hover:border-gray-400"
+                          : "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:border-gray-400"
                         }`}
                     >
                       {STATUS_LABELS[s][lang === "ar" ? "ar" : "en"]}
@@ -256,7 +256,7 @@ export default function OrderDetailsModal({
                   <div className="border border-gray-100 overflow-hidden">
                     <table className="w-full text-xs">
                       <thead>
-                        <tr className="bg-gray-50 border-b border-gray-100">
+                        <tr className="bg-gray-50 dark:bg-brand-black border-b border-gray-100">
                           <th className="text-left px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.product")}</th>
                           <th className="text-left px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.size")}</th>
                           <th className="text-center px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.qty")}</th>
@@ -271,12 +271,12 @@ export default function OrderDetailsModal({
                               <div className="flex items-center gap-2">
                                 {item.products?.image_url && (
                                   // eslint-disable-next-line @next/next/no-img-element
-                                  <img src={item.products.image_url} alt="" className="w-7 h-7 object-cover bg-gray-100 shrink-0" />
+                                  <img src={item.products.image_url} alt="" className="w-7 h-7 object-cover bg-gray-100 dark:bg-brand-black shrink-0" />
                                 )}
                                 <span className="font-semibold text-[#1A1A1A]">{item.products?.name_en ?? "—"}</span>
                               </div>
                             </td>
-                            <td className="px-3 py-2.5 text-gray-500">{item.size || "—"}</td>
+                            <td className="px-3 py-2.5 text-gray-500 dark:text-gray-400">{item.size || "—"}</td>
                             <td className="px-3 py-2.5 text-center font-mono font-semibold">{item.quantity}</td>
                             <td className="px-3 py-2.5 text-right font-mono">EGP {item.unit_price.toLocaleString("en-EG")}</td>
                             <td className="px-3 py-2.5 text-right font-mono font-bold">EGP {(item.unit_price * item.quantity).toLocaleString("en-EG")}</td>
@@ -291,7 +291,7 @@ export default function OrderDetailsModal({
               {/* Payment Tracking */}
               <div className={`p-4 border ${remaining > 0 ? "border-red-200 bg-red-50" : "border-green-200 bg-green-50"}`}>
                 <div className="flex items-center justify-between mb-3">
-                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-gray-500">
+                  <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-gray-500 dark:text-gray-400">
                     {t("admin.orderDetails.paymentTrack")}
                   </p>
                   {remaining > 0 && (
@@ -335,7 +335,7 @@ export default function OrderDetailsModal({
 
               {/* Notes */}
               {order.notes && (
-                <div className="bg-gray-50 px-4 py-3 border border-gray-100">
+                <div className="bg-gray-50 dark:bg-brand-black px-4 py-3 border border-gray-100">
                   <p className="label-style mb-1">{t("admin.orderDetails.notes")}</p>
                   <p className="text-xs text-gray-600">{order.notes}</p>
                 </div>
@@ -349,7 +349,7 @@ export default function OrderDetailsModal({
                     {activityLog.map((entry, i) => (
                       <div key={i} className="flex items-start gap-2 text-[11px]">
                         <span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-1.5 shrink-0" />
-                        <span className="text-gray-500">
+                        <span className="text-gray-500 dark:text-gray-400">
                           {t("admin.orderDetails.statusChanged")}{" "}
                           <strong className="text-[#1A1A1A]">{sl(entry.status)}</strong>
                           {" "}{t("admin.orderDetails.by")}{" "}
@@ -370,10 +370,10 @@ export default function OrderDetailsModal({
         </div>
 
         {/* ── Sticky Bottom Action Bar (mobile) ── */}
-        <div className="sm:hidden shrink-0 border-t border-gray-100 bg-white px-4 py-3 flex gap-3">
+        <div className="sm:hidden shrink-0 border-t border-gray-100 bg-white dark:bg-brand-gray px-4 py-3 flex gap-3">
           <button
             onClick={() => setShowInvoice(true)}
-            className="flex-1 py-3.5 border border-gray-200 text-[11px] font-bold tracking-widest uppercase text-gray-600 hover:border-gray-400 transition-all"
+            className="flex-1 py-3.5 border border-gray-200 dark:border-brand-border/20 text-[11px] font-bold tracking-widest uppercase text-gray-600 hover:border-gray-400 transition-all"
           >
             📄 {t("admin.orderDetails.invoice")}
           </button>
@@ -411,7 +411,7 @@ function InvoiceView({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div dir={isRTL ? "rtl" : "ltr"} className="bg-white w-full max-w-lg shadow-2xl">
+      <div dir={isRTL ? "rtl" : "ltr"} className="bg-white dark:bg-brand-gray w-full max-w-lg shadow-2xl">
         {/* Controls */}
         <div className="flex items-center justify-between px-6 py-3 border-b border-gray-100 print:hidden">
           <p className="text-xs font-bold tracking-widest uppercase text-gray-400">{t("admin.orderDetails.invoice")}</p>
@@ -419,7 +419,7 @@ function InvoiceView({
             <button onClick={() => window.print()} className="btn-dark text-[10px]">
               {t("admin.orderDetails.print")}
             </button>
-            <button onClick={onClose} className="px-3 py-1.5 border border-gray-200 text-xs text-gray-500 hover:bg-gray-50">
+            <button onClick={onClose} className="px-3 py-1.5 border border-gray-200 dark:border-brand-border/20 text-xs text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:bg-brand-black">
               {t("admin.orderDetails.close")}
             </button>
           </div>
@@ -440,11 +440,11 @@ function InvoiceView({
           </div>
 
           {/* Customer */}
-          <div className="mb-6 p-4 bg-gray-50">
+          <div className="mb-6 p-4 bg-gray-50 dark:bg-brand-black">
             <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-2">{t("admin.orderDetails.billTo")}</p>
             <p className="text-sm font-semibold text-[#1A1A1A]">{order.customer_name}</p>
-            {order.customer_phone   && <p className="text-xs text-gray-500">{order.customer_phone}</p>}
-            {order.customer_address && <p className="text-xs text-gray-500">{order.customer_address}</p>}
+            {order.customer_phone   && <p className="text-xs text-gray-500 dark:text-gray-400">{order.customer_phone}</p>}
+            {order.customer_address && <p className="text-xs text-gray-500 dark:text-gray-400">{order.customer_address}</p>}
           </div>
 
           {/* Items */}
@@ -475,7 +475,7 @@ function InvoiceView({
           {/* Totals */}
           <div className="border-t-2 border-[#1A1A1A] pt-4 flex flex-col items-end rtl:items-start gap-1.5">
             <div className="flex gap-8 text-xs">
-              <span className="text-gray-500">{t("admin.orderDetails.subtotal")}</span>
+              <span className="text-gray-500 dark:text-gray-400">{t("admin.orderDetails.subtotal")}</span>
               <span className="font-mono font-bold">EGP {total.toLocaleString("en-EG")}</span>
             </div>
             <div className="flex gap-8 text-xs">
@@ -483,7 +483,7 @@ function InvoiceView({
               <span className="font-mono font-bold text-green-600">EGP {paid.toLocaleString("en-EG")}</span>
             </div>
             {remaining > 0 && (
-              <div className="flex gap-8 text-sm font-extrabold border-t border-gray-200 pt-1.5 mt-0.5">
+              <div className="flex gap-8 text-sm font-extrabold border-t border-gray-200 dark:border-brand-border/20 pt-1.5 mt-0.5">
                 <span className="text-red-600">{t("admin.orderDetails.balanceDue")}</span>
                 <span className="font-mono text-red-600">EGP {remaining.toLocaleString("en-EG")}</span>
               </div>

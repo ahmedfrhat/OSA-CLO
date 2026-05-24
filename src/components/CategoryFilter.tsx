@@ -32,8 +32,8 @@ export default function CategoryFilter({ activeCategory, onSelect }: Props) {
             border transition-all duration-200 rounded-sm
             active:scale-95
             ${activeCategory === "all"
-              ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black border-brand-black dark:border-offwhite"
-              : "border-brand-border text-brand-muted hover:border-brand-black dark:hover:border-offwhite hover:text-brand-black dark:hover:text-offwhite"
+              ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite"
+              : "border-brand-border text-brand-muted hover:border-brand-black dark:hover:border-offwhite hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite"
             }
           `}
         >
@@ -54,8 +54,8 @@ export default function CategoryFilter({ activeCategory, onSelect }: Props) {
                 ${
                   activeCategory === group.key ||
                   group.subcategories.some((s) => s.key === activeCategory)
-                    ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black border-brand-black dark:border-offwhite"
-                    : "border-brand-border text-brand-muted hover:border-brand-black dark:hover:border-offwhite hover:text-brand-black dark:hover:text-offwhite"
+                    ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite"
+                    : "border-brand-border text-brand-muted hover:border-brand-black dark:hover:border-offwhite hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite"
                 }
               `}
               aria-expanded={openGroup === group.key}
@@ -93,7 +93,7 @@ export default function CategoryFilter({ activeCategory, onSelect }: Props) {
                   onClick={() => { onSelect(group.key); setOpenGroup(null); }}
                   className="
                     w-full px-4 py-2.5 text-xs text-start font-medium tracking-wider uppercase
-                    text-brand-muted hover:text-brand-black dark:hover:text-offwhite
+                    text-brand-muted hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite
                     hover:bg-brand-border/30 dark:hover:bg-offwhite/5
                     transition-colors duration-150
                   "

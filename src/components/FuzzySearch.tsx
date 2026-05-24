@@ -164,7 +164,7 @@ export default function FuzzySearch({
         {query && (
           <button
             onClick={() => { setQuery(""); setResults([]); setIsOpen(false); inputRef.current?.focus(); }}
-            className={`absolute top-1/2 -translate-y-1/2 text-brand-muted hover:text-brand-black dark:hover:text-offwhite transition-colors ${isRTL ? "left-3" : "right-3"}`}
+            className={`absolute top-1/2 -translate-y-1/2 text-brand-muted hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite transition-colors ${isRTL ? "left-3" : "right-3"}`}
             aria-label="Clear search"
           >
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

@@ -130,7 +130,7 @@ function ReviewsSection({ productId }: { productId: string }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-brand-black dark:bg-offwhite text-white dark:text-brand-black text-[11px] font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-colors"
+            className="w-full py-3 bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite text-[11px] font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-colors"
           >
             {loading ? "Submitting..." : "Submit Review"}
           </button>
@@ -205,7 +205,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
 
         {/* Back */}
-        <button onClick={() => router.back()} className="text-xs text-gray-400 hover:text-brand-black dark:hover:text-offwhite mb-6 flex items-center gap-1 transition-colors">
+        <button onClick={() => router.back()} className="text-xs text-gray-400 hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite mb-6 flex items-center gap-1 transition-colors">
           {t("storefront.product.back")}
         </button>
 
@@ -214,7 +214,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
           {/* ── Image Gallery ── */}
           <div className="flex flex-col gap-3">
             {/* Main image */}
-            <div className="relative aspect-[3/4] bg-gray-100 overflow-hidden">
+            <div className="relative aspect-[3/4] bg-gray-100 dark:bg-brand-black overflow-hidden">
               {allImages.length > 0 ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
@@ -232,18 +232,18 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
               {allImages.length > 1 && (
                 <>
                   <button onClick={prevImg}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-brand-gray transition-all shadow-sm">
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white dark:bg-brand-gray/80 dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:bg-brand-gray dark:hover:bg-brand-gray transition-all shadow-sm">
                     ‹
                   </button>
                   <button onClick={nextImg}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white/80 dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-brand-gray transition-all shadow-sm">
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white dark:bg-brand-gray/80 dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:bg-brand-gray dark:hover:bg-brand-gray transition-all shadow-sm">
                     ›
                   </button>
                   {/* Dots */}
                   <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
                     {allImages.map((_, i) => (
                       <button key={i} onClick={() => setActiveImg(i)}
-                        className={`w-1.5 h-1.5 rounded-full transition-all ${i === activeImg ? "bg-white w-4" : "bg-white/50"}`}
+                        className={`w-1.5 h-1.5 rounded-full transition-all ${i === activeImg ? "bg-white dark:bg-brand-gray w-4" : "bg-white dark:bg-brand-gray/50"}`}
                       />
                     ))}
                   </div>
@@ -253,7 +253,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
               {/* Share button */}
               <button
                 onClick={handleShare}
-                className="absolute top-3 right-3 bg-white/90 dark:bg-brand-gray/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-brand-gray shadow-sm flex items-center gap-1.5 transition-colors"
+                className="absolute top-3 right-3 bg-white dark:bg-brand-gray/90 dark:bg-brand-gray/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase text-gray-600 dark:text-gray-300 hover:bg-white dark:bg-brand-gray dark:hover:bg-brand-gray shadow-sm flex items-center gap-1.5 transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
@@ -284,7 +284,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
             {/* Badges */}
             <div className="flex items-center gap-2 flex-wrap">
               {product.category && (
-                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-gray-400 border border-gray-200 px-2 py-0.5">
+                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-gray-400 border border-gray-200 dark:border-brand-border/20 px-2 py-0.5">
                   {product.category}
                 </span>
               )}
@@ -301,7 +301,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
                 {product.name_en}
               </h1>
               {product.name_ar && (
-                <p className="text-lg font-semibold text-gray-500 mt-1" dir="rtl">{product.name_ar}</p>
+                <p className="text-lg font-semibold text-gray-500 dark:text-gray-400 mt-1" dir="rtl">{product.name_ar}</p>
               )}
             </div>
 
@@ -333,7 +333,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
                       onClick={() => { setSelectedSize(size); setSizeError(false); }}
                       className={`min-w-[44px] h-10 px-3 text-sm font-bold border transition-all
                         ${selectedSize === size
-                          ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black border-brand-black dark:border-offwhite"
+                          ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite"
                           : sizeError
                           ? "border-red-300 text-red-500 hover:border-red-500"
                           : "border-gray-200 dark:border-brand-border/30 text-gray-600 dark:text-gray-300 hover:border-brand-black dark:hover:border-offwhite"
@@ -353,7 +353,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
                 className={`w-full py-4 text-xs font-black tracking-[0.15em] uppercase transition-all
                   ${added
                     ? "bg-green-600 text-white"
-                    : "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black hover:bg-brand-gray dark:hover:bg-gray-200"
+                    : "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite hover:bg-brand-gray dark:hover:bg-gray-200"
                   }`}
               >
                 {added ? `✓ ${t("storefront.products.inCart")}` : t("storefront.products.addToCart")}

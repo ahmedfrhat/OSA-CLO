@@ -73,15 +73,15 @@ export default function CRMTab({ orders }: Props) {
 
       {/* Stats row */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <div className="bg-white border border-gray-200 p-4">
+        <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4">
           <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{t("admin.crm.totalCustomers")}</p>
           <p className="text-xl font-bold text-[#1A1A1A] mt-1">{customers.length}</p>
         </div>
-        <div className="bg-white border border-gray-200 p-4">
+        <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4">
           <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{t("admin.crm.repeatBuyers")}</p>
           <p className="text-xl font-bold text-green-700 mt-1">{repeatBuyers}</p>
         </div>
-        <div className="bg-white border border-gray-200 p-4 col-span-2 sm:col-span-1">
+        <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 col-span-2 sm:col-span-1">
           <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{t("admin.crm.totalRevenue")}</p>
           <p className="text-lg font-bold text-[#1A1A1A] mt-1">EGP {totalRevenue.toLocaleString("en-EG")}</p>
         </div>
@@ -98,7 +98,7 @@ export default function CRMTab({ orders }: Props) {
 
       {/* Customers list */}
       {filtered.length === 0 ? (
-        <div className="bg-white border border-dashed border-gray-200 py-12 text-center">
+        <div className="bg-white dark:bg-brand-gray border border-dashed border-gray-200 dark:border-brand-border/20 py-12 text-center">
           <p className="text-sm font-semibold text-gray-300">{t("admin.crm.noCustomers")}</p>
         </div>
       ) : (
@@ -108,11 +108,11 @@ export default function CRMTab({ orders }: Props) {
             const isExpanded = expanded === key;
             const avgOrder   = c.totalSpent / c.orderCount;
             return (
-              <div key={key} className="bg-white border border-gray-200">
+              <div key={key} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20">
                 {/* Customer row */}
                 <button
                   onClick={() => setExpanded(isExpanded ? null : key)}
-                  className="w-full p-4 text-left flex items-center gap-4 hover:bg-gray-50 transition-colors"
+                  className="w-full p-4 text-left flex items-center gap-4 hover:bg-gray-50 dark:bg-brand-black transition-colors"
                 >
                   {/* Avatar */}
                   <div className="w-10 h-10 bg-[#1A1A1A] text-white flex items-center justify-center font-black text-sm shrink-0">
@@ -140,7 +140,7 @@ export default function CRMTab({ orders }: Props) {
 
                 {/* Expanded detail */}
                 {isExpanded && (
-                  <div className="border-t border-gray-100 p-4 bg-gray-50">
+                  <div className="border-t border-gray-100 p-4 bg-gray-50 dark:bg-brand-black">
                     <div className="grid grid-cols-3 gap-3 mb-4">
                       <div>
                         <p className="text-[9px] text-gray-400 uppercase font-bold">{t("admin.crm.orders")}</p>
@@ -159,7 +159,7 @@ export default function CRMTab({ orders }: Props) {
                     {/* Order history */}
                     <div className="flex flex-col gap-1.5">
                       {c.orders.sort((a, b) => b.created_at.localeCompare(a.created_at)).map((o) => (
-                        <div key={o.id} className="flex items-center justify-between bg-white border border-gray-100 px-3 py-2">
+                        <div key={o.id} className="flex items-center justify-between bg-white dark:bg-brand-gray border border-gray-100 px-3 py-2">
                           <div>
                             <p className="text-[10px] font-mono text-gray-400">#{o.id.slice(0, 8).toUpperCase()}</p>
                             <p className="text-[11px] font-semibold text-[#1A1A1A]">{new Date(o.created_at).toLocaleDateString("en-GB")}</p>

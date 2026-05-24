@@ -95,7 +95,7 @@ export default function ProductCard({ product, onAddToCart, onClick }: Props) {
         {/* Badges */}
         <div className={`absolute top-2 flex flex-col gap-1 ${isRTL ? "right-2" : "left-2"}`}>
           {product.is_new && (
-            <span className="px-2 py-0.5 text-[10px] font-bold tracking-wider bg-brand-accent text-brand-black">
+            <span className="px-2 py-0.5 text-[10px] font-bold tracking-wider bg-brand-accent text-brand-black dark:text-offwhite">
               {t("prod_new")}
             </span>
           )}
@@ -105,7 +105,7 @@ export default function ProductCard({ product, onAddToCart, onClick }: Props) {
             </span>
           )}
           {isOutOfStock && (
-            <span className="px-2 py-0.5 text-[10px] font-bold tracking-wider bg-brand-gray/80 text-white dark:bg-offwhite/80 dark:text-brand-black">
+            <span className="px-2 py-0.5 text-[10px] font-bold tracking-wider bg-brand-gray/80 text-white dark:bg-offwhite/80 dark:text-brand-black dark:text-offwhite">
               {t("prod_sold_out")}
             </span>
           )}
@@ -126,9 +126,9 @@ export default function ProductCard({ product, onAddToCart, onClick }: Props) {
               className="
                 w-full py-3 text-xs font-bold tracking-widest uppercase
                 bg-brand-black/90 dark:bg-offwhite/90
-                text-offwhite dark:text-brand-black
+                text-offwhite dark:text-brand-black dark:text-offwhite
                 backdrop-blur-sm
-                hover:bg-brand-accent hover:text-brand-black
+                hover:bg-brand-accent hover:text-brand-black dark:text-offwhite
                 active:scale-95
                 transition-all duration-200
                 ripple-container

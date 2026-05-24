@@ -98,7 +98,7 @@ function downloadProductCSV(products: Product[]) {
 
 function Stat({ label, value, sub }: { label: string; value: string; sub?: string }) {
   return (
-    <div className="bg-white border border-gray-200 p-4">
+    <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4">
       <p className="text-[9px] font-bold tracking-widest uppercase text-gray-400">{label}</p>
       <p className="text-lg font-bold text-[#1A1A1A] mt-1">{value}</p>
       {sub && <p className="text-[10px] text-gray-400 mt-0.5">{sub}</p>}
@@ -144,7 +144,7 @@ export default function ReportsTab({ orders, products }: Props) {
         {(["week","month","all"] as const).map((p) => (
           <button key={p} onClick={() => setPeriod(p)}
             className={`px-4 py-2 text-[10px] font-bold tracking-widest uppercase border transition-all
-              ${period === p ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 text-gray-400 hover:border-gray-400"}`}>
+              ${period === p ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:border-gray-400"}`}>
             {p === "week" ? t("admin.reports.thisWeek") : p === "month" ? t("admin.reports.thisMonth") : t("admin.reports.allTime")}
           </button>
         ))}
@@ -167,7 +167,7 @@ export default function ReportsTab({ orders, products }: Props) {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             onClick={() => downloadCSV(buildWeeklyRows(orders), "weekly")}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
+            className="flex items-center gap-3 bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">📊</span>
             <div>
@@ -178,7 +178,7 @@ export default function ReportsTab({ orders, products }: Props) {
 
           <button
             onClick={() => downloadCSV(buildMonthlyRows(orders), "monthly")}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
+            className="flex items-center gap-3 bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">📅</span>
             <div>
@@ -189,7 +189,7 @@ export default function ReportsTab({ orders, products }: Props) {
 
           <button
             onClick={() => downloadCSV(orders, "all-time")}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
+            className="flex items-center gap-3 bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">📁</span>
             <div>
@@ -200,7 +200,7 @@ export default function ReportsTab({ orders, products }: Props) {
 
           <button
             onClick={() => downloadProductCSV(products)}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
+            className="flex items-center gap-3 bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">🛍️</span>
             <div>

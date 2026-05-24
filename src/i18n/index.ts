@@ -15,10 +15,21 @@ function resolve(obj: DeepRecord, path: string): string {
   const parts = path.split(".");
   let cur: string | DeepRecord = obj;
   for (const part of parts) {
-    if (cur == null || typeof cur === "string") return path;
+    if (cur == null || typeof cur === "string") {
+      if (process.env.NODE_ENV !== "production") {
+        console.warn(`[i18n] Missing translation key: ${path}`);
+      }
+      return path;
+    }
     cur = (cur as DeepRecord)[part];
   }
-  return typeof cur === "string" ? cur : path;
+  if (typeof cur !== "string") {
+    if (process.env.NODE_ENV !== "production") {
+      console.warn(`[i18n] Missing translation key: ${path}`);
+    }
+    return path;
+  }
+  return cur;
 }
 
 /** Translate a dot-notation key into the target language */
