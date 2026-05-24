@@ -225,7 +225,7 @@ export default function StorefrontClient({ products: initialProducts }: Props) {
         {filtered.length === 0 ? (
           <div className="py-24 text-center">
             <p className="text-2xl mb-3">🔍</p>
-            <p className="text-sm font-semibold text-gray-400">{t("storefront.search.noResults")}</p>
+            <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">{t("storefront.search.noResults")}</p>
             {search && (
               <button onClick={() => setSearch("")}
                 className="mt-4 text-xs text-gray-400 underline hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite">
@@ -260,11 +260,11 @@ export default function StorefrontClient({ products: initialProducts }: Props) {
               {t("storefront.footer.track")}
             </Link>
             <a href={`https://wa.me/${WA_NUMBER}`} target="_blank" rel="noreferrer"
-              className="text-xs text-gray-400 hover:text-green-600 transition-colors">
+              className="text-xs text-gray-500 dark:text-gray-400 hover:text-green-600 transition-colors">
               WhatsApp
             </a>
           </div>
-          <p className="text-[10px] text-gray-300">{t("storefront.footer.copyright")}</p>
+          <p className="text-[10px] text-gray-500 dark:text-gray-600">{t("storefront.footer.copyright")}</p>
         </div>
       </footer>
     </div>
@@ -358,7 +358,7 @@ function ProductCard({
         </Link>
 
         {product.category && (
-          <p className="text-[10px] text-gray-400 uppercase tracking-wide">{product.category}</p>
+          <p className="text-[10px] text-gray-500 dark:text-gray-400 uppercase tracking-wide">{product.category}</p>
         )}
 
         <div className="flex items-center justify-between mt-auto pt-1">

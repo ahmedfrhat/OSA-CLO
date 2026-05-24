@@ -137,6 +137,11 @@ button, a, [role="button"] {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
+.dark .skeleton {
+  background: linear-gradient(90deg, #1e1e1e 25%, #2a2a2a 50%, #1e1e1e 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
 
 .product-grid-item { animation: grid-item-in 0.3s var(--ease-out-expo) both; }
 .product-grid-item:nth-child(1) { animation-delay: 0ms; }
@@ -201,7 +206,7 @@ input:focus, textarea:focus, select:focus {
   .gpu { transform: translateZ(0); will-change: transform; }
 
   .label-style {
-    @apply text-[10px] font-semibold tracking-[0.1em] uppercase text-gray-500;
+    @apply text-[10px] font-semibold tracking-[0.1em] uppercase text-gray-500 dark:text-gray-400;
   }
   .input-style {
     @apply w-full border border-gray-200 dark:border-brand-border/30

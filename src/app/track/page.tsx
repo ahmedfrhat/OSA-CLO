@@ -51,7 +51,7 @@ export default function TrackPage() {
         <div className="text-center mb-10">
           <Link href="/" className="text-xs font-black tracking-[0.2em] text-brand-black dark:text-offwhite uppercase">ASO CLO.</Link>
           <h1 className="text-2xl font-black tracking-[-0.02em] text-brand-black dark:text-offwhite mt-4">{t("storefront.track.title")}</h1>
-          <p className="text-xs text-gray-400 mt-2">{t("storefront.track.subtitle")}</p>
+          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{t("storefront.track.subtitle")}</p>
         </div>
 
         {/* Search */}
@@ -81,20 +81,20 @@ export default function TrackPage() {
 
         {/* Result */}
         {result && (
-          <div className="bg-white border border-gray-200 overflow-hidden">
+          <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-brand-border/10 overflow-hidden">
 
             {/* Status Header */}
             <div className="bg-brand-black dark:bg-offwhite px-6 py-4">
-              <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/50">Order #{result.id.slice(0, 8).toUpperCase()}</p>
-              <p className="text-sm font-bold text-white mt-1">{t(`storefront.track.status.${result.status}`)}</p>
-              <p className="text-[10px] text-white/40 mt-0.5">{t("storefront.track.orderFor")}: {result.customer}</p>
+              <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-white/50 dark:text-brand-black/60">Order #{result.id.slice(0, 8).toUpperCase()}</p>
+              <p className="text-sm font-bold text-white dark:text-brand-black mt-1">{t(`storefront.track.status.${result.status}`)}</p>
+              <p className="text-[10px] text-white/40 dark:text-brand-black/50 mt-0.5">{t("storefront.track.orderFor")}: {result.customer}</p>
             </div>
 
             {/* Progress Bar */}
             <div className="px-6 py-6">
               <div className="relative">
                 {/* Track line */}
-                <div className="absolute top-4 left-4 right-4 h-0.5 bg-gray-200" />
+                <div className="absolute top-4 left-4 right-4 h-0.5 bg-gray-200 dark:bg-gray-700" />
                 <div
                   className="absolute top-4 left-4 h-0.5 bg-brand-black dark:bg-offwhite transition-all duration-700"
                   style={{ width: `${(stepIndex / (STEPS.length - 1)) * 100}%` }}
@@ -111,7 +111,7 @@ export default function TrackPage() {
                           className={`w-8 h-8 rounded-full border-2 flex items-center justify-center z-10 transition-all duration-300
                             ${done
                               ? "bg-brand-black dark:bg-offwhite border-brand-black dark:border-offwhite"
-                              : "bg-white border-gray-300"
+                              : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600"
                             }
                             ${current ? "ring-2 ring-[#1A1A1A] ring-offset-2" : ""}`}
                         >
@@ -133,17 +133,17 @@ export default function TrackPage() {
             </div>
 
             {/* Financial Summary */}
-            <div className="border-t border-gray-100 px-6 py-4 grid grid-cols-3 gap-4">
+            <div className="border-t border-gray-100 dark:border-gray-800 px-6 py-4 grid grid-cols-3 gap-4">
               <div>
-                <p className="text-[9px] font-bold uppercase tracking-wide text-gray-400">{t("storefront.track.orderTotal")}</p>
+                <p className="text-[9px] font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t("storefront.track.orderTotal")}</p>
                 <p className="text-sm font-black font-mono text-brand-black dark:text-offwhite">EGP {result.total.toLocaleString("en-EG")}</p>
               </div>
               <div>
-                <p className="text-[9px] font-bold uppercase tracking-wide text-gray-400">{t("storefront.track.paid")}</p>
-                <p className="text-sm font-bold font-mono text-green-700">EGP {result.paid.toLocaleString("en-EG")}</p>
+                <p className="text-[9px] font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t("storefront.track.paid")}</p>
+                <p className="text-sm font-bold font-mono text-green-700 dark:text-green-500">EGP {result.paid.toLocaleString("en-EG")}</p>
               </div>
               <div>
-                <p className="text-[9px] font-bold uppercase tracking-wide text-gray-400">{t("storefront.track.remaining")}</p>
+                <p className="text-[9px] font-bold uppercase tracking-wide text-gray-500 dark:text-gray-400">{t("storefront.track.remaining")}</p>
                 <p className={`text-sm font-bold font-mono ${result.remaining > 0 ? "text-red-600" : "text-green-700"}`}>
                   {result.remaining > 0 ? `EGP ${result.remaining.toLocaleString("en-EG")}` : "✓ Paid"}
                 </p>
@@ -151,8 +151,8 @@ export default function TrackPage() {
             </div>
 
             {/* Date */}
-            <div className="border-t border-gray-100 px-6 py-3">
-              <p className="text-[10px] text-gray-400">
+            <div className="border-t border-gray-100 dark:border-gray-800 px-6 py-3">
+              <p className="text-[10px] text-gray-500 dark:text-gray-400">
                 {t("storefront.track.orderDate")}: {new Date(result.created_at).toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" })}
               </p>
             </div>

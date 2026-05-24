@@ -87,18 +87,18 @@ export default function DiscountsTab() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.discounts.title")}</h2>
-        <p className="text-xs text-gray-400">{discounts.length} {t("admin.discounts.activeCodes")}</p>
+        <h2 className="text-base font-bold text-gray-900 dark:text-gray-100">{t("admin.discounts.title")}</h2>
+        <p className="text-xs text-gray-600 dark:text-gray-400">{discounts.length} {t("admin.discounts.activeCodes")}</p>
       </div>
 
       {/* ── Create Form ── */}
-      <form onSubmit={handleCreate} className="bg-white border border-gray-200 p-4 sm:p-6">
-        <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">{t("admin.discounts.create")}</p>
+      <form onSubmit={handleCreate} className="bg-white dark:bg-gray-900 shadow-sm border border-gray-200 dark:border-brand-border/10 p-4 sm:p-6">
+        <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-600 dark:text-gray-400 mb-4">{t("admin.discounts.create")}</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
           {/* Code */}
           <div className="col-span-2 sm:col-span-1">
-            <label className="label-style">{t("admin.discounts.code")}</label>
+            <label className="label-style text-gray-700 dark:text-gray-200">{t("admin.discounts.code")}</label>
             <input
               required
               value={form.code}
@@ -110,7 +110,7 @@ export default function DiscountsTab() {
 
           {/* Type */}
           <div>
-            <label className="label-style">{t("admin.discounts.type")}</label>
+            <label className="label-style text-gray-700 dark:text-gray-200">{t("admin.discounts.type")}</label>
             <select value={form.type} onChange={(e) => setForm((f) => ({ ...f, type: e.target.value as "percent" | "fixed" }))}
               className="input-style mt-1">
               <option value="percent">{t("admin.discounts.percent")}</option>
@@ -120,7 +120,7 @@ export default function DiscountsTab() {
 
           {/* Value */}
           <div>
-            <label className="label-style">{form.type === "percent" ? t("admin.discounts.valuePercent") : t("admin.discounts.valueFixed")}</label>
+            <label className="label-style text-gray-700 dark:text-gray-200">{form.type === "percent" ? t("admin.discounts.valuePercent") : t("admin.discounts.valueFixed")}</label>
             <input
               required type="number" min="1" max={form.type === "percent" ? 100 : undefined}
               value={form.value}
@@ -132,7 +132,7 @@ export default function DiscountsTab() {
 
           {/* Min order */}
           <div>
-            <label className="label-style">{t("admin.discounts.minOrder")}</label>
+            <label className="label-style text-gray-700 dark:text-gray-200">{t("admin.discounts.minOrder")}</label>
             <input type="number" min="0" value={form.min_order}
               onChange={(e) => setForm((f) => ({ ...f, min_order: e.target.value }))}
               placeholder="0"
@@ -142,7 +142,7 @@ export default function DiscountsTab() {
 
           {/* Max uses */}
           <div>
-            <label className="label-style">{t("admin.discounts.maxUses")}</label>
+            <label className="label-style text-gray-700 dark:text-gray-200">{t("admin.discounts.maxUses")}</label>
             <input type="number" min="1" value={form.max_uses}
               onChange={(e) => setForm((f) => ({ ...f, max_uses: e.target.value }))}
               placeholder={t("admin.discounts.unlimited")}
@@ -152,7 +152,7 @@ export default function DiscountsTab() {
 
           {/* Expires at */}
           <div>
-            <label className="label-style">{t("admin.discounts.expiresAt")}</label>
+            <label className="label-style text-gray-700 dark:text-gray-200">{t("admin.discounts.expiresAt")}</label>
             <input type="datetime-local" value={form.expires_at}
               onChange={(e) => setForm((f) => ({ ...f, expires_at: e.target.value }))}
               className="input-style mt-1"
@@ -174,16 +174,16 @@ export default function DiscountsTab() {
           <div className="w-5 h-5 border-2 border-gray-200 border-t-[#1A1A1A] rounded-full animate-spin" />
         </div>
       ) : discounts.length === 0 ? (
-        <div className="bg-white border border-dashed border-gray-200 py-12 text-center">
+        <div className="bg-white dark:bg-gray-900 border border-dashed border-gray-200 dark:border-brand-border/10 py-12 text-center">
           <p className="text-sm font-semibold text-gray-300">{t("admin.discounts.noCodes")}</p>
         </div>
       ) : (
         <>
           {/* Desktop table */}
-          <div className="hidden sm:block bg-white border border-gray-200 overflow-x-auto">
+          <div className="hidden sm:block bg-white dark:bg-gray-900 border border-gray-200 dark:border-brand-border/10 overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-gray-100">
+                <tr className="border-b border-gray-100 dark:border-gray-700">
                   <th className="th-style">{t("admin.discounts.code")}</th>
                   <th className="th-style">{t("admin.discounts.type")}</th>
                   <th className="th-style">{form.type === "percent" ? t("admin.discounts.valuePercent") : t("admin.discounts.valueFixed")}</th>
@@ -200,19 +200,19 @@ export default function DiscountsTab() {
                   const maxed   = d.max_uses !== null && d.uses_count >= d.max_uses;
                   const isValid = d.is_active && !expired && !maxed;
                   return (
-                    <tr key={d.id} className="border-b border-gray-50 hover:bg-gray-50">
-                      <td className="px-4 py-3 font-mono font-bold text-xs tracking-widest text-[#1A1A1A]">{d.code}</td>
-                      <td className="px-4 py-3 text-xs text-gray-500">{d.type}</td>
+                    <tr key={d.id} className="border-b border-gray-50 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+                      <td className="px-4 py-3 font-mono font-bold text-xs tracking-widest text-gray-900 dark:text-gray-100">{d.code}</td>
+                      <td className="px-4 py-3 text-xs text-gray-600 dark:text-gray-400">{d.type}</td>
                       <td className="px-4 py-3 text-xs font-bold">
                         {d.type === "percent" ? `${d.value}%` : `EGP ${d.value}`}
                       </td>
-                      <td className="px-4 py-3 text-xs text-gray-500">
+                      <td className="px-4 py-3 text-xs text-gray-600 dark:text-gray-400">
                         {d.min_order > 0 ? `EGP ${d.min_order}` : "—"}
                       </td>
                       <td className="px-4 py-3 text-xs font-mono">
                         {d.uses_count}{d.max_uses !== null ? ` / ${d.max_uses}` : " / ∞"}
                       </td>
-                      <td className="px-4 py-3 text-xs text-gray-400">
+                      <td className="px-4 py-3 text-xs text-gray-600 dark:text-gray-400">
                         {d.expires_at ? new Date(d.expires_at).toLocaleDateString("en-GB") : "—"}
                       </td>
                       <td className="px-4 py-3">
@@ -240,25 +240,25 @@ export default function DiscountsTab() {
               const maxed   = d.max_uses !== null && d.uses_count >= d.max_uses;
               const isValid = d.is_active && !expired && !maxed;
               return (
-                <div key={d.id} className="bg-white border border-gray-200 p-4">
+                <div key={d.id} className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-brand-border/10 p-4">
                   <div className="flex items-center justify-between mb-2">
-                    <p className="font-mono font-black text-sm tracking-widest text-[#1A1A1A]">{d.code}</p>
+                    <p className="font-mono font-black text-sm tracking-widest text-gray-900 dark:text-gray-100">{d.code}</p>
                     <span className={`text-[10px] font-bold px-2 py-0.5 border ${isValid ? "border-green-200 text-green-700 bg-green-50" : "border-red-200 text-red-600 bg-red-50"}`}>
                       {isValid ? t("admin.discounts.statusActive") : expired ? t("admin.discounts.statusExpired") : t("admin.discounts.statusInactive")}
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs mb-3">
                     <div>
-                      <p className="text-[9px] text-gray-400">{t("admin.discounts.valueFixed")}</p>
-                      <p className="font-bold">{d.type === "percent" ? `${d.value}%` : `EGP ${d.value}`}</p>
+                      <p className="text-[9px] text-gray-600 dark:text-gray-400">{t("admin.discounts.valueFixed")}</p>
+                      <p className="font-bold text-gray-900 dark:text-gray-100">{d.type === "percent" ? `${d.value}%` : `EGP ${d.value}`}</p>
                     </div>
                     <div>
-                      <p className="text-[9px] text-gray-400">{t("admin.discounts.maxUses")}</p>
-                      <p className="font-mono">{d.uses_count}{d.max_uses !== null ? `/${d.max_uses}` : "/∞"}</p>
+                      <p className="text-[9px] text-gray-600 dark:text-gray-400">{t("admin.discounts.maxUses")}</p>
+                      <p className="font-mono text-gray-900 dark:text-gray-100">{d.uses_count}{d.max_uses !== null ? `/${d.max_uses}` : "/∞"}</p>
                     </div>
                     <div>
-                      <p className="text-[9px] text-gray-400">{t("admin.discounts.expiresAt")}</p>
-                      <p>{d.expires_at ? new Date(d.expires_at).toLocaleDateString("en-GB") : "—"}</p>
+                      <p className="text-[9px] text-gray-600 dark:text-gray-400">{t("admin.discounts.expiresAt")}</p>
+                      <p className="text-gray-900 dark:text-gray-100">{d.expires_at ? new Date(d.expires_at).toLocaleDateString("en-GB") : "—"}</p>
                     </div>
                   </div>
                   <button onClick={() => handleDelete(d.id, d.code)} disabled={deletingId === d.id}

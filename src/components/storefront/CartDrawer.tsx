@@ -37,7 +37,7 @@ export default function CartDrawer() {
               {t("storefront.cart.title")}
             </h2>
             {count > 0 && (
-              <p className="text-xs text-gray-400 mt-0.5">
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
                 {count} {count === 1 ? t("storefront.cart.item") : t("storefront.cart.items")}
               </p>
             )}
@@ -55,8 +55,8 @@ export default function CartDrawer() {
           {items.length === 0 ? (
             <div className="flex flex-col items-center justify-center h-full gap-4 px-6 py-12">
               <div className="w-16 h-16 bg-gray-100 dark:bg-brand-black rounded-full flex items-center justify-center text-2xl">🛍️</div>
-              <p className="text-sm font-semibold text-gray-400">{t("storefront.cart.empty")}</p>
-              <p className="text-xs text-gray-300 text-center">{t("storefront.cart.emptyDesc")}</p>
+              <p className="text-sm font-semibold text-gray-500 dark:text-gray-400">{t("storefront.cart.empty")}</p>
+              <p className="text-xs text-gray-400 dark:text-gray-500 text-center">{t("storefront.cart.emptyDesc")}</p>
               <button
                 onClick={() => setIsOpen(false)}
                 className="mt-2 px-5 py-2.5 border border-gray-200 dark:border-brand-border/20 text-xs font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 hover:border-gray-400 hover:text-brand-black dark:hover:text-offwhite transition-all"
@@ -78,7 +78,7 @@ export default function CartDrawer() {
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-gray-300">
+                      <div className="w-full h-full flex items-center justify-center text-[10px] font-bold text-gray-400 dark:text-gray-500">
                         {item.nameEn.slice(0, 2).toUpperCase()}
                       </div>
                     )}
@@ -90,7 +90,7 @@ export default function CartDrawer() {
                       {lang === "ar" && item.nameAr ? item.nameAr : item.nameEn}
                     </p>
                     {item.size && (
-                      <p className="text-[10px] text-gray-400 mt-0.5 uppercase tracking-wide">
+                      <p className="text-[10px] text-gray-500 dark:text-gray-400 mt-0.5 uppercase tracking-wide">
                         Size: {item.size}
                       </p>
                     )}
@@ -111,7 +111,7 @@ export default function CartDrawer() {
                       >+</button>
                       <button
                         onClick={() => removeItem(item.productId, item.size)}
-                        className="ml-auto text-[10px] text-gray-300 hover:text-red-500 transition-colors"
+                        className="ml-auto text-[10px] text-gray-400 dark:text-gray-600 hover:text-red-500 transition-colors"
                       >
                         {t("storefront.cart.remove")}
                       </button>
@@ -160,7 +160,7 @@ function CheckoutTrigger({ onClose }: { onClose: () => void }) {
     <Link
       href="/checkout"
       onClick={onClose}
-      className="w-full bg-[#1A1A1A] text-white py-4 text-xs font-bold tracking-[0.15em] uppercase flex items-center justify-center gap-2 hover:bg-[#333] transition-colors"
+      className="w-full bg-brand-black dark:bg-offwhite text-white dark:text-brand-black py-4 text-xs font-bold tracking-[0.15em] uppercase flex items-center justify-center gap-2 hover:bg-[#333] dark:hover:bg-gray-100 transition-colors"
     >
       <span>🛒</span> {t("storefront.cart.checkout")}
     </Link>

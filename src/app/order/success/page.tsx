@@ -14,39 +14,39 @@ function SuccessContent() {
   const ids    = raw.split(",").filter(Boolean);
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#FAF9F6] flex items-center justify-center px-4 py-12">
+    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-offwhite dark:bg-brand-black flex items-center justify-center px-4 py-12">
       <div className="max-w-md w-full text-center">
 
         {/* Brand */}
-        <Link href="/" className="text-xs font-black tracking-[0.2em] text-[#1A1A1A] uppercase block mb-8">ASO CLO.</Link>
+        <Link href="/" className="text-xs font-black tracking-[0.2em] text-brand-black dark:text-offwhite uppercase block mb-8">ASO CLO.</Link>
 
         {/* Success Icon */}
-        <div className="w-20 h-20 bg-[#1A1A1A] rounded-full flex items-center justify-center mx-auto mb-6">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+        <div className="w-20 h-20 bg-brand-black dark:bg-offwhite rounded-full flex items-center justify-center mx-auto mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-white dark:text-brand-black">
             <polyline points="20 6 9 17 4 12"/>
           </svg>
         </div>
 
-        <h1 className="text-2xl font-black tracking-[-0.02em] text-[#1A1A1A] mb-3">
+        <h1 className="text-2xl font-black tracking-[-0.02em] text-brand-black dark:text-offwhite mb-3">
           {t("storefront.success.title")}
         </h1>
-        <p className="text-sm text-gray-500 leading-relaxed mb-8">
+        <p className="text-sm text-gray-500 dark:text-gray-400 leading-relaxed mb-8">
           {t("storefront.success.subtitle")}
         </p>
 
         {/* Order IDs */}
-        <div className="bg-white border border-gray-200 p-5 mb-6 text-left">
-          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-3">
+        <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-brand-border/10 p-5 mb-6 text-left">
+          <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-gray-500 dark:text-gray-400 mb-3">
             {ids.length === 1 ? t("storefront.success.orderId") : t("storefront.success.multipleOrders")}
           </p>
           {ids.map((id) => (
-            <div key={id} className="flex items-center justify-between py-2 border-b border-gray-50 last:border-0">
-              <code className="text-xs font-mono font-bold text-[#1A1A1A] tracking-wide">
+            <div key={id} className="flex items-center justify-between py-2 border-b border-gray-100 dark:border-gray-800 last:border-0">
+              <code className="text-xs font-mono font-bold text-brand-black dark:text-offwhite tracking-wide">
                 {id.toUpperCase()}
               </code>
               <Link
                 href={`/track?id=${id}`}
-                className="text-[10px] font-bold text-gray-400 hover:text-[#1A1A1A] underline underline-offset-2 transition-colors"
+                className="text-[10px] font-bold text-gray-400 dark:text-gray-500 hover:text-brand-black dark:hover:text-offwhite underline underline-offset-2 transition-colors"
               >
                 Track →
               </Link>
@@ -71,7 +71,7 @@ function SuccessContent() {
           {ids[0] && (
             <Link
               href={`/track?id=${ids[0]}`}
-              className="w-full py-3 border border-[#1A1A1A] text-[#1A1A1A] text-xs font-bold tracking-widest uppercase hover:bg-[#1A1A1A] hover:text-white transition-all flex items-center justify-center"
+              className="w-full py-3 border border-brand-black dark:border-offwhite text-brand-black dark:text-offwhite text-xs font-bold tracking-widest uppercase hover:bg-brand-black dark:hover:bg-offwhite hover:text-white dark:hover:text-brand-black transition-all flex items-center justify-center"
             >
               {t("storefront.success.trackOrder")}
             </Link>
@@ -79,7 +79,7 @@ function SuccessContent() {
 
           <Link
             href="/"
-            className="text-xs text-gray-400 hover:text-[#1A1A1A] py-2 transition-colors"
+            className="text-xs text-gray-400 dark:text-gray-500 hover:text-brand-black dark:hover:text-offwhite py-2 transition-colors"
           >
             {t("storefront.success.continueShopping")}
           </Link>
@@ -91,7 +91,7 @@ function SuccessContent() {
 
 export default function SuccessPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen bg-[#FAF9F6] flex items-center justify-center"><div className="w-8 h-8 border-2 border-gray-200 border-t-[#1A1A1A] rounded-full animate-spin"/></div>}>
+    <Suspense fallback={<div className="min-h-screen bg-offwhite dark:bg-brand-black flex items-center justify-center"><div className="w-8 h-8 border-2 border-gray-200 dark:border-gray-700 border-t-brand-black dark:border-t-offwhite rounded-full animate-spin"/></div>}>
       <SuccessContent />
     </Suspense>
   );
