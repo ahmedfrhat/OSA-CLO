@@ -356,12 +356,12 @@ export default function CheckoutPage() {
               <div className="grid grid-cols-2 gap-2 mt-1">
                 <button type="button" onClick={() => setPayType("full")}
                   className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
-                    ${payType === "full" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-500 dark:text-gray-400 hover:border-gray-400"}`}>
+                    ${payType === "full" ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:border-gray-400 dark:hover:border-white/30"}`}>
                   {t("storefront.checkout.payFull")}
                 </button>
                 <button type="button" onClick={() => setPayType("deposit")}
                   className={`py-3 text-[11px] font-bold tracking-wide border transition-all active:scale-[0.98]
-                    ${payType === "deposit" ? "bg-brand-black dark:bg-offwhite text-white border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-500 dark:text-gray-400 hover:border-gray-400"}`}>
+                    ${payType === "deposit" ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-white/10 text-gray-500 dark:text-gray-400 hover:border-gray-400 dark:hover:border-white/30"}`}>
                   {t("storefront.checkout.payDeposit")}
                 </button>
               </div>
