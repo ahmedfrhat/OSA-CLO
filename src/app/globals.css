@@ -204,9 +204,12 @@ input:focus, textarea:focus, select:focus {
     @apply text-[10px] font-semibold tracking-[0.1em] uppercase text-gray-500;
   }
   .input-style {
-    @apply w-full border border-gray-200 bg-white px-3 py-2.5 text-sm
-           text-brand-black placeholder-gray-300 outline-none
-           focus:border-gray-400 focus:ring-0 transition-colors duration-150;
+    @apply w-full border border-gray-200 dark:border-brand-border/30
+           bg-white dark:bg-brand-gray px-3 py-2.5 text-sm
+           text-brand-black dark:text-offwhite
+           placeholder-gray-300 dark:placeholder-gray-600 outline-none
+           focus:border-gray-400 dark:focus:border-brand-border focus:ring-0
+           transition-colors duration-150;
   }
   .section-title {
     @apply text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400;

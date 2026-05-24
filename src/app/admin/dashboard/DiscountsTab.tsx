@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface DiscountCode {
   id: string;
@@ -25,6 +26,7 @@ const EMPTY_FORM = {
 };
 
 export default function DiscountsTab() {
+  const { t } = useLanguage();
   const [discounts, setDiscounts] = useState<DiscountCode[]>([]);
   const [loading, setLoading]     = useState(true);
   const [form, setForm]           = useState(EMPTY_FORM);
@@ -85,18 +87,18 @@ export default function DiscountsTab() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h2 className="text-base font-bold text-[#1A1A1A]">Discount Codes</h2>
-        <p className="text-xs text-gray-400">{discounts.length} active codes</p>
+        <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.discounts.title")}</h2>
+        <p className="text-xs text-gray-400">{discounts.length} {t("admin.discounts.activeCodes")}</p>
       </div>
 
       {/* ── Create Form ── */}
       <form onSubmit={handleCreate} className="bg-white border border-gray-200 p-4 sm:p-6">
-        <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">Create New Code</p>
+        <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">{t("admin.discounts.create")}</p>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-3">
           {/* Code */}
           <div className="col-span-2 sm:col-span-1">
-            <label className="label-style">Code</label>
+            <label className="label-style">{t("admin.discounts.code")}</label>
             <input
               required
               value={form.code}
@@ -108,17 +110,17 @@ export default function DiscountsTab() {
 
           {/* Type */}
           <div>
-            <label className="label-style">Type</label>
+            <label className="label-style">{t("admin.discounts.type")}</label>
             <select value={form.type} onChange={(e) => setForm((f) => ({ ...f, type: e.target.value as "percent" | "fixed" }))}
               className="input-style mt-1">
-              <option value="percent">% Percent</option>
-              <option value="fixed">EGP Fixed</option>
+              <option value="percent">{t("admin.discounts.percent")}</option>
+              <option value="fixed">{t("admin.discounts.fixed")}</option>
             </select>
           </div>
 
           {/* Value */}
           <div>
-            <label className="label-style">Value {form.type === "percent" ? "(%)" : "(EGP)"}</label>
+            <label className="label-style">{form.type === "percent" ? t("admin.discounts.valuePercent") : t("admin.discounts.valueFixed")}</label>
             <input
               required type="number" min="1" max={form.type === "percent" ? 100 : undefined}
               value={form.value}
@@ -130,7 +132,7 @@ export default function DiscountsTab() {
 
           {/* Min order */}
           <div>
-            <label className="label-style">Min Order (EGP)</label>
+            <label className="label-style">{t("admin.discounts.minOrder")}</label>
             <input type="number" min="0" value={form.min_order}
               onChange={(e) => setForm((f) => ({ ...f, min_order: e.target.value }))}
               placeholder="0"
@@ -140,17 +142,17 @@ export default function DiscountsTab() {
 
           {/* Max uses */}
           <div>
-            <label className="label-style">Max Uses</label>
+            <label className="label-style">{t("admin.discounts.maxUses")}</label>
             <input type="number" min="1" value={form.max_uses}
               onChange={(e) => setForm((f) => ({ ...f, max_uses: e.target.value }))}
-              placeholder="Unlimited"
+              placeholder={t("admin.discounts.unlimited")}
               className="input-style mt-1"
             />
           </div>
 
           {/* Expires at */}
           <div>
-            <label className="label-style">Expires At</label>
+            <label className="label-style">{t("admin.discounts.expiresAt")}</label>
             <input type="datetime-local" value={form.expires_at}
               onChange={(e) => setForm((f) => ({ ...f, expires_at: e.target.value }))}
               className="input-style mt-1"
@@ -162,7 +164,7 @@ export default function DiscountsTab() {
         {success && <p className="text-xs text-green-600 mb-2">{success}</p>}
 
         <button type="submit" disabled={saving} className="btn-dark text-[11px] disabled:opacity-50">
-          {saving ? "Creating..." : "Create Code"}
+          {saving ? t("admin.discounts.creating") : t("admin.discounts.createBtn")}
         </button>
       </form>
 
@@ -173,7 +175,7 @@ export default function DiscountsTab() {
         </div>
       ) : discounts.length === 0 ? (
         <div className="bg-white border border-dashed border-gray-200 py-12 text-center">
-          <p className="text-sm font-semibold text-gray-300">No discount codes yet</p>
+          <p className="text-sm font-semibold text-gray-300">{t("admin.discounts.noCodes")}</p>
         </div>
       ) : (
         <>
@@ -182,9 +184,14 @@ export default function DiscountsTab() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-gray-100">
-                  {["Code","Type","Value","Min Order","Uses","Expires","Status","Delete"].map((h) => (
-                    <th key={h} className="th-style">{h}</th>
-                  ))}
+                  <th className="th-style">{t("admin.discounts.code")}</th>
+                  <th className="th-style">{t("admin.discounts.type")}</th>
+                  <th className="th-style">{form.type === "percent" ? t("admin.discounts.valuePercent") : t("admin.discounts.valueFixed")}</th>
+                  <th className="th-style">{t("admin.discounts.minOrder")}</th>
+                  <th className="th-style">{t("admin.discounts.maxUses")}</th>
+                  <th className="th-style">{t("admin.discounts.expiresAt")}</th>
+                  <th className="th-style">{t("admin.dashboard.orders.table.status")}</th>
+                  <th className="th-style">{t("admin.discounts.delete")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -210,13 +217,13 @@ export default function DiscountsTab() {
                       </td>
                       <td className="px-4 py-3">
                         <span className={`text-[10px] font-bold px-2 py-0.5 border ${isValid ? "border-green-200 text-green-700 bg-green-50" : "border-red-200 text-red-600 bg-red-50"}`}>
-                          {isValid ? "Active" : expired ? "Expired" : maxed ? "Max Used" : "Inactive"}
+                          {isValid ? t("admin.discounts.statusActive") : expired ? t("admin.discounts.statusExpired") : maxed ? t("admin.discounts.statusMaxUsed") : t("admin.discounts.statusInactive")}
                         </span>
                       </td>
                       <td className="px-4 py-3">
                         <button onClick={() => handleDelete(d.id, d.code)} disabled={deletingId === d.id}
                           className="text-[10px] font-bold text-gray-400 hover:text-red-500 transition-colors disabled:opacity-40">
-                          Delete
+                          {t("admin.discounts.delete")}
                         </button>
                       </td>
                     </tr>
@@ -237,26 +244,26 @@ export default function DiscountsTab() {
                   <div className="flex items-center justify-between mb-2">
                     <p className="font-mono font-black text-sm tracking-widest text-[#1A1A1A]">{d.code}</p>
                     <span className={`text-[10px] font-bold px-2 py-0.5 border ${isValid ? "border-green-200 text-green-700 bg-green-50" : "border-red-200 text-red-600 bg-red-50"}`}>
-                      {isValid ? "Active" : expired ? "Expired" : "Inactive"}
+                      {isValid ? t("admin.discounts.statusActive") : expired ? t("admin.discounts.statusExpired") : t("admin.discounts.statusInactive")}
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs mb-3">
                     <div>
-                      <p className="text-[9px] text-gray-400">Discount</p>
+                      <p className="text-[9px] text-gray-400">{t("admin.discounts.valueFixed")}</p>
                       <p className="font-bold">{d.type === "percent" ? `${d.value}%` : `EGP ${d.value}`}</p>
                     </div>
                     <div>
-                      <p className="text-[9px] text-gray-400">Uses</p>
+                      <p className="text-[9px] text-gray-400">{t("admin.discounts.maxUses")}</p>
                       <p className="font-mono">{d.uses_count}{d.max_uses !== null ? `/${d.max_uses}` : "/∞"}</p>
                     </div>
                     <div>
-                      <p className="text-[9px] text-gray-400">Expires</p>
+                      <p className="text-[9px] text-gray-400">{t("admin.discounts.expiresAt")}</p>
                       <p>{d.expires_at ? new Date(d.expires_at).toLocaleDateString("en-GB") : "—"}</p>
                     </div>
                   </div>
                   <button onClick={() => handleDelete(d.id, d.code)} disabled={deletingId === d.id}
                     className="text-[10px] font-bold text-red-400 hover:text-red-600 transition-colors">
-                    Delete Code
+                    {t("admin.discounts.delete")}
                   </button>
                 </div>
               );

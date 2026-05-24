@@ -61,7 +61,7 @@ function fmtDate(d: string) {
 export default function OrderDetailsModal({
   orderId, partnerName, onClose, onStatusChange, onPaidAmountChange,
 }: Props) {
-  const { lang, isRTL } = useLanguage();
+  const { t, lang, isRTL } = useLanguage();
 
   // ── All hooks at top level — NO conditional hook calls ───────────────────
   const [order, setOrder]               = useState<FullOrder | null>(null);
@@ -141,7 +141,8 @@ export default function OrderDetailsModal({
         order={order}
         partnerName={partnerName}
         onClose={() => setShowInvoice(false)}
-        lang={lang}
+        t={t}
+        isRTL={isRTL}
       />
     );
   }
@@ -159,7 +160,7 @@ export default function OrderDetailsModal({
         <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-gray-100 shrink-0">
           <div>
             <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">
-              {lang === "ar" ? "تفاصيل الطلب" : "Order Details"}
+              {t("admin.orderDetails.title")}
             </p>
             <h2 className="text-sm font-bold text-[#1A1A1A] font-mono mt-0.5">
               #{orderId.slice(0, 8).toUpperCase()}
@@ -173,7 +174,7 @@ export default function OrderDetailsModal({
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>
               </svg>
-              {lang === "ar" ? "فاتورة" : "Invoice"}
+              {t("admin.orderDetails.invoice")}
             </button>
             <button onClick={onClose} className="w-9 h-9 flex items-center justify-center text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors text-lg">✕</button>
           </div>
@@ -201,7 +202,7 @@ export default function OrderDetailsModal({
 
               {/* Status Workflow — large touch targets */}
               <div className="flex flex-col gap-2">
-                <p className="label-style">{lang === "ar" ? "حالة الطلب" : "Order Status"}</p>
+                <p className="label-style">{t("admin.orderDetails.status")}</p>
                 <div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-2">
                   {STATUSES.map((s) => (
                     <button
@@ -222,9 +223,9 @@ export default function OrderDetailsModal({
 
               {/* Customer Info */}
               <div className="grid grid-cols-2 gap-3 sm:gap-4">
-                <InfoBlock label={lang === "ar" ? "اسم العميل" : "Customer"} value={order.customer_name} />
+                <InfoBlock label={t("admin.orderDetails.customer")} value={order.customer_name} />
                 <InfoBlock
-                  label={lang === "ar" ? "الهاتف" : "Phone"}
+                  label={t("admin.orderDetails.phone")}
                   value={order.customer_phone || "—"}
                   extra={order.customer_phone ? (
                     <a
@@ -242,25 +243,25 @@ export default function OrderDetailsModal({
                   ) : null}
                 />
                 {order.customer_address && (
-                  <InfoBlock label={lang === "ar" ? "العنوان" : "Address"} value={order.customer_address} />
+                  <InfoBlock label={t("admin.orderDetails.address")} value={order.customer_address} />
                 )}
-                <InfoBlock label={lang === "ar" ? "المصدر" : "Source"} value={order.source?.toUpperCase() || "—"} />
-                <InfoBlock label={lang === "ar" ? "تاريخ الطلب" : "Order Date"} value={fmtDate(order.created_at)} />
+                <InfoBlock label={t("admin.orderDetails.source")} value={order.source?.toUpperCase() || "—"} />
+                <InfoBlock label={t("admin.orderDetails.date")} value={fmtDate(order.created_at)} />
               </div>
 
               {/* Order Items */}
               {(order.order_items?.length ?? 0) > 0 && (
                 <div className="flex flex-col gap-2">
-                  <p className="label-style">{lang === "ar" ? "المنتجات" : "Items"}</p>
+                  <p className="label-style">{t("admin.orderDetails.items")}</p>
                   <div className="border border-gray-100 overflow-hidden">
                     <table className="w-full text-xs">
                       <thead>
                         <tr className="bg-gray-50 border-b border-gray-100">
-                          <th className="text-left px-3 py-2 font-bold tracking-wide text-gray-400">{lang === "ar" ? "المنتج" : "Product"}</th>
-                          <th className="text-left px-3 py-2 font-bold tracking-wide text-gray-400">{lang === "ar" ? "المقاس" : "Size"}</th>
-                          <th className="text-center px-3 py-2 font-bold tracking-wide text-gray-400">{lang === "ar" ? "الكمية" : "Qty"}</th>
-                          <th className="text-right px-3 py-2 font-bold tracking-wide text-gray-400">{lang === "ar" ? "السعر" : "Price"}</th>
-                          <th className="text-right px-3 py-2 font-bold tracking-wide text-gray-400">{lang === "ar" ? "الإجمالي" : "Total"}</th>
+                          <th className="text-left px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.product")}</th>
+                          <th className="text-left px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.size")}</th>
+                          <th className="text-center px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.qty")}</th>
+                          <th className="text-right px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.price")}</th>
+                          <th className="text-right px-3 py-2 font-bold tracking-wide text-gray-400">{t("admin.orderDetails.total")}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -291,21 +292,21 @@ export default function OrderDetailsModal({
               <div className={`p-4 border ${remaining > 0 ? "border-red-200 bg-red-50" : "border-green-200 bg-green-50"}`}>
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-[10px] font-bold tracking-[0.12em] uppercase text-gray-500">
-                    {lang === "ar" ? "تتبع الدفع" : "Payment Tracking"}
+                    {t("admin.orderDetails.paymentTrack")}
                   </p>
                   {remaining > 0 && (
                     <span className="text-[10px] font-bold text-red-600 bg-red-100 px-2 py-0.5 border border-red-200">
-                      {lang === "ar" ? "رصيد متبقي" : "Balance Due"}
+                      {t("admin.orderDetails.balanceDue")}
                     </span>
                   )}
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <p className="text-[10px] text-gray-400">{lang === "ar" ? "الإجمالي" : "Total"}</p>
+                    <p className="text-[10px] text-gray-400">{t("admin.orderDetails.total")}</p>
                     <p className="text-sm font-bold text-[#1A1A1A]">EGP {total.toLocaleString("en-EG")}</p>
                   </div>
                   <div>
-                    <p className="text-[10px] text-gray-400">{lang === "ar" ? "المدفوع" : "Paid"}</p>
+                    <p className="text-[10px] text-gray-400">{t("admin.orderDetails.paid")}</p>
                     {editingPaid ? (
                       <div className="flex items-center gap-1 mt-0.5">
                         <input
@@ -324,7 +325,7 @@ export default function OrderDetailsModal({
                     )}
                   </div>
                   <div>
-                    <p className="text-[10px] text-gray-400">{lang === "ar" ? "المتبقي" : "Remaining"}</p>
+                    <p className="text-[10px] text-gray-400">{t("admin.orderDetails.remaining")}</p>
                     <p className={`text-sm font-bold ${remaining > 0 ? "text-red-600" : "text-green-700"}`}>
                       EGP {remaining.toLocaleString("en-EG")}
                     </p>
@@ -335,7 +336,7 @@ export default function OrderDetailsModal({
               {/* Notes */}
               {order.notes && (
                 <div className="bg-gray-50 px-4 py-3 border border-gray-100">
-                  <p className="label-style mb-1">{lang === "ar" ? "ملاحظات" : "Notes"}</p>
+                  <p className="label-style mb-1">{t("admin.orderDetails.notes")}</p>
                   <p className="text-xs text-gray-600">{order.notes}</p>
                 </div>
               )}
@@ -343,15 +344,15 @@ export default function OrderDetailsModal({
               {/* Activity Log */}
               {activityLog.length > 0 && (
                 <div className="flex flex-col gap-2">
-                  <p className="label-style">{lang === "ar" ? "سجل الأنشطة" : "Activity Log"}</p>
+                  <p className="label-style">{t("admin.orderDetails.activity")}</p>
                   <div className="flex flex-col gap-1.5">
                     {activityLog.map((entry, i) => (
                       <div key={i} className="flex items-start gap-2 text-[11px]">
                         <span className="w-1.5 h-1.5 rounded-full bg-gray-300 mt-1.5 shrink-0" />
                         <span className="text-gray-500">
-                          {lang === "ar" ? "تغيير الحالة إلى" : "Status changed to"}{" "}
+                          {t("admin.orderDetails.statusChanged")}{" "}
                           <strong className="text-[#1A1A1A]">{sl(entry.status)}</strong>
-                          {" "}{lang === "ar" ? "بواسطة" : "by"}{" "}
+                          {" "}{t("admin.orderDetails.by")}{" "}
                           <strong className="text-[#1A1A1A]">{entry.by}</strong>
                           {" — "}
                           <span className="text-gray-400">{fmtDate(entry.at)}</span>
@@ -374,13 +375,13 @@ export default function OrderDetailsModal({
             onClick={() => setShowInvoice(true)}
             className="flex-1 py-3.5 border border-gray-200 text-[11px] font-bold tracking-widest uppercase text-gray-600 hover:border-gray-400 transition-all"
           >
-            {lang === "ar" ? "📄 فاتورة" : "📄 Invoice"}
+            📄 {t("admin.orderDetails.invoice")}
           </button>
           <button
             onClick={onClose}
             className="flex-1 py-3.5 bg-[#1A1A1A] text-white text-[11px] font-bold tracking-widest uppercase hover:bg-[#333] transition-colors"
           >
-            {lang === "ar" ? "إغلاق" : "Close"}
+            {t("admin.orderDetails.close")}
           </button>
         </div>
       </div>
@@ -402,25 +403,24 @@ function InfoBlock({ label, value, extra }: { label: string; value: string; extr
 
 // ── Invoice View ──────────────────────────────────────────────────────────────
 function InvoiceView({
-  order, partnerName, onClose, lang,
-}: { order: FullOrder; partnerName: string; onClose: () => void; lang: string }) {
+  order, partnerName, onClose, t, isRTL,
+}: { order: FullOrder; partnerName: string; onClose: () => void; t: any; isRTL: boolean }) {
   const total     = order.total_amount;
   const paid      = order.paid_amount ?? 0;
   const remaining = Math.max(0, total - paid);
-  const isAr      = lang === "ar";
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-      <div dir={isAr ? "rtl" : "ltr"} className="bg-white w-full max-w-lg shadow-2xl">
+      <div dir={isRTL ? "rtl" : "ltr"} className="bg-white w-full max-w-lg shadow-2xl">
         {/* Controls */}
         <div className="flex items-center justify-between px-6 py-3 border-b border-gray-100 print:hidden">
-          <p className="text-xs font-bold tracking-widest uppercase text-gray-400">{isAr ? "فاتورة" : "Invoice"}</p>
+          <p className="text-xs font-bold tracking-widest uppercase text-gray-400">{t("admin.orderDetails.invoice")}</p>
           <div className="flex gap-2">
             <button onClick={() => window.print()} className="btn-dark text-[10px]">
-              {isAr ? "طباعة" : "Print"}
+              {t("admin.orderDetails.print")}
             </button>
             <button onClick={onClose} className="px-3 py-1.5 border border-gray-200 text-xs text-gray-500 hover:bg-gray-50">
-              {isAr ? "إغلاق" : "Close"}
+              {t("admin.orderDetails.close")}
             </button>
           </div>
         </div>
@@ -432,8 +432,8 @@ function InvoiceView({
               <h1 className="text-2xl font-black tracking-[-0.04em] text-[#1A1A1A]">ASO CLO.</h1>
               <p className="text-xs text-gray-400 tracking-widest uppercase">{partnerName}</p>
             </div>
-            <div className="text-right">
-              <p className="text-xs font-bold tracking-widest uppercase text-gray-400">{isAr ? "فاتورة" : "INVOICE"}</p>
+            <div className="text-right rtl:text-left">
+              <p className="text-xs font-bold tracking-widest uppercase text-gray-400">{t("admin.orderDetails.invoice")}</p>
               <p className="text-[11px] font-mono text-[#1A1A1A] mt-1">#{order.id.slice(0, 8).toUpperCase()}</p>
               <p className="text-[10px] text-gray-400 mt-0.5">{new Date(order.created_at).toLocaleDateString("en-GB")}</p>
             </div>
@@ -441,7 +441,7 @@ function InvoiceView({
 
           {/* Customer */}
           <div className="mb-6 p-4 bg-gray-50">
-            <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-2">{isAr ? "بيانات العميل" : "Bill To"}</p>
+            <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-2">{t("admin.orderDetails.billTo")}</p>
             <p className="text-sm font-semibold text-[#1A1A1A]">{order.customer_name}</p>
             {order.customer_phone   && <p className="text-xs text-gray-500">{order.customer_phone}</p>}
             {order.customer_address && <p className="text-xs text-gray-500">{order.customer_address}</p>}
@@ -451,10 +451,10 @@ function InvoiceView({
           <table className="w-full text-xs mb-6">
             <thead>
               <tr className="border-b-2 border-[#1A1A1A]">
-                <th className="text-left pb-2 font-bold tracking-wide">{isAr ? "المنتج" : "Item"}</th>
-                <th className="text-center pb-2 font-bold tracking-wide">{isAr ? "الكمية" : "Qty"}</th>
-                <th className="text-right pb-2 font-bold tracking-wide">{isAr ? "سعر الوحدة" : "Unit Price"}</th>
-                <th className="text-right pb-2 font-bold tracking-wide">{isAr ? "الإجمالي" : "Total"}</th>
+                <th className="text-left rtl:text-right pb-2 font-bold tracking-wide">{t("admin.orderDetails.item")}</th>
+                <th className="text-center pb-2 font-bold tracking-wide">{t("admin.orderDetails.qty")}</th>
+                <th className="text-right rtl:text-left pb-2 font-bold tracking-wide">{t("admin.orderDetails.unitPrice")}</th>
+                <th className="text-right rtl:text-left pb-2 font-bold tracking-wide">{t("admin.orderDetails.total")}</th>
               </tr>
             </thead>
             <tbody>
@@ -465,39 +465,39 @@ function InvoiceView({
                     {item.size && <span className="text-gray-400 ml-1">({item.size})</span>}
                   </td>
                   <td className="py-2 text-center font-mono">{item.quantity}</td>
-                  <td className="py-2 text-right font-mono">EGP {item.unit_price.toLocaleString("en-EG")}</td>
-                  <td className="py-2 text-right font-mono font-bold">EGP {(item.unit_price * item.quantity).toLocaleString("en-EG")}</td>
+                  <td className="py-2 text-right rtl:text-left font-mono">EGP {item.unit_price.toLocaleString("en-EG")}</td>
+                  <td className="py-2 text-right rtl:text-left font-mono font-bold">EGP {(item.unit_price * item.quantity).toLocaleString("en-EG")}</td>
                 </tr>
               ))}
             </tbody>
           </table>
 
           {/* Totals */}
-          <div className="border-t-2 border-[#1A1A1A] pt-4 flex flex-col items-end gap-1.5">
+          <div className="border-t-2 border-[#1A1A1A] pt-4 flex flex-col items-end rtl:items-start gap-1.5">
             <div className="flex gap-8 text-xs">
-              <span className="text-gray-500">{isAr ? "الإجمالي" : "Subtotal"}</span>
+              <span className="text-gray-500">{t("admin.orderDetails.subtotal")}</span>
               <span className="font-mono font-bold">EGP {total.toLocaleString("en-EG")}</span>
             </div>
             <div className="flex gap-8 text-xs">
-              <span className="text-green-600">{isAr ? "المدفوع" : "Paid"}</span>
+              <span className="text-green-600">{t("admin.orderDetails.paid")}</span>
               <span className="font-mono font-bold text-green-600">EGP {paid.toLocaleString("en-EG")}</span>
             </div>
             {remaining > 0 && (
               <div className="flex gap-8 text-sm font-extrabold border-t border-gray-200 pt-1.5 mt-0.5">
-                <span className="text-red-600">{isAr ? "المتبقي" : "Balance Due"}</span>
+                <span className="text-red-600">{t("admin.orderDetails.balanceDue")}</span>
                 <span className="font-mono text-red-600">EGP {remaining.toLocaleString("en-EG")}</span>
               </div>
             )}
             {remaining === 0 && (
               <div className="text-[10px] font-bold text-green-600 tracking-widest uppercase mt-1">
-                ✓ {isAr ? "مدفوع بالكامل" : "Paid in Full"}
+                ✓ {t("admin.orderDetails.paidInFull")}
               </div>
             )}
           </div>
 
           {/* Footer */}
           <div className="mt-8 pt-4 border-t border-gray-100 text-center">
-            <p className="text-[10px] text-gray-400 tracking-widest uppercase">ASO CLO. — Thank you for your order</p>
+            <p className="text-[10px] text-gray-400 tracking-widest uppercase">ASO CLO. — {t("admin.orderDetails.thankYou")}</p>
           </div>
         </div>
       </div>

@@ -15,6 +15,7 @@ import CRMTab from "./CRMTab";
 import DiscountsTab from "./DiscountsTab";
 import ReportsTab from "./ReportsTab";
 import BulkImport from "./BulkImport";
+import ThemeToggle from "@/components/ThemeToggle";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 export interface Product {
@@ -261,10 +262,10 @@ export default function DashboardShell({ session, products: initProducts, orders
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#F5F5F4] font-sans">
+    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#F5F5F4] dark:bg-brand-black font-sans">
 
       {/* ══ HEADER ══ */}
-      <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+      <header className="bg-white dark:bg-brand-gray border-b border-gray-200 dark:border-brand-border/20 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* Avatar — visible on mobile */}
@@ -275,7 +276,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               {partner?.initials ?? session.partnerName.slice(0, 2).toUpperCase()}
             </div>
             <div>
-              <p className="text-[10px] font-black tracking-[0.15em] uppercase text-[#1A1A1A] leading-none">
+              <p className="text-[10px] font-black tracking-[0.15em] uppercase text-brand-black dark:text-offwhite leading-none">
                 {t("admin.dashboard.brand")}
               </p>
               <p className="text-[9px] text-gray-400 tracking-wide hidden sm:block">{session.partnerName}</p>
@@ -283,14 +284,15 @@ export default function DashboardShell({ session, products: initProducts, orders
           </div>
 
           <div className="flex items-center gap-2 sm:gap-4">
+            <ThemeToggle />
             <button onClick={() => setLang(lang === "en" ? "ar" : "en")}
-              className="text-[10px] font-bold tracking-widest uppercase border border-gray-200 px-2.5 py-1.5 text-gray-400 hover:text-[#1A1A1A] hover:border-gray-400 transition-all">
+              className="text-[10px] font-bold tracking-widest uppercase border border-gray-200 dark:border-brand-border/30 px-2.5 py-1.5 text-gray-400 hover:text-brand-black dark:text-offwhite hover:border-gray-400 transition-all">
               {lang === "en" ? "عربي" : "EN"}
             </button>
             {/* Quick Action — + Product (visible on mobile) */}
             <button
               onClick={() => setShowAddProduct(true)}
-              className="sm:hidden w-8 h-8 bg-[#1A1A1A] flex items-center justify-center text-white"
+              className="sm:hidden w-8 h-8 bg-brand-black dark:bg-offwhite dark:text-brand-black flex items-center justify-center text-white"
               title="Add Product"
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -304,13 +306,13 @@ export default function DashboardShell({ session, products: initProducts, orders
       </header>
 
       {/* ══ DESKTOP TABS (hidden on mobile) ══ */}
-      <nav className="bg-white border-b border-gray-200 overflow-x-auto hidden sm:block">
+      <nav className="bg-white dark:bg-brand-gray border-b border-gray-200 dark:border-brand-border/20 overflow-x-auto hidden sm:block">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex gap-0 min-w-max">
             {TABS.map(({ key, label, badge }) => (
               <button key={key} onClick={() => setActiveTab(key)}
                 className={`relative px-5 py-3.5 text-[11px] font-semibold tracking-[0.1em] uppercase border-b-2 whitespace-nowrap transition-all
-                  ${activeTab === key ? "border-[#1A1A1A] text-[#1A1A1A]" : "border-transparent text-gray-400 hover:text-gray-600"}`}>
+                  ${activeTab === key ? "border-[#1A1A1A] text-brand-black dark:text-offwhite" : "border-transparent text-gray-400 hover:text-gray-600"}`}>
                 {label}
                 {badge ? (
                   <span className="ml-1.5 inline-flex items-center justify-center w-4 h-4 bg-red-500 text-white text-[9px] font-black rounded-full">
@@ -331,7 +333,7 @@ export default function DashboardShell({ session, products: initProducts, orders
         {activeTab === "overview" && (
           <div className="flex flex-col gap-5">
             <div>
-              <h1 className="text-lg sm:text-xl font-bold text-[#1A1A1A] tracking-[-0.02em]">
+              <h1 className="text-lg sm:text-xl font-bold text-brand-black dark:text-offwhite tracking-[-0.02em]">
                 {t("admin.dashboard.overview.welcome")} {session.partnerName} 👋
               </h1>
               <p className="text-xs text-gray-400 mt-0.5">{t("admin.dashboard.overview.summary")}</p>
@@ -368,7 +370,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <h2 className="section-title">{t("admin.dashboard.overview.recentOrders")}</h2>
-                  <button onClick={() => setActiveTab("orders")} className="text-[10px] font-bold tracking-widest uppercase text-gray-400 hover:text-[#1A1A1A]">View All →</button>
+                  <button onClick={() => setActiveTab("orders")} className="text-[10px] font-bold tracking-widest uppercase text-gray-400 hover:text-brand-black dark:text-offwhite">View All →</button>
                 </div>
                 <OrderCards
                   orders={activeOrders.slice(0, 5)}
@@ -393,12 +395,12 @@ export default function DashboardShell({ session, products: initProducts, orders
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between flex-wrap gap-3">
               <div>
-                <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.dashboard.orders.title")}</h2>
+                <h2 className="text-base font-bold text-brand-black dark:text-offwhite">{t("admin.dashboard.orders.title")}</h2>
                 <p className="text-xs text-gray-400">{activeOrders.length} {t("admin.dashboard.orders.totalCount")}</p>
               </div>
               <div className="flex items-center gap-2">
                 <button onClick={() => exportCSV(activeOrders, lang)}
-                  className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-gray-400 transition-all">
+                  className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 dark:border-brand-border/30 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-gray-400 transition-all">
                   <DownloadIcon /> {t("admin.dashboard.orders.exportBtn")}
                 </button>
                 <button onClick={() => setShowManualOrder(true)} className="btn-dark flex items-center gap-2 text-[11px]">
@@ -412,7 +414,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               {(["all", "pending", "processing", "shipped"] as StatusFilter[]).map((f) => (
                 <button key={f} onClick={() => setStatusFilter(f)}
                   className={`shrink-0 px-3 py-2 text-[10px] font-bold tracking-widest uppercase border transition-all
-                    ${statusFilter === f ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 text-gray-400 hover:border-gray-400"}`}>
+                    ${statusFilter === f ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black border-brand-black dark:border-offwhite" : "border-gray-200 text-gray-400 hover:border-gray-400"}`}>
                   {f === "all" ? t("admin.dashboard.orders.filterAll") : STATUS_LABEL(f)}
                 </button>
               ))}
@@ -437,16 +439,16 @@ export default function DashboardShell({ session, products: initProducts, orders
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.dashboard.orders.historyTitle")}</h2>
+                <h2 className="text-base font-bold text-brand-black dark:text-offwhite">{t("admin.dashboard.orders.historyTitle")}</h2>
                 <p className="text-xs text-gray-400">{closedOrders.length} {t("admin.dashboard.orders.totalCount")}</p>
               </div>
               <button onClick={() => exportCSV(closedOrders, lang)}
-                className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-gray-400 transition-all">
+                className="flex items-center gap-1.5 px-3 py-2.5 border border-gray-200 dark:border-brand-border/30 text-[10px] font-bold tracking-widest uppercase text-gray-500 hover:border-gray-400 transition-all">
                 <DownloadIcon /> {t("admin.dashboard.orders.exportBtn")}
               </button>
             </div>
             {closedOrders.length === 0
-              ? <div className="bg-white border border-dashed border-gray-200 py-16 text-center"><p className="text-sm text-gray-300 font-medium">No closed orders yet</p></div>
+              ? <div className="bg-white dark:bg-brand-gray border border-dashed border-gray-200 dark:border-brand-border/20 py-16 text-center"><p className="text-sm text-gray-300 font-medium">No closed orders yet</p></div>
               : <OrderCards orders={closedOrders} customerOrderCount={customerOrderCount} onView={(id) => setSelectedOrderId(id)} onStatusChange={handleInlineStatusChange} t={t} lang={lang} showActions={false} />
             }
           </div>
@@ -456,7 +458,7 @@ export default function DashboardShell({ session, products: initProducts, orders
         {activeTab === "financials" && (
           <div className="flex flex-col gap-5">
             <div>
-              <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.dashboard.financials.title")}</h2>
+              <h2 className="text-base font-bold text-brand-black dark:text-offwhite">{t("admin.dashboard.financials.title")}</h2>
               <p className="text-xs text-gray-400">{t("admin.dashboard.financials.subtitle")}</p>
             </div>
 
@@ -469,7 +471,7 @@ export default function DashboardShell({ session, products: initProducts, orders
 
             {/* Chart */}
             {chartData.some((d) => d.revenue > 0) && (
-              <div className="bg-white border border-gray-200 p-4 sm:p-6">
+              <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 sm:p-6">
                 <h3 className="section-title mb-4">{t("admin.dashboard.financials.chart")}</h3>
                 <ResponsiveContainer width="100%" height={200}>
                   <AreaChart data={chartData} margin={{ top: 5, right: 5, left: 0, bottom: 5 }}>
@@ -500,7 +502,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               <div>
                 <h3 className="section-title mb-3">{t("admin.dashboard.financials.breakdown")}</h3>
                 {/* Desktop table */}
-                <div className="hidden sm:block bg-white border border-gray-200 overflow-x-auto">
+                <div className="hidden sm:block bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-gray-100">
@@ -520,7 +522,7 @@ export default function DashboardShell({ session, products: initProducts, orders
                         const pct    = rev > 0 ? ((profit / rev) * 100).toFixed(1) : "0.0";
                         return (
                           <tr key={product.id} className="border-b border-gray-50 hover:bg-gray-50">
-                            <td className="px-4 py-3 text-xs font-semibold text-[#1A1A1A]">{product.name_en}</td>
+                            <td className="px-4 py-3 text-xs font-semibold text-brand-black dark:text-offwhite">{product.name_en}</td>
                             <td className="px-4 py-3 text-xs font-mono">{units}</td>
                             <td className="px-4 py-3 text-xs font-mono">{fmt(rev)}</td>
                             <td className="px-4 py-3 text-xs font-mono text-gray-500">{fmt(cost)}</td>
@@ -553,9 +555,9 @@ export default function DashboardShell({ session, products: initProducts, orders
                     const profit = rev - cost;
                     const pct    = rev > 0 ? ((profit / rev) * 100).toFixed(1) : "0.0";
                     return (
-                      <div key={product.id} className="bg-white border border-gray-200 p-4">
+                      <div key={product.id} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4">
                         <div className="flex items-center justify-between mb-2">
-                          <p className="text-xs font-bold text-[#1A1A1A]">{product.name_en}</p>
+                          <p className="text-xs font-bold text-brand-black dark:text-offwhite">{product.name_en}</p>
                           <span className="text-[10px] font-bold bg-green-50 text-green-700 px-2 py-0.5">{pct}%</span>
                         </div>
                         <div className="grid grid-cols-3 gap-2">
@@ -613,7 +615,7 @@ export default function DashboardShell({ session, products: initProducts, orders
 
       {/* ══ MOBILE BOTTOM NAVIGATION BAR (hidden on sm+) ══ */}
       {/* Scrollable horizontal nav for 10 tabs */}
-      <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200">
+      <nav className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white dark:bg-brand-gray border-t border-gray-200 dark:border-brand-border/20">
         <div className="flex items-stretch h-16 overflow-x-auto scrollbar-hide">
           {TABS.map(({ key, badge }) => {
             const LABELS: Record<Tab, string> = {
@@ -633,10 +635,10 @@ export default function DashboardShell({ session, products: initProducts, orders
                 key={key}
                 onClick={() => setActiveTab(key)}
                 className={`relative shrink-0 w-16 flex flex-col items-center justify-center gap-0.5 transition-colors min-h-[44px]
-                  ${activeTab === key ? "text-[#1A1A1A]" : "text-gray-400"}`}
+                  ${activeTab === key ? "text-brand-black dark:text-offwhite" : "text-gray-400"}`}
               >
                 {activeTab === key && (
-                  <span className="absolute top-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-[#1A1A1A] rounded-full" />
+                  <span className="absolute top-0 left-1/2 -translate-x-1/2 w-5 h-0.5 bg-brand-black dark:bg-offwhite rounded-full" />
                 )}
                 <span className="relative">
                   {NAV_ICONS[key]}
@@ -658,6 +660,7 @@ export default function DashboardShell({ session, products: initProducts, orders
       {/* ══ MODALS ══ */}
       {(showAddProduct || editProduct) && (
         <AddProductModal
+          partnerName={session.partnerName}
           product={editProduct as ProductForModal | undefined}
           onSuccess={() => { setShowAddProduct(false); setEditProduct(null); refresh(); }}
           onClose={() => { setShowAddProduct(false); setEditProduct(null); }}
@@ -698,7 +701,7 @@ function OrderCards({
   return (
     <>
       {/* ── Desktop Table ── */}
-      <div className="hidden sm:block bg-white border border-gray-200 overflow-x-auto">
+      <div className="hidden sm:block bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-100">
@@ -719,7 +722,7 @@ function OrderCards({
                   className={`border-b border-gray-50 cursor-pointer transition-colors hover:bg-gray-50 ${remaining > 0 ? "bg-red-50/30" : ""}`}>
                   <td className="px-4 py-3">
                     <div>
-                      <p className="text-xs font-semibold text-[#1A1A1A]">{o.customer_name}</p>
+                      <p className="text-xs font-semibold text-brand-black dark:text-offwhite">{o.customer_name}</p>
                       {isRepeat && <span className="inline-block text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5 mt-0.5">{t("common.repeatCustomer")}</span>}
                     </div>
                   </td>
@@ -730,7 +733,7 @@ function OrderCards({
                   </td>
                   <td className="px-4 py-3"><span className="text-[10px] font-semibold uppercase tracking-wide text-gray-500 bg-gray-100 px-2 py-0.5">{o.source ?? "—"}</span></td>
                   <td className="px-4 py-3 text-xs text-gray-500">{itemCount}</td>
-                  <td className="px-4 py-3 text-xs font-mono font-semibold text-[#1A1A1A]">EGP {o.total_amount.toLocaleString("en-EG")}</td>
+                  <td className="px-4 py-3 text-xs font-mono font-semibold text-brand-black dark:text-offwhite">EGP {o.total_amount.toLocaleString("en-EG")}</td>
                   <td className="px-4 py-3 text-xs font-mono text-green-700">EGP {paid.toLocaleString("en-EG")}</td>
                   <td className="px-4 py-3">
                     {remaining > 0
@@ -748,7 +751,7 @@ function OrderCards({
                   <td className="px-4 py-3 text-xs text-gray-400">{fmtD(o.created_at)}</td>
                   {showActions && (
                     <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
-                      <button onClick={() => onView(o.id)} className="text-[10px] font-bold tracking-widest uppercase text-gray-400 hover:text-[#1A1A1A] border border-gray-200 px-2 py-1 hover:border-gray-400 transition-all">{t("common.viewDetails")}</button>
+                      <button onClick={() => onView(o.id)} className="text-[10px] font-bold tracking-widest uppercase text-gray-400 hover:text-brand-black dark:text-offwhite border border-gray-200 dark:border-brand-border/30 px-2 py-1 hover:border-gray-400 transition-all">{t("common.viewDetails")}</button>
                     </td>
                   )}
                 </tr>
@@ -768,13 +771,13 @@ function OrderCards({
             <div
               key={o.id}
               onClick={() => onView(o.id)}
-              className={`bg-white border rounded-sm p-4 cursor-pointer active:bg-gray-50 transition-colors
+              className={`bg-white dark:bg-brand-gray border rounded-sm p-4 cursor-pointer active:bg-gray-50 transition-colors
                 ${remaining > 0 ? "border-red-200 bg-red-50/20" : "border-gray-200"}`}
             >
               {/* Row 1: Name + Status */}
               <div className="flex items-start justify-between gap-2 mb-2">
                 <div>
-                  <p className="text-sm font-bold text-[#1A1A1A] leading-tight">{o.customer_name}</p>
+                  <p className="text-sm font-bold text-brand-black dark:text-offwhite leading-tight">{o.customer_name}</p>
                   <div className="flex items-center gap-1.5 mt-0.5">
                     {isRepeat && <span className="text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-200 px-1.5 py-0.5">{t("common.repeatCustomer")}</span>}
                     <span className="text-[10px] text-gray-400 font-mono">{o.id.slice(0, 8).toUpperCase()}</span>
@@ -791,7 +794,7 @@ function OrderCards({
               <div className="grid grid-cols-3 gap-2 py-2 border-t border-b border-gray-100 my-2">
                 <div>
                   <p className="text-[9px] text-gray-400 uppercase">Total</p>
-                  <p className="text-xs font-mono font-bold text-[#1A1A1A]">EGP {o.total_amount.toLocaleString("en-EG")}</p>
+                  <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite">EGP {o.total_amount.toLocaleString("en-EG")}</p>
                 </div>
                 <div>
                   <p className="text-[9px] text-gray-400 uppercase">Paid</p>
@@ -843,7 +846,7 @@ function ProductsView({ products, onAdd, t }: { products: Product[]; onAdd: () =
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.dashboard.tabs.products")}</h2>
+          <h2 className="text-base font-bold text-brand-black dark:text-offwhite">{t("admin.dashboard.tabs.products")}</h2>
           <p className="text-xs text-gray-400">{products.length} items</p>
         </div>
         <button onClick={onAdd} className="btn-dark flex items-center gap-2 text-[11px]"><PlusIcon /> {t("admin.dashboard.manage.addBtn")}</button>
@@ -853,7 +856,7 @@ function ProductsView({ products, onAdd, t }: { products: Product[]; onAdd: () =
         : (
           <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
             {products.map((p) => (
-              <div key={p.id} className="bg-white border border-gray-200 overflow-hidden hover:shadow-sm transition-shadow">
+              <div key={p.id} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 overflow-hidden hover:shadow-sm transition-shadow">
                 <div className="aspect-square bg-gray-100 overflow-hidden">
                   {p.image_url
                     // eslint-disable-next-line @next/next/no-img-element
@@ -861,10 +864,10 @@ function ProductsView({ products, onAdd, t }: { products: Product[]; onAdd: () =
                     : <div className="w-full h-full flex items-center justify-center text-gray-300 text-2xl font-black">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                 </div>
                 <div className="p-3 sm:p-4">
-                  <p className="text-xs sm:text-sm font-bold text-[#1A1A1A] leading-tight">{p.name_en}</p>
+                  <p className="text-xs sm:text-sm font-bold text-brand-black dark:text-offwhite leading-tight">{p.name_en}</p>
                   {p.name_ar && <p className="text-[10px] text-gray-400 mt-0.5" dir="rtl">{p.name_ar}</p>}
                   <div className="flex items-center justify-between mt-2">
-                    <p className="text-xs font-bold font-mono text-[#1A1A1A]">EGP {p.selling_price.toLocaleString("en-EG")}</p>
+                    <p className="text-xs font-bold font-mono text-brand-black dark:text-offwhite">EGP {p.selling_price.toLocaleString("en-EG")}</p>
                     <span className={`text-[9px] font-bold px-1.5 py-0.5 border ${p.in_stock ? "border-green-200 text-green-700 bg-green-50" : "border-red-200 text-red-600 bg-red-50"}`}>
                       {p.in_stock ? t("admin.dashboard.manage.inStock") : t("admin.dashboard.manage.soldOut")}
                     </span>
@@ -890,7 +893,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.dashboard.manage.title")}</h2>
+          <h2 className="text-base font-bold text-brand-black dark:text-offwhite">{t("admin.dashboard.manage.title")}</h2>
           <p className="text-xs text-gray-400">{products.length} products</p>
         </div>
         <button onClick={onAdd} className="btn-dark flex items-center gap-2 text-[11px]"><PlusIcon /> {t("admin.dashboard.manage.addBtn")}</button>
@@ -900,7 +903,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
         : (
           <>
             {/* Desktop table */}
-            <div className="hidden sm:block bg-white border border-gray-200 overflow-x-auto">
+            <div className="hidden sm:block bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-gray-100">
@@ -924,13 +927,13 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                               ? <img src={p.image_url} alt={p.name_en} className="w-10 h-10 object-cover shrink-0" onError={(e) => { e.currentTarget.style.display="none"; }} />
                               : <div className="w-10 h-10 bg-gray-100 flex items-center justify-center text-[9px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                             <div className="min-w-0">
-                              <p className="text-xs font-semibold text-[#1A1A1A] truncate">{p.name_en}</p>
+                              <p className="text-xs font-semibold text-brand-black dark:text-offwhite truncate">{p.name_en}</p>
                               {p.category && <p className="text-[9px] text-gray-300">{p.category}</p>}
                             </div>
                           </div>
                         </td>
                         <td className="px-4 py-3 text-xs font-mono text-gray-500">EGP {p.cost_price.toLocaleString("en-EG")}</td>
-                        <td className="px-4 py-3 text-xs font-mono font-bold text-[#1A1A1A]">EGP {p.selling_price.toLocaleString("en-EG")}</td>
+                        <td className="px-4 py-3 text-xs font-mono font-bold text-brand-black dark:text-offwhite">EGP {p.selling_price.toLocaleString("en-EG")}</td>
                         <td className="px-4 py-3"><span className={`text-[10px] font-bold px-2 py-0.5 ${profit >= 0 ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}`}>+EGP {profit.toLocaleString("en-EG")}</span></td>
                         <td className="px-4 py-3 text-xs font-mono">{p.stock_quantity}</td>
                         <td className="px-4 py-3">
@@ -949,13 +952,13 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                                 generateWhatsAppStatus(p);
                               }}
                               title="Generate WhatsApp Status"
-                              className="w-7 h-7 flex items-center justify-center border border-gray-200 text-gray-400 hover:text-green-600 hover:border-green-300 transition-colors"
+                              className="w-7 h-7 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-400 hover:text-green-600 hover:border-green-300 transition-colors"
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="3" width="6" height="9" rx="1"/><path d="M5 12v2a7 7 0 0 0 14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
                             </button>
-                            <button onClick={() => onEdit(p)} title={t("admin.dashboard.manage.edit")} className="w-7 h-7 flex items-center justify-center border border-gray-200 text-gray-400 hover:text-[#1A1A1A] hover:border-gray-400 transition-colors"><EditIcon /></button>
+                            <button onClick={() => onEdit(p)} title={t("admin.dashboard.manage.edit")} className="w-7 h-7 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-400 hover:text-brand-black dark:text-offwhite hover:border-gray-400 transition-colors"><EditIcon /></button>
                             <button onClick={() => onToggleAvailability(p)} disabled={isToggling} className={`w-7 h-7 flex items-center justify-center border transition-colors disabled:opacity-40 ${p.is_available ? "border-gray-200 text-gray-400 hover:text-orange-500 hover:border-orange-300" : "border-orange-200 text-orange-500"}`}>{p.is_available ? <EyeIcon /> : <EyeOffIcon />}</button>
-                            <button onClick={() => onDelete(p.id)} disabled={isDeleting} className="w-7 h-7 flex items-center justify-center border border-gray-200 text-gray-400 hover:text-red-500 hover:border-red-300 transition-colors disabled:opacity-40"><TrashIcon /></button>
+                            <button onClick={() => onDelete(p.id)} disabled={isDeleting} className="w-7 h-7 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-400 hover:text-red-500 hover:border-red-300 transition-colors disabled:opacity-40"><TrashIcon /></button>
                           </div>
                         </td>
                       </tr>
@@ -973,7 +976,7 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                 const isToggling = togglingId === p.id;
                 const inStock    = p.in_stock ?? true;
                 return (
-                  <div key={p.id} className={`bg-white border border-gray-200 p-4 transition-opacity ${isDeleting ? "opacity-30" : ""}`}>
+                  <div key={p.id} className={`bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 transition-opacity ${isDeleting ? "opacity-30" : ""}`}>
                     {/* Product info */}
                     <div className="flex items-center gap-3 mb-3">
                       {p.image_url
@@ -981,10 +984,10 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                         ? <img src={p.image_url} alt={p.name_en} className="w-12 h-12 object-cover shrink-0" onError={(e) => { e.currentTarget.style.display="none"; }} />
                         : <div className="w-12 h-12 bg-gray-100 flex items-center justify-center text-[10px] text-gray-400 font-bold shrink-0">{p.name_en.slice(0, 2).toUpperCase()}</div>}
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-[#1A1A1A] truncate">{p.name_en}</p>
+                        <p className="text-sm font-bold text-brand-black dark:text-offwhite truncate">{p.name_en}</p>
                         {p.category && <p className="text-[10px] text-gray-400">{p.category}</p>}
                         <div className="flex items-center gap-2 mt-1">
-                          <span className="text-xs font-mono font-bold text-[#1A1A1A]">EGP {p.selling_price.toLocaleString("en-EG")}</span>
+                          <span className="text-xs font-mono font-bold text-brand-black dark:text-offwhite">EGP {p.selling_price.toLocaleString("en-EG")}</span>
                           <span className={`text-[9px] font-bold px-1.5 py-0.5 ${profit >= 0 ? "bg-green-50 text-green-700" : "bg-red-50 text-red-600"}`}>+{profit.toLocaleString("en-EG")}</span>
                         </div>
                       </div>
@@ -1000,12 +1003,12 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                       </button>
                       {/* Edit */}
                       <button onClick={() => onEdit(p)}
-                        className="py-2.5 flex items-center justify-center border border-gray-200 text-gray-500 hover:text-[#1A1A1A] hover:border-gray-400 transition-colors">
+                        className="py-2.5 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-500 hover:text-brand-black dark:text-offwhite hover:border-gray-400 transition-colors">
                         <EditIcon />
                       </button>
                       {/* Delete */}
                       <button onClick={() => onDelete(p.id)} disabled={isDeleting}
-                        className="py-2.5 flex items-center justify-center border border-gray-200 text-gray-400 hover:text-red-500 hover:border-red-300 transition-colors disabled:opacity-40">
+                        className="py-2.5 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-400 hover:text-red-500 hover:border-red-300 transition-colors disabled:opacity-40">
                         <TrashIcon />
                       </button>
                       {/* Generate WhatsApp Status — full width */}
@@ -1035,9 +1038,9 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
 function KpiCard({ title, value, sub, color, onClick }: {
   title: string; value: string; sub?: string; color?: "green" | "red" | "yellow"; onClick?: () => void;
 }) {
-  const accent = color === "green" ? "text-green-700" : color === "red" ? "text-red-600" : color === "yellow" ? "text-yellow-600" : "text-[#1A1A1A]";
+  const accent = color === "green" ? "text-green-700" : color === "red" ? "text-red-600" : color === "yellow" ? "text-yellow-600" : "text-brand-black dark:text-offwhite";
   return (
-    <button onClick={onClick} className="bg-white border border-gray-200 p-4 sm:p-5 text-left hover:border-gray-400 hover:shadow-sm transition-all active:scale-[0.98]">
+    <button onClick={onClick} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 sm:p-5 text-left hover:border-gray-400 hover:shadow-sm transition-all active:scale-[0.98]">
       <p className="text-[9px] sm:text-[10px] font-bold tracking-[0.12em] uppercase text-gray-400 mb-1.5">{title}</p>
       <p className={`text-lg sm:text-xl font-bold tracking-[-0.02em] ${accent}`}>{value}</p>
       {sub && <p className="text-[9px] text-gray-400 mt-0.5">{sub}</p>}
@@ -1049,9 +1052,9 @@ function FinCard({ label, value, unit, highlight, danger }: {
   label: string; value: string; unit?: string; highlight?: boolean; danger?: boolean;
 }) {
   return (
-    <div className={`p-4 sm:p-5 border ${highlight ? "bg-[#1A1A1A] border-[#1A1A1A]" : danger ? "bg-red-50 border-red-200" : "bg-white border-gray-200"}`}>
+    <div className={`p-4 sm:p-5 border ${highlight ? "bg-brand-black dark:bg-offwhite border-brand-black dark:border-offwhite" : danger ? "bg-red-50 border-red-200" : "bg-white border-gray-200"}`}>
       <p className={`text-[9px] sm:text-[10px] font-bold tracking-[0.12em] uppercase mb-1.5 ${highlight ? "text-white/50" : "text-gray-400"}`}>{label}</p>
-      <p className={`text-base sm:text-lg font-bold ${highlight ? "text-white" : danger ? "text-red-600" : "text-[#1A1A1A]"}`}>{value}</p>
+      <p className={`text-base sm:text-lg font-bold ${highlight ? "text-white" : danger ? "text-red-600" : "text-brand-black dark:text-offwhite"}`}>{value}</p>
       {unit && <p className={`text-[9px] mt-0.5 ${highlight ? "text-white/40" : "text-gray-400"}`}>{unit}</p>}
     </div>
   );
@@ -1059,10 +1062,10 @@ function FinCard({ label, value, unit, highlight, danger }: {
 
 function ActionCard({ title, desc, icon, onClick }: { title: string; desc: string; icon: React.ReactNode; onClick: () => void }) {
   return (
-    <button onClick={onClick} className="bg-white border border-gray-200 p-4 sm:p-5 text-left flex items-start gap-4 hover:border-gray-400 hover:shadow-sm transition-all group active:scale-[0.99]">
-      <div className="w-9 h-9 bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-[#1A1A1A] group-hover:text-white transition-all">{icon}</div>
+    <button onClick={onClick} className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-4 sm:p-5 text-left flex items-start gap-4 hover:border-gray-400 hover:shadow-sm transition-all group active:scale-[0.99]">
+      <div className="w-9 h-9 bg-gray-100 flex items-center justify-center shrink-0 group-hover:bg-brand-black dark:group-hover:bg-offwhite group-hover:text-white dark:group-hover:text-brand-black transition-all">{icon}</div>
       <div>
-        <p className="text-sm font-bold text-[#1A1A1A]">{title}</p>
+        <p className="text-sm font-bold text-brand-black dark:text-offwhite">{title}</p>
         <p className="text-xs text-gray-400 mt-0.5">{desc}</p>
       </div>
     </button>
@@ -1071,7 +1074,7 @@ function ActionCard({ title, desc, icon, onClick }: { title: string; desc: strin
 
 function EmptyState({ title, desc, action, actionLabel }: { title: string; desc: string; action: () => void; actionLabel: string }) {
   return (
-    <div className="bg-white border border-dashed border-gray-200 py-16 flex flex-col items-center gap-3">
+    <div className="bg-white dark:bg-brand-gray border border-dashed border-gray-200 dark:border-brand-border/20 py-16 flex flex-col items-center gap-3">
       <p className="text-sm font-semibold text-gray-400">{title}</p>
       <p className="text-xs text-gray-300">{desc}</p>
       <button onClick={action} className="mt-2 btn-dark text-[10px]">{actionLabel}</button>

@@ -1,17 +1,8 @@
-import { redirect } from "next/navigation";
-import { getSession } from "@/lib/session";
-import { supabase } from "@/lib/supabase";
-import { getPartnerDbId } from "@/lib/partners";
-import DashboardShell from "./DashboardShell";
+﻿with open('src/app/admin/dashboard/page.tsx', 'r', encoding='utf-8') as f:
+    content = f.read()
 
-export const dynamic = "force-dynamic"; // always fetch fresh data
-
-export default async function DashboardPage() {
-  // ── Auth Guard ──────────────────────────────────────────────────────────
-  const session = getSession();
-  if (!session) redirect("/admin/login");
-  const dbPartnerId = getPartnerDbId(session.partnerId);
-
+# Make the queries dynamic based on whether it's super admin
+new_queries = '''
   const isSuperAdmin = session.partnerId === "admin" || session.partnerName.toLowerCase() === "admin";
 
   // ── Fetch Partner's Products ────────────────────────────────────────────
@@ -29,14 +20,16 @@ export default async function DashboardPage() {
   // ── Fetch Partner's Orders + Items ──────────────────────────────────────
   let ordersQuery = supabase
     .from("orders")
-    .select(`
+    .select(
+      
       id, partner_id, customer_name, customer_phone, customer_address,
       source, status, notes, total_amount, paid_amount, activity_log,
       created_at, updated_at,
       order_items (
         id, product_id, quantity, size, unit_price, cost_price
       )
-    `)
+    
+    )
     .order("created_at", { ascending: false });
 
   if (!isSuperAdmin) {
@@ -44,12 +37,19 @@ export default async function DashboardPage() {
   }
 
   const { data: orders } = await ordersQuery;
+'''
 
-  return (
-    <DashboardShell
-      session={session}
-      products={products ?? []}
-      orders={orders ?? []}
-    />
-  );
-}
+import re
+
+# Match the blocks to replace
+content = re.sub(
+    r'  // ── Fetch Partner\'s Products ──.*?\.order\("created_at", \{ ascending: false \}\);',
+    new_queries,
+    content,
+    flags=re.DOTALL
+)
+
+with open('src/app/admin/dashboard/page.tsx', 'w', encoding='utf-8') as f:
+    f.write(content)
+
+print("page.tsx updated with Super Admin bypass.")

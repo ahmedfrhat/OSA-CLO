@@ -21,6 +21,7 @@ export interface ProductForModal {
 
 interface Props {
   product?: ProductForModal; // if provided → Edit mode
+  partnerName: string;
   onSuccess: () => void;
   onClose: () => void;
 }
@@ -32,9 +33,25 @@ const CATEGORIES = [
 const SIZE_PRESETS = ["XS", "S", "M", "L", "XL", "XXL", "Oversized", "One Size"];
 
 // ── Component ─────────────────────────────────────────────────────────────────
-export default function ProductModal({ product, onSuccess, onClose }: Props) {
+export default function ProductModal({ product, partnerName, onSuccess, onClose }: Props) {
   const { t, isRTL } = useLanguage();
   const isEdit = !!product;
+
+  let allowedCategories = [
+    "T-Shirts", "Hoodies", "Pants", "Shorts", "Outerwear",
+    "Accessories", "Shoes", "Abayas", "Dresses", "Shirts",
+    "Skirts", "Suits", "Loungewear", "Lingerie", "Bags",
+    "Makeup", "Home Appliances", "Other"
+  ];
+
+  if (partnerName === "Safia" || partnerName === "صافيه") {
+    allowedCategories = ["Abayas", "Dresses", "T-Shirts", "Pants", "Shirts", "Skirts", "Suits"];
+  } else if (partnerName === "Omaima" || partnerName === "Omayma" || partnerName === "اميمه") {
+    allowedCategories = ["Shoes", "Loungewear", "Lingerie"];
+  } else if (partnerName === "Aisha" || partnerName === "عائشه") {
+    allowedCategories = ["Bags", "Accessories"];
+  }
+
 
   const fileRef      = useRef<HTMLInputElement>(null);
   const extraFileRef  = useRef<HTMLInputElement>(null);
@@ -313,7 +330,7 @@ export default function ProductModal({ product, onSuccess, onClose }: Props) {
               className="input-style"
             >
               <option value="">{t("admin.addProduct.categoryPlaceholder")}</option>
-              {CATEGORIES.map((c) => <option key={c} value={c}>{c}</option>)}
+              {allowedCategories.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
           </div>
 

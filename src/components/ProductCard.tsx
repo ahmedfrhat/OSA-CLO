@@ -59,7 +59,7 @@ export default function ProductCard({ product, onAddToCart, onClick }: Props) {
       onMouseLeave={() => setHovered(false)}
     >
       {/* ── Image Wrapper — Feature 1: Hover Zoom ── */}
-      <div className="relative aspect-[3/4] overflow-hidden bg-brand-border/10">
+      <div className="relative aspect-[3/4] overflow-hidden bg-brand-border/10 group">
         {primaryImg ? (
           <>
             {/* Skeleton */}

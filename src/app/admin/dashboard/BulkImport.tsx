@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Props {
   onSuccess: () => void;
@@ -50,6 +51,7 @@ function parseCSV(text: string): ParsedProduct[] {
 }
 
 export default function BulkImport({ onSuccess }: Props) {
+  const { t } = useLanguage();
   const [preview, setPreview]   = useState<ParsedProduct[]>([]);
   const [uploading, setUploading] = useState(false);
   const [result, setResult]     = useState<{ success: number; errors: string[] } | null>(null);
@@ -107,27 +109,27 @@ export default function BulkImport({ onSuccess }: Props) {
   return (
     <div className="flex flex-col gap-5">
       <div>
-        <h2 className="text-base font-bold text-[#1A1A1A]">Bulk Product Import</h2>
-        <p className="text-xs text-gray-400">Upload a CSV file to add multiple products at once</p>
+        <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.bulk.title")}</h2>
+        <p className="text-xs text-gray-400">{t("admin.bulk.subtitle")}</p>
       </div>
 
       {/* Step 1: Download template */}
       <div className="bg-white border border-gray-200 p-4 sm:p-6">
-        <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-3">Step 1 — Download Template</p>
+        <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-3">{t("admin.bulk.step1")}</p>
         <button onClick={downloadTemplate}
           className="flex items-center gap-2 px-4 py-2.5 border border-gray-200 text-xs font-bold text-gray-600 hover:border-gray-400 transition-all">
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Download CSV Template
+          {t("admin.bulk.downloadBtn")}
         </button>
-        <p className="text-[10px] text-gray-400 mt-2">Fill in product data, then upload below</p>
+        <p className="text-[10px] text-gray-400 mt-2">{t("admin.bulk.step1desc")}</p>
       </div>
 
       {/* Step 2: Upload */}
       <div className="bg-white border border-gray-200 p-4 sm:p-6">
-        <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-3">Step 2 — Upload CSV</p>
+        <p className="text-[10px] font-bold tracking-widest uppercase text-gray-400 mb-3">{t("admin.bulk.step2")}</p>
         <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-200 p-8 cursor-pointer hover:border-gray-400 transition-all">
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="text-gray-300 mb-2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
-          <p className="text-xs text-gray-400">Click to select CSV file</p>
+          <p className="text-xs text-gray-400">{t("admin.bulk.clickToSelect")}</p>
           <input ref={fileRef} type="file" accept=".csv,text/csv" onChange={handleFile} className="hidden" />
         </label>
       </div>
@@ -136,20 +138,22 @@ export default function BulkImport({ onSuccess }: Props) {
       {preview.length > 0 && (
         <div className="bg-white border border-gray-200 overflow-x-auto">
           <div className="flex items-center justify-between p-4 border-b border-gray-100">
-            <p className="text-xs font-bold text-[#1A1A1A]">{preview.length} products ready to import</p>
+            <p className="text-xs font-bold text-[#1A1A1A]">{preview.length} {t("admin.bulk.readyToImport")}</p>
             <button onClick={handleUpload} disabled={uploading}
               className="btn-dark text-[11px] disabled:opacity-50 flex items-center gap-2">
               {uploading ? (
-                <><span className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin" />Importing...</>
-              ) : `Import ${preview.length} Products`}
+                <><span className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin" />{t("admin.bulk.importing")}</>
+              ) : `${t("admin.bulk.importBtn")} ${preview.length}`}
             </button>
           </div>
           <table className="w-full text-xs">
             <thead>
               <tr className="border-b border-gray-100 bg-gray-50">
-                {["Name","Category","Cost","Selling","Stock"].map((h) => (
-                  <th key={h} className="th-style">{h}</th>
-                ))}
+                <th className="th-style">{t("checkout_name")}</th>
+                <th className="th-style">{t("admin.bulk.tableCategory")}</th>
+                <th className="th-style">{t("admin.dashboard.manage.table.cost")}</th>
+                <th className="th-style">{t("admin.dashboard.manage.table.selling")}</th>
+                <th className="th-style">{t("admin.dashboard.manage.table.stock")}</th>
               </tr>
             </thead>
             <tbody>
@@ -171,11 +175,11 @@ export default function BulkImport({ onSuccess }: Props) {
       {result && (
         <div className={`p-4 border ${result.errors.length === 0 ? "border-green-200 bg-green-50" : "border-yellow-200 bg-yellow-50"}`}>
           <p className="text-sm font-bold text-[#1A1A1A]">
-            ✓ {result.success} products imported successfully!
+            ✓ {result.success} {t("admin.bulk.successMsg")}
           </p>
           {result.errors.length > 0 && (
             <div className="mt-2">
-              <p className="text-xs font-bold text-red-600 mb-1">{result.errors.length} errors:</p>
+              <p className="text-xs font-bold text-red-600 mb-1">{result.errors.length} {t("admin.bulk.errorsMsg")}</p>
               {result.errors.map((e, i) => (
                 <p key={i} className="text-xs text-red-500">{e}</p>
               ))}

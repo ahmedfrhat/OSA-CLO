@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 interface Product {
   id: string;
@@ -106,6 +107,7 @@ function Stat({ label, value, sub }: { label: string; value: string; sub?: strin
 }
 
 export default function ReportsTab({ orders, products }: Props) {
+  const { t } = useLanguage();
   const [period, setPeriod] = useState<"week" | "month" | "all">("week");
 
   const periodOrders = period === "week"
@@ -131,10 +133,11 @@ export default function ReportsTab({ orders, products }: Props) {
   const topProduct    = products.find((p) => p.id === topProductId);
 
   return (
+  return (
     <div className="flex flex-col gap-5">
       <div>
-        <h2 className="text-base font-bold text-[#1A1A1A]">Reports & Analytics</h2>
-        <p className="text-xs text-gray-400">Download business reports in CSV format</p>
+        <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.reports.title")}</h2>
+        <p className="text-xs text-gray-400">{t("admin.reports.subtitle")}</p>
       </div>
 
       {/* Period selector */}
@@ -143,67 +146,67 @@ export default function ReportsTab({ orders, products }: Props) {
           <button key={p} onClick={() => setPeriod(p)}
             className={`px-4 py-2 text-[10px] font-bold tracking-widest uppercase border transition-all
               ${period === p ? "bg-[#1A1A1A] text-white border-[#1A1A1A]" : "border-gray-200 text-gray-400 hover:border-gray-400"}`}>
-            {p === "week" ? "This Week" : p === "month" ? "This Month" : "All Time"}
+            {p === "week" ? t("admin.reports.thisWeek") : p === "month" ? t("admin.reports.thisMonth") : t("admin.reports.allTime")}
           </button>
         ))}
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-        <Stat label="Orders"     value={String(periodOrders.length)} />
-        <Stat label="Revenue"    value={`EGP ${revenue.toLocaleString("en-EG")}`} />
-        <Stat label="Net Profit" value={`EGP ${profit.toLocaleString("en-EG")}`} sub={`${margin}% margin`} />
-        <Stat label="Units Sold" value={String(units)} />
-        <Stat label="Outstanding" value={`EGP ${outstanding.toLocaleString("en-EG")}`} />
-        <Stat label="Top Product" value={topProduct?.name_en ?? "—"} sub={topProduct ? `EGP ${Math.round(productRevMap[topProductId!] ?? 0).toLocaleString("en-EG")}` : ""} />
+        <Stat label={t("admin.dashboard.orders.totalCount")} value={String(periodOrders.length)} />
+        <Stat label={t("admin.dashboard.kpi.revenue")}    value={`EGP ${revenue.toLocaleString("en-EG")}`} />
+        <Stat label={t("admin.dashboard.kpi.profit")} value={`EGP ${profit.toLocaleString("en-EG")}`} sub={`${margin}% ${t("admin.dashboard.kpi.margin").toLowerCase()}`} />
+        <Stat label={t("admin.dashboard.kpi.unitsSold")} value={String(units)} />
+        <Stat label={t("admin.dashboard.kpi.outstanding")} value={`EGP ${outstanding.toLocaleString("en-EG")}`} />
+        <Stat label={t("admin.dashboard.financials.table.product")} value={topProduct?.name_en ?? "—"} sub={topProduct ? `EGP ${Math.round(productRevMap[topProductId!] ?? 0).toLocaleString("en-EG")}` : ""} />
       </div>
 
       {/* Download buttons */}
       <div className="flex flex-col gap-3">
-        <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">Download Reports</p>
+        <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">{t("admin.reports.download")}</p>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <button
             onClick={() => downloadCSV(buildWeeklyRows(orders), "weekly")}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group"
+            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">📊</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">Weekly Report</p>
-              <p className="text-[10px] text-gray-400">Last 7 days orders</p>
+              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.weekly")}</p>
+              <p className="text-[10px] text-gray-400">{t("admin.reports.weeklyDesc")}</p>
             </div>
           </button>
 
           <button
             onClick={() => downloadCSV(buildMonthlyRows(orders), "monthly")}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group"
+            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">📅</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">Monthly Report</p>
-              <p className="text-[10px] text-gray-400">Current month orders</p>
+              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.monthly")}</p>
+              <p className="text-[10px] text-gray-400">{t("admin.reports.monthlyDesc")}</p>
             </div>
           </button>
 
           <button
             onClick={() => downloadCSV(orders, "all-time")}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group"
+            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">📁</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">Full Export</p>
-              <p className="text-[10px] text-gray-400">All orders ever</p>
+              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.full")}</p>
+              <p className="text-[10px] text-gray-400">{t("admin.reports.fullDesc")}</p>
             </div>
           </button>
 
           <button
             onClick={() => downloadProductCSV(products)}
-            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group"
+            className="flex items-center gap-3 bg-white border border-gray-200 p-4 hover:border-gray-400 transition-all text-left group rtl:text-right"
           >
             <span className="text-2xl">🛍️</span>
             <div>
-              <p className="text-xs font-bold text-[#1A1A1A]">Products Export</p>
-              <p className="text-[10px] text-gray-400">All products with pricing</p>
+              <p className="text-xs font-bold text-[#1A1A1A]">{t("admin.reports.products")}</p>
+              <p className="text-[10px] text-gray-400">{t("admin.reports.productsDesc")}</p>
             </div>
           </button>
         </div>
