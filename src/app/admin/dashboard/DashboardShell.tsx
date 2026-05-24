@@ -292,7 +292,7 @@ export default function DashboardShell({ session, products: initProducts, orders
             {/* Quick Action — + Product (visible on mobile) */}
             <button
               onClick={() => setShowAddProduct(true)}
-              className="sm:hidden w-8 h-8 bg-brand-black dark:bg-offwhite dark:text-brand-black dark:text-offwhite flex items-center justify-center text-white"
+              className="sm:hidden w-8 h-8 bg-brand-black dark:bg-offwhite dark:text-brand-black flex items-center justify-center text-white"
               title={t("admin.dashboard.overview.addProduct")}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -414,7 +414,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               {(["all", "pending", "processing", "shipped"] as StatusFilter[]).map((f) => (
                 <button key={f} onClick={() => setStatusFilter(f)}
                   className={`shrink-0 px-3 py-2 text-[10px] font-bold tracking-widest uppercase border transition-all
-                    ${statusFilter === f ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:border-gray-400"}`}>
+                    ${statusFilter === f ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black border-brand-black dark:border-offwhite" : "border-gray-200 dark:border-brand-border/20 text-gray-400 hover:border-gray-400 dark:hover:border-brand-border/60"}`}>
                   {f === "all" ? t("admin.dashboard.orders.filterAll") : STATUS_LABEL(f)}
                 </button>
               ))}

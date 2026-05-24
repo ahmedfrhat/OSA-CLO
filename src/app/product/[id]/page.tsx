@@ -80,13 +80,13 @@ export default async function ProductPage({ params }: { params: { id: string } }
       {/* ── Upsell Section ── */}
       {related.length > 0 && (
         <section className="max-w-6xl mx-auto px-4 sm:px-6 py-12 border-t border-gray-100">
-          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6 text-center">
+          <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 dark:text-gray-400 mb-6 text-center">
             قد يعجبك أيضاً — You May Also Like
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {related.map((p) => (
               <Link key={p.id} href={`/product/${p.id}`}
-                className="group bg-white border border-gray-200 hover:border-gray-400 hover:shadow-md transition-all overflow-hidden">
+                className="group bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 hover:border-gray-400 dark:hover:border-brand-border/60 hover:shadow-md transition-all overflow-hidden">
                 <div className="aspect-[3/4] overflow-hidden bg-gray-100">
                   {p.image_url
                     // eslint-disable-next-line @next/next/no-img-element
@@ -98,8 +98,8 @@ export default async function ProductPage({ params }: { params: { id: string } }
                   }
                 </div>
                 <div className="p-3">
-                  <p className="text-xs font-bold text-[#1A1A1A] truncate leading-tight">{p.name_en}</p>
-                  <p className="text-[11px] font-mono font-bold text-[#1A1A1A] mt-1">
+                  <p className="text-xs font-bold text-brand-black dark:text-offwhite truncate leading-tight">{p.name_en}</p>
+                  <p className="text-[11px] font-mono font-bold text-brand-black dark:text-offwhite mt-1">
                     EGP {p.selling_price.toLocaleString("en-EG")}
                   </p>
                   {(p.stock_quantity ?? 0) < 5 && (p.stock_quantity ?? 0) > 0 && (

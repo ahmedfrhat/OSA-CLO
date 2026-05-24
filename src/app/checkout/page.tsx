@@ -228,7 +228,7 @@ export default function CheckoutPage() {
         {/* Back */}
         <button
           onClick={() => router.back()}
-          className="text-xs text-gray-400 hover:text-brand-black dark:text-offwhite mb-6 flex items-center gap-1 transition-colors active:scale-95"
+          className="text-xs text-gray-500 hover:text-brand-black dark:text-gray-400 dark:hover:text-offwhite mb-6 flex items-center gap-1 transition-colors active:scale-95"
         >
           ← {t("storefront.product.back")}
         </button>
@@ -241,7 +241,7 @@ export default function CheckoutPage() {
               <h1 className="text-xl font-black tracking-[-0.02em] text-brand-black dark:text-offwhite">
                 {t("storefront.checkout.title")}
               </h1>
-              <p className="text-xs text-gray-400 mt-1">{t("storefront.checkout.subtitle")}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{t("storefront.checkout.subtitle")}</p>
             </div>
 
             {/* Name */}
@@ -268,8 +268,8 @@ export default function CheckoutPage() {
             </Field>
 
             {/* ── Address — 3 Fields ──────────────────────────────────────── */}
-            <div className="border border-gray-100 bg-white dark:bg-brand-gray p-4 flex flex-col gap-4">
-              <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">
+            <div className="border border-gray-100 dark:border-brand-border/10 bg-white dark:bg-brand-gray p-4 flex flex-col gap-4">
+              <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-500 dark:text-gray-400">
                 📍 {t("storefront.checkout.shippingInfo")}
               </p>
 
@@ -321,7 +321,7 @@ export default function CheckoutPage() {
 
               {/* Composed address preview */}
               {fullAddress && (
-                <div className="bg-gray-50 dark:bg-brand-black border border-gray-100 px-3 py-2 text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
+                <div className="bg-gray-50 dark:bg-brand-black border border-gray-100 dark:border-brand-border/10 px-3 py-2 text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
                   📦 {t("storefront.checkout.shippingTo")} <span className="font-semibold text-brand-black dark:text-offwhite">{fullAddress}</span>
                 </div>
               )}
@@ -347,7 +347,7 @@ export default function CheckoutPage() {
                 <span className="text-lg">📱</span>
                 <div>
                   <p className="text-xs font-bold text-brand-black dark:text-offwhite">{t("storefront.checkout.vodafoneCash")}</p>
-                  <p className="text-[10px] text-gray-400">{t("storefront.checkout.onlyPaymentMethod")}</p>
+                  <p className="text-[10px] text-gray-500 dark:text-gray-400">{t("storefront.checkout.onlyPaymentMethod")}</p>
                 </div>
                 <span className="ml-auto text-[10px] font-bold text-green-600 border border-green-200 bg-green-50 px-2 py-0.5">{t("storefront.checkout.active")}</span>
               </div>
@@ -430,7 +430,7 @@ export default function CheckoutPage() {
             <a
               href={`https://wa.me/${WA_NUMBER}?text=Hi, I need help with my order.`}
               target="_blank" rel="noreferrer"
-              className="text-center text-[10px] text-gray-400 hover:text-green-600 transition-colors"
+              className="text-center text-[10px] text-gray-500 dark:text-gray-400 hover:text-green-600 transition-colors"
             >
               💬 {t("storefront.checkout.chatOnWhatsApp")}
             </a>
@@ -478,7 +478,7 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
   const finalTotal = Math.max(0, total - discountAmount);
   return (
     <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-5 h-fit sticky top-20">
-      <h2 className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">{t("storefront.checkout.orderSummary")}</h2>
+      <h2 className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-500 dark:text-gray-400 mb-4">{t("storefront.checkout.orderSummary")}</h2>
       <ul className="space-y-3 mb-4">
         {items.map((item) => (
           <li key={`${item.nameEn}-${item.size}`} className="flex items-center gap-3">
@@ -491,14 +491,14 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-brand-black dark:text-offwhite truncate">{lang === "ar" && item.nameAr ? item.nameAr : item.nameEn}</p>
-              {item.size && <p className="text-[9px] text-gray-400">{t("storefront.checkout.size")}: {item.size}</p>}
+              {item.size && <p className="text-[9px] text-gray-500 dark:text-gray-400">{t("storefront.checkout.size")}: {item.size}</p>}
               <p className="text-[10px] text-gray-500 dark:text-gray-400">× {item.quantity}</p>
             </div>
             <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite shrink-0">{fmtP(item.price * item.quantity)}</p>
           </li>
         ))}
       </ul>
-      <div className="border-t border-gray-100 pt-4 space-y-2">
+      <div className="border-t border-gray-100 dark:border-brand-border/10 pt-4 space-y-2">
         <div className="flex justify-between text-xs">
           <span className="text-gray-500 dark:text-gray-400">{t("storefront.checkout.subtotal")}</span>
           <span className="font-mono font-bold text-brand-black dark:text-offwhite">{fmtP(total)}</span>
@@ -509,7 +509,7 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
             <span className="font-mono font-bold text-green-600">−{fmtP(discountAmount)}</span>
           </div>
         )}
-        <div className="flex justify-between text-xs border-t border-gray-100 pt-2 mt-1">
+        <div className="flex justify-between text-xs border-t border-gray-100 dark:border-brand-border/10 pt-2 mt-1">
           <span className="font-bold text-brand-black dark:text-offwhite">{t("storefront.checkout.total")}</span>
           <span className="font-mono font-black text-brand-black dark:text-offwhite">{fmtP(finalTotal)}</span>
         </div>

@@ -305,40 +305,43 @@ function ProductCard({
   return (
     <div className="group flex flex-col" dir={isRTL ? "rtl" : "ltr"}>
       {/* Image */}
-      <Link href={`/product/${product.id}`} className="block relative overflow-hidden bg-gray-100 dark:bg-brand-gray aspect-[3/4]">
-        {imageSrc ? (
-          <Image
-            src={imageSrc}
-            alt={displayName}
-            fill
-            sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
-            className="object-cover group-hover:scale-[1.04] transition-transform duration-500"
-            unoptimized={imageSrc.includes("supabase.co")} // skip next/image optimization for Supabase CDN URLs
-          />
-        ) : (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-brand-gray">
-            <span className="text-2xl font-black text-gray-300">{displayName.slice(0, 2).toUpperCase()}</span>
-          </div>
-        )}
+      <div className="relative overflow-hidden bg-gray-100 dark:bg-brand-gray aspect-[3/4]">
+        {/* Link covers the full image area — valid HTML, no nested interactive elements */}
+        <Link href={`/product/${product.id}`} className="block absolute inset-0">
+          {imageSrc ? (
+            <Image
+              src={imageSrc}
+              alt={displayName}
+              fill
+              sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 25vw"
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+              unoptimized={imageSrc.includes("supabase.co")}
+            />
+          ) : (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-100 dark:bg-brand-gray">
+              <span className="text-2xl font-black text-gray-300">{displayName.slice(0, 2).toUpperCase()}</span>
+            </div>
+          )}
+        </Link>
 
-        {/* Badges */}
-        <div className={`absolute top-2 ${isRTL ? "right-2" : "left-2"} flex flex-col gap-1`}>
+        {/* Badges — pointer-events-none so they don't block the Link */}
+        <div className={`absolute top-2 ${isRTL ? "right-2" : "left-2"} flex flex-col gap-1 pointer-events-none`}>
           {isLowStock && (
             <span className="bg-orange-500 text-white text-[9px] font-bold px-2 py-0.5 tracking-wide">
               {t("storefront.products.onlyLeft").replace("{{n}}", String(product.stock_quantity))}
             </span>
           )}
           {hasSizes && (
-            <span className="bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite text-[9px] font-bold px-2 py-0.5 tracking-wide">
+            <span className="bg-brand-black dark:bg-offwhite text-white dark:text-brand-black text-[9px] font-bold px-2 py-0.5 tracking-wide">
               {t("storefront.products.preorderBadge")}
             </span>
           )}
         </div>
 
-        {/* Share Button */}
+        {/* Share Button — sibling of Link, NOT nested inside it (valid HTML) */}
         <button
-          onClick={(e) => { e.preventDefault(); e.stopPropagation(); onShare(product); }}
-          className={`absolute top-2 ${isRTL ? "left-2" : "right-2"} w-7 h-7 bg-white dark:bg-brand-gray/90 dark:bg-brand-gray/90 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-white dark:bg-brand-gray shadow-sm`}
+          onClick={(e) => { e.stopPropagation(); onShare(product); }}
+          className={`absolute top-2 ${isRTL ? "left-2" : "right-2"} z-10 w-7 h-7 bg-white dark:bg-brand-gray/90 backdrop-blur flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-gray-50 dark:hover:bg-brand-gray shadow-sm`}
           title={t("storefront.products.share")}
         >
           <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -346,7 +349,7 @@ function ProductCard({
             <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
           </svg>
         </button>
-      </Link>
+      </div>
 
       {/* Info */}
       <div className="pt-3 flex-1 flex flex-col gap-1.5">

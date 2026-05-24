@@ -31,9 +31,9 @@ export default function CartDrawer() {
           ${isRTL ? "animate-slide-in-left" : "animate-slide-in-right"}`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 dark:border-brand-border/10">
           <div>
-            <h2 className="text-sm font-bold tracking-[0.1em] uppercase text-[#1A1A1A]">
+            <h2 className="text-sm font-bold tracking-[0.1em] uppercase text-brand-black dark:text-offwhite">
               {t("storefront.cart.title")}
             </h2>
             {count > 0 && (
@@ -44,7 +44,7 @@ export default function CartDrawer() {
           </div>
           <button
             onClick={() => setIsOpen(false)}
-            className="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-[#1A1A1A] hover:bg-gray-100 dark:bg-brand-black transition-colors"
+            className="w-8 h-8 flex items-center justify-center text-gray-500 dark:text-gray-400 hover:text-brand-black dark:hover:text-offwhite hover:bg-gray-100 dark:hover:bg-brand-black/50 transition-colors"
           >
             ✕
           </button>
@@ -59,13 +59,13 @@ export default function CartDrawer() {
               <p className="text-xs text-gray-300 text-center">{t("storefront.cart.emptyDesc")}</p>
               <button
                 onClick={() => setIsOpen(false)}
-                className="mt-2 px-5 py-2.5 border border-gray-200 dark:border-brand-border/20 text-xs font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 hover:border-gray-400 hover:text-[#1A1A1A] transition-all"
+                className="mt-2 px-5 py-2.5 border border-gray-200 dark:border-brand-border/20 text-xs font-bold tracking-widest uppercase text-gray-500 dark:text-gray-400 hover:border-gray-400 hover:text-brand-black dark:hover:text-offwhite transition-all"
               >
                 {t("storefront.cart.browse")}
               </button>
             </div>
           ) : (
-            <ul className="divide-y divide-gray-50 px-6">
+            <ul className="divide-y divide-gray-50 dark:divide-brand-border/10 px-6">
               {items.map((item) => (
                 <li key={`${item.productId}-${item.size}`} className="py-4 flex gap-3">
                   {/* Image */}
@@ -86,7 +86,7 @@ export default function CartDrawer() {
 
                   {/* Details */}
                   <div className="flex-1 min-w-0">
-                    <p className="text-xs font-bold text-[#1A1A1A] truncate">
+                    <p className="text-xs font-bold text-brand-black dark:text-offwhite truncate">
                       {lang === "ar" && item.nameAr ? item.nameAr : item.nameEn}
                     </p>
                     {item.size && (
@@ -94,7 +94,7 @@ export default function CartDrawer() {
                         Size: {item.size}
                       </p>
                     )}
-                    <p className="text-xs font-mono font-bold text-[#1A1A1A] mt-1">
+                    <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite mt-1">
                       {fmtP(item.price)}
                     </p>
 
@@ -120,7 +120,7 @@ export default function CartDrawer() {
 
                   {/* Line total */}
                   <div className="shrink-0 text-right">
-                    <p className="text-xs font-mono font-bold text-[#1A1A1A]">
+                    <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite">
                       {fmtP(item.price * item.quantity)}
                     </p>
                   </div>
@@ -132,17 +132,17 @@ export default function CartDrawer() {
 
         {/* Footer */}
         {items.length > 0 && (
-          <div className="border-t border-gray-100 px-6 py-5 space-y-4">
+          <div className="border-t border-gray-100 dark:border-brand-border/10 px-6 py-5 space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold tracking-[0.1em] uppercase text-gray-500 dark:text-gray-400">
                 {t("storefront.cart.total")}
               </span>
-              <span className="text-base font-black text-[#1A1A1A] font-mono">{fmtP(total)}</span>
+              <span className="text-base font-black text-brand-black dark:text-offwhite font-mono">{fmtP(total)}</span>
             </div>
             <CheckoutTrigger onClose={() => setIsOpen(false)} />
             <button
               onClick={() => setIsOpen(false)}
-              className="w-full text-center text-xs text-gray-400 hover:text-[#1A1A1A] py-1 transition-colors"
+              className="w-full text-center text-xs text-gray-400 dark:text-gray-500 hover:text-brand-black dark:hover:text-offwhite py-1 transition-colors"
             >
               {t("storefront.cart.continueShopping")}
             </button>

@@ -78,7 +78,7 @@ function ReviewsSection({ productId }: { productId: string }) {
 
   return (
     <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 border-t border-gray-100">
-      <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6 text-center">
+      <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-500 dark:text-gray-400 mb-6 text-center">
         {t("storefront.product.customerReviews")}
       </p>
 
@@ -107,7 +107,7 @@ function ReviewsSection({ productId }: { productId: string }) {
             <label className="label-style">{t("storefront.product.rating")}</label>
             <StarRating value={rating} onChange={setRating} />
             {rating > 0 && (
-              <p className="text-[10px] text-gray-400">
+              <p className="text-[10px] text-gray-500 dark:text-gray-400">
                 {["","Poor","Fair","Good","Very Good","Excellent"][rating]}
               </p>
             )}
@@ -130,7 +130,7 @@ function ReviewsSection({ productId }: { productId: string }) {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3 bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite text-[11px] font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-colors"
+            className="w-full py-3 bg-brand-black dark:bg-offwhite text-white dark:text-brand-black text-[11px] font-black tracking-[0.15em] uppercase hover:bg-[#333] dark:hover:bg-gray-200 disabled:opacity-40 transition-colors"
           >
             {loading ? t("storefront.checkout.submitting") : t("storefront.product.submitReview")}
           </button>
@@ -201,11 +201,11 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
   function nextImg() { setActiveImg((i) => (i === allImages.length - 1 ? 0 : i + 1)); }
 
   return (
-    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#FAF9F6]">
+    <div dir={isRTL ? "rtl" : "ltr"} className="min-h-screen bg-[#FAF9F6] dark:bg-brand-black">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6">
 
         {/* Back */}
-        <button onClick={() => router.back()} className="text-xs text-gray-400 hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite mb-6 flex items-center gap-1 transition-colors">
+        <button onClick={() => router.back()} className="text-xs text-gray-500 hover:text-brand-black dark:text-gray-400 dark:hover:text-offwhite mb-6 flex items-center gap-1 transition-colors">
           {t("storefront.product.back")}
         </button>
 
@@ -232,11 +232,11 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
               {allImages.length > 1 && (
                 <>
                   <button onClick={prevImg}
-                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white dark:bg-brand-gray/80 dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:bg-brand-gray dark:hover:bg-brand-gray transition-all shadow-sm">
+                    className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-brand-gray transition-all shadow-sm">
                     ‹
                   </button>
                   <button onClick={nextImg}
-                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white dark:bg-brand-gray/80 dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:bg-brand-gray dark:hover:bg-brand-gray transition-all shadow-sm">
+                    className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 bg-white dark:bg-brand-gray/80 backdrop-blur flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-brand-gray transition-all shadow-sm">
                     ›
                   </button>
                   {/* Dots */}
@@ -253,7 +253,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
               {/* Share button */}
               <button
                 onClick={handleShare}
-                className="absolute top-3 right-3 bg-white dark:bg-brand-gray/90 dark:bg-brand-gray/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase text-gray-600 dark:text-gray-300 hover:bg-white dark:bg-brand-gray dark:hover:bg-brand-gray shadow-sm flex items-center gap-1.5 transition-colors"
+                className="absolute top-3 right-3 bg-white dark:bg-brand-gray/90 backdrop-blur px-3 py-1.5 text-[10px] font-bold tracking-widest uppercase text-gray-600 dark:text-gray-300 hover:bg-white dark:hover:bg-brand-gray shadow-sm flex items-center gap-1.5 transition-colors"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
@@ -284,7 +284,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
             {/* Badges */}
             <div className="flex items-center gap-2 flex-wrap">
               {product.category && (
-                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-gray-400 border border-gray-200 dark:border-brand-border/20 px-2 py-0.5">
+                <span className="text-[10px] font-bold tracking-[0.1em] uppercase text-gray-500 dark:text-gray-400 border border-gray-200 dark:border-brand-border/30 px-2 py-0.5">
                   {product.category}
                 </span>
               )}
@@ -313,17 +313,17 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
             {/* Description */}
             {product.description && (
               <div>
-                <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-gray-400 mb-1.5">
+                <p className="text-[10px] font-bold tracking-[0.1em] uppercase text-gray-500 dark:text-gray-400 mb-1.5">
                   {t("storefront.product.description")}
                 </p>
-                <p className="text-sm text-gray-600 leading-relaxed">{product.description}</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">{product.description}</p>
               </div>
             )}
 
             {/* Size Picker */}
             {hasSizes && (
               <div>
-                <p className={`text-[10px] font-bold tracking-[0.1em] uppercase mb-2 ${sizeError ? "text-red-500" : "text-gray-400"}`}>
+                <p className={`text-[10px] font-bold tracking-[0.1em] uppercase mb-2 ${sizeError ? "text-red-500" : "text-gray-500 dark:text-gray-400"}`}>
                   {t("storefront.product.sizes")} {sizeError && `— ${t("storefront.products.sizeRequired")}`}
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -333,7 +333,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
                       onClick={() => { setSelectedSize(size); setSizeError(false); }}
                       className={`min-w-[44px] h-10 px-3 text-sm font-bold border transition-all
                         ${selectedSize === size
-                          ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite"
+                          ? "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black border-brand-black dark:border-offwhite"
                           : sizeError
                           ? "border-red-300 text-red-500 hover:border-red-500"
                           : "border-gray-200 dark:border-brand-border/30 text-gray-600 dark:text-gray-300 hover:border-brand-black dark:hover:border-offwhite"
@@ -353,7 +353,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
                 className={`w-full py-4 text-xs font-black tracking-[0.15em] uppercase transition-all
                   ${added
                     ? "bg-green-600 text-white"
-                    : "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite hover:bg-brand-gray dark:hover:bg-gray-200"
+                    : "bg-brand-black dark:bg-offwhite text-white dark:text-brand-black hover:bg-brand-gray dark:hover:bg-gray-200"
                   }`}
               >
                 {added ? `✓ ${t("storefront.products.inCart")}` : t("storefront.products.addToCart")}
@@ -372,7 +372,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
             </div>
 
             {/* Stock info */}
-            <p className="text-[10px] text-gray-400">
+            <p className="text-[10px] text-gray-500 dark:text-gray-400">
               {t("storefront.product.stock")}: {product.stock_quantity} units
             </p>
           </div>

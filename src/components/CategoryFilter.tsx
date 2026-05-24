@@ -32,7 +32,7 @@ export default function CategoryFilter({ activeCategory, onSelect }: Props) {
             border transition-all duration-200 rounded-sm
             active:scale-95
             ${activeCategory === "all"
-              ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite"
+              ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black border-brand-black dark:border-offwhite"
               : "border-brand-border text-brand-muted hover:border-brand-black dark:hover:border-offwhite hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite"
             }
           `}
@@ -54,7 +54,7 @@ export default function CategoryFilter({ activeCategory, onSelect }: Props) {
                 ${
                   activeCategory === group.key ||
                   group.subcategories.some((s) => s.key === activeCategory)
-                    ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black dark:text-offwhite border-brand-black dark:border-offwhite"
+                    ? "bg-brand-black text-brand-accent dark:bg-offwhite dark:text-brand-black border-brand-black dark:border-offwhite"
                     : "border-brand-border text-brand-muted hover:border-brand-black dark:hover:border-offwhite hover:text-brand-black dark:text-offwhite dark:hover:text-offwhite"
                 }
               `}
