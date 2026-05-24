@@ -10,8 +10,10 @@ const translations: Record<Language, DeepRecord> = {
   ar: arRaw as DeepRecord,
 };
 
-/** Resolve a dot-notation key like "admin.login.title" from a nested object */
-function resolve(obj: DeepRecord, path: string): string {
+export function resolve(obj: DeepRecord, path: string): string {
+  if (obj && typeof obj[path] === "string") {
+    return obj[path] as string;
+  }
   const parts = path.split(".");
   let cur: string | DeepRecord = obj;
   for (const part of parts) {

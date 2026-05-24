@@ -11,6 +11,7 @@ import React, {
   ReactNode,
 } from "react";
 import { translations, Lang, TranslationKey } from "@/i18n/translations";
+import { resolve } from "../i18n";
 
 interface LanguageContextValue {
   lang: Lang;
@@ -48,7 +49,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const t = useCallback(
     (key: TranslationKey): string => {
-      return (translations[lang] as Record<string, string>)[key] ?? key;
+      return resolve(translations[lang], key) ?? key;
     },
     [lang]
   );
