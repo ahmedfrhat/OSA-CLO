@@ -30,8 +30,6 @@ export async function POST(request: NextRequest) {
       customer_address,
       notes,
       payment_type,  // "full" | "deposit"
-      discount_amount,
-      discount_code,
       items,
     } = body as {
       customer_name: string;
@@ -39,8 +37,6 @@ export async function POST(request: NextRequest) {
       customer_address: string;
       notes?: string;
       payment_type: "full" | "deposit";
-      discount_amount?: number;
-      discount_code?: string;
       items: CheckoutItem[];
     };
 
