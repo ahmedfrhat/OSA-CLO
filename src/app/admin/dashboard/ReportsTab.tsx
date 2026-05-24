@@ -133,7 +133,6 @@ export default function ReportsTab({ orders, products }: Props) {
   const topProduct    = products.find((p) => p.id === topProductId);
 
   return (
-  return (
     <div className="flex flex-col gap-5">
       <div>
         <h2 className="text-base font-bold text-[#1A1A1A]">{t("admin.reports.title")}</h2>

@@ -404,7 +404,7 @@ function InfoBlock({ label, value, extra }: { label: string; value: string; extr
 // ── Invoice View ──────────────────────────────────────────────────────────────
 function InvoiceView({
   order, partnerName, onClose, t, isRTL,
-}: { order: FullOrder; partnerName: string; onClose: () => void; t: any; isRTL: boolean }) {
+}: { order: FullOrder; partnerName: string; onClose: () => void; t: (key: string) => string; isRTL: boolean }) {
   const total     = order.total_amount;
   const paid      = order.paid_amount ?? 0;
   const remaining = Math.max(0, total - paid);

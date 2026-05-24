@@ -26,10 +26,10 @@ interface Props {
   onClose: () => void;
 }
 
-const CATEGORIES = [
-  "T-Shirts", "Hoodies", "Pants", "Shorts",
-  "Outerwear", "Accessories", "Shoes", "Other",
-];
+// const CATEGORIES = [
+//   "T-Shirts", "Hoodies", "Pants", "Shorts",
+//   "Outerwear", "Accessories", "Shoes", "Other",
+// ];
 const SIZE_PRESETS = ["XS", "S", "M", "L", "XL", "XXL", "Oversized", "One Size"];
 
 // ── Component ─────────────────────────────────────────────────────────────────
