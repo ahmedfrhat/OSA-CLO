@@ -167,6 +167,27 @@ export default function StorefrontClient({ products: initialProducts }: Props) {
 
   return (
     <div dir={isRTL ? "rtl" : "ltr"}>
+      {/* ── Hero Section ── */}
+      <section className="bg-offwhite dark:bg-brand-black border-b border-brand-border dark:border-brand-border/20 transition-colors duration-300">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 sm:py-24">
+          <div className="max-w-2xl">
+            <p className="text-[10px] font-bold tracking-[0.3em] uppercase text-brand-muted mb-4">
+              {t("hero_season")}
+            </p>
+            <h1 className="text-5xl sm:text-7xl font-black tracking-[-0.04em] leading-none text-brand-black dark:text-offwhite mb-6 transition-colors duration-300">
+              {lang === "ar" ? (
+                <>المعيار<br/>الجديد.</>
+              ) : (
+                <>THE<br/>NEW<br/>STANDARD.</>
+              )}
+            </h1>
+            <p className="text-sm text-brand-muted leading-relaxed max-w-md">
+              {t("hero_subtitle")}
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ── Search + Filter bar ── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 pb-2">
         <div className={`flex flex-col sm:flex-row gap-4 mb-4 ${isRTL ? "sm:flex-row-reverse" : ""}`}>

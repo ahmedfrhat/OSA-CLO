@@ -1,12 +1,25 @@
 {
   "common": {
-    "save": "Save", "cancel": "Cancel", "delete": "Delete", "edit": "Edit",
-    "close": "Close", "confirm": "Confirm", "loading": "Loading...",
-    "allTime": "All time", "egp": "EGP", "units": "units",
-    "export": "Export CSV", "print": "Print", "viewDetails": "View Details",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "confirm": "Confirm",
+    "loading": "Loading...",
+    "allTime": "All time",
+    "egp": "EGP",
+    "units": "units",
+    "export": "Export CSV",
+    "print": "Print",
+    "viewDetails": "View Details",
     "repeatCustomer": "Repeat Customer"
   },
-  "nav": { "shop": "Shop", "collections": "Collections", "contact": "Contact" },
+  "nav": {
+    "shop": "Shop",
+    "collections": "Collections",
+    "contact": "Contact"
+  },
   "storefront": {
     "hero": {
       "eyebrow": "SS 2025 DROP 01",
@@ -20,7 +33,9 @@
       "noResults": "No products found",
       "clear": "Clear"
     },
-    "categories": { "all": "All" },
+    "categories": {
+      "all": "All"
+    },
     "products": {
       "sectionEyebrow": "Current Drop",
       "sectionTitle": "All Products",
@@ -43,7 +58,17 @@
       "description": "Description",
       "sizes": "Available Sizes",
       "stock": "In Stock",
-      "back": "← Back"
+      "back": "← Back",
+      "writeReview": "Write a Review",
+      "yourName": "Your Name",
+      "rating": "Rating",
+      "greatQuality": "Great quality, fits perfectly...",
+      "reviewNamePlaceholder": "Ahmed Mohamed",
+      "reviewSuccess": "Thank you! Your review is pending approval.",
+      "reviewError": "Please enter your name and select a rating.",
+      "commentOptional": "Comment (Optional)",
+      "submitReview": "Submit Review",
+      "customerReviews": "Customer Reviews"
     },
     "cart": {
       "title": "Your Cart",
@@ -65,13 +90,13 @@
       "phone": "Phone Number *",
       "phonePlaceholder": "01x xxxx xxxx",
       "address": "Delivery Address *",
-      "addressPlaceholder": "Street, area, city (min 10 characters)",
+      "addressPlaceholder": "e.g., Al-Tahrir Street, building 12, apt 3",
       "notes": "Order Notes",
       "notesPlaceholder": "Special requests, color preference, etc.",
       "payment": "Payment Method",
       "payFull": "Pay in Full",
       "payDeposit": "50% Deposit Now",
-      "total": "Order Total",
+      "total": "Total",
       "paidNow": "Paid Now",
       "remaining": "Remaining on Delivery",
       "vodafoneCash": "Vodafone Cash",
@@ -86,8 +111,29 @@
         "addressRequired": "Delivery address is required",
         "addressTooShort": "Address must be at least 10 characters",
         "termsRequired": "You must agree to the terms to continue",
-        "serverError": "Something went wrong. Please try again."
-      }
+        "serverError": "Something went wrong. Please try again.",
+        "governorateRequired": "Governorate is required",
+        "cityRequired": "City is required",
+        "detailedAddressRequired": "Detailed address is required"
+      },
+      "shippingInfo": "Shipping Information",
+      "governorate": "Governorate *",
+      "selectGovernorate": "— Select Governorate —",
+      "city": "City / Region *",
+      "selectCity": "— Select City —",
+      "detailedAddress": "Detailed Address * (Street, building, apartment)",
+      "shippingTo": "Will be shipped to:",
+      "onlyPaymentMethod": "Only accepted payment method",
+      "active": "Active",
+      "discountOptional": "Discount Code (Optional)",
+      "apply": "Apply",
+      "applied": "applied!",
+      "chatOnWhatsApp": "Need help? Chat on WhatsApp",
+      "orderSummary": "Order Summary",
+      "size": "Size",
+      "subtotal": "Subtotal",
+      "dueNow": "Due Now (50%)",
+      "onDelivery": "On Delivery"
     },
     "track": {
       "title": "Track Your Order",
@@ -125,7 +171,9 @@
     },
     "footer": {
       "copyright": "© 2025 ASO CLO. All Rights Reserved.",
-      "privacy": "Privacy", "terms": "Terms", "contact": "Contact",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "contact": "Contact",
       "track": "Track Order"
     }
   },
@@ -188,9 +236,13 @@
         "delete": "Delete",
         "deleteConfirm": "Delete this product? This cannot be undone.",
         "table": {
-          "product": "Product", "cost": "Cost", "selling": "Selling",
-          "profit": "Profit/Unit", "stock": "Stock",
-          "availability": "Availability", "actions": "Actions"
+          "product": "Product",
+          "cost": "Cost",
+          "selling": "Selling",
+          "profit": "Profit/Unit",
+          "stock": "Stock",
+          "availability": "Availability",
+          "actions": "Actions"
         },
         "empty": {
           "title": "No products to manage",
@@ -211,12 +263,20 @@
         "empty": {
           "title": "No orders yet",
           "desc": "Record your first sale manually",
-          "action": "Add Order"
+          "action": "Add Order",
+          "closedTitle": "No closed orders yet"
         },
         "table": {
-          "customer": "Customer", "phone": "Phone", "address": "Address",
-          "source": "Source", "items": "Items", "total": "Total",
-          "paid": "Paid", "remaining": "Remaining", "status": "Status", "date": "Date",
+          "customer": "Customer",
+          "phone": "Phone",
+          "address": "Address",
+          "source": "Source",
+          "items": "Items",
+          "total": "Total",
+          "paid": "Paid",
+          "remaining": "Remaining",
+          "status": "Status",
+          "date": "Date",
           "actions": "Actions"
         },
         "status": {
@@ -224,7 +284,8 @@
           "processing": "Processing",
           "shipped": "Shipped",
           "closed": "Closed"
-        }
+        },
+        "generateWhatsApp": "Generate WhatsApp Status"
       },
       "financials": {
         "title": "My Financials",
@@ -237,8 +298,12 @@
         "chart": "Profit vs Cost (Last 30 Days)",
         "total": "Total",
         "table": {
-          "product": "Product", "units": "Units Sold", "revenue": "Revenue",
-          "cost": "Cost", "profit": "Profit", "margin": "Margin"
+          "product": "Product",
+          "units": "Units Sold",
+          "revenue": "Revenue",
+          "cost": "Cost",
+          "profit": "Profit",
+          "margin": "Margin"
         },
         "chart_labels": {
           "profit": "Net Profit",
@@ -303,10 +368,17 @@
       "submitBtn": "Confirm Order",
       "submitting": "Saving...",
       "sources": {
-        "facebook": "Facebook", "whatsapp": "WhatsApp",
-        "instagram": "Instagram", "walk_in": "Walk-in", "manual": "Other"
+        "facebook": "Facebook",
+        "whatsapp": "WhatsApp",
+        "instagram": "Instagram",
+        "walk_in": "Walk-in",
+        "manual": "Other"
       },
-      "headers": { "product": "Product", "size": "Size", "qty": "Qty" },
+      "headers": {
+        "product": "Product",
+        "size": "Size",
+        "qty": "Qty"
+      },
       "error": {
         "noItems": "Add at least one product",
         "required": "Customer name and items are required",

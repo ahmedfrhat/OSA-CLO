@@ -1,12 +1,25 @@
 {
   "common": {
-    "save": "حفظ", "cancel": "إلغاء", "delete": "حذف", "edit": "تعديل",
-    "close": "إغلاق", "confirm": "تأكيد", "loading": "جاري التحميل...",
-    "allTime": "كل الأوقات", "egp": "ج.م", "units": "وحدة",
-    "export": "تصدير CSV", "print": "طباعة", "viewDetails": "عرض التفاصيل",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "close": "إغلاق",
+    "confirm": "تأكيد",
+    "loading": "جاري التحميل...",
+    "allTime": "كل الأوقات",
+    "egp": "ج.م",
+    "units": "وحدة",
+    "export": "تصدير CSV",
+    "print": "طباعة",
+    "viewDetails": "عرض التفاصيل",
     "repeatCustomer": "عميل متكرر"
   },
-  "nav": { "shop": "المتجر", "collections": "المجموعات", "contact": "تواصل معنا" },
+  "nav": {
+    "shop": "المتجر",
+    "collections": "المجموعات",
+    "contact": "تواصل معنا"
+  },
   "storefront": {
     "hero": {
       "eyebrow": "مجموعة 2025 — الإصدار الأول",
@@ -20,7 +33,9 @@
       "noResults": "لا توجد منتجات مطابقة",
       "clear": "مسح"
     },
-    "categories": { "all": "الكل" },
+    "categories": {
+      "all": "الكل"
+    },
     "products": {
       "sectionEyebrow": "الإصدار الحالي",
       "sectionTitle": "جميع المنتجات",
@@ -43,7 +58,17 @@
       "description": "الوصف",
       "sizes": "المقاسات المتاحة",
       "stock": "المخزون",
-      "back": "→ رجوع"
+      "back": "→ رجوع",
+      "writeReview": "اكتب تقييماً",
+      "yourName": "اسمك",
+      "rating": "التقييم",
+      "greatQuality": "جودة رائعة، مقاس ممتاز...",
+      "reviewNamePlaceholder": "أحمد محمد",
+      "reviewSuccess": "شكراً! تقييمك قيد المراجعة.",
+      "reviewError": "يرجى إدخال اسمك وتحديد التقييم.",
+      "commentOptional": "التعليق (اختياري)",
+      "submitReview": "إرسال التقييم",
+      "customerReviews": "آراء العملاء"
     },
     "cart": {
       "title": "سلة التسوق",
@@ -65,13 +90,13 @@
       "phone": "رقم الهاتف *",
       "phonePlaceholder": "01x xxxx xxxx",
       "address": "عنوان التوصيل *",
-      "addressPlaceholder": "الشارع، المنطقة، المدينة (10 أحرف على الأقل)",
+      "addressPlaceholder": "مثال: شارع التحرير، مبنى 12، شقة 3",
       "notes": "ملاحظات الطلب",
       "notesPlaceholder": "طلبات خاصة، تفضيل اللون، إلخ.",
       "payment": "طريقة الدفع",
       "payFull": "الدفع الكامل",
       "payDeposit": "دفع 50% مقدماً",
-      "total": "إجمالي الطلب",
+      "total": "الإجمالي",
       "paidNow": "المدفوع الآن",
       "remaining": "المتبقي عند الاستلام",
       "vodafoneCash": "فودافون كاش",
@@ -86,8 +111,29 @@
         "addressRequired": "عنوان التوصيل مطلوب",
         "addressTooShort": "العنوان يجب أن يكون 10 أحرف على الأقل",
         "termsRequired": "يجب الموافقة على الشروط للمتابعة",
-        "serverError": "حدث خطأ. يرجى المحاولة مرة أخرى."
-      }
+        "serverError": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+        "governorateRequired": "يرجى اختيار المحافظة",
+        "cityRequired": "يرجى اختيار المدينة",
+        "detailedAddressRequired": "يرجى كتابة العنوان بالتفصيل"
+      },
+      "shippingInfo": "بيانات الشحن",
+      "governorate": "المحافظة *",
+      "selectGovernorate": "— اختر المحافظة —",
+      "city": "المدينة / المركز *",
+      "selectCity": "— اختر المدينة —",
+      "detailedAddress": "العنوان التفصيلي * (اسم الشارع، رقم المبنى، الدور)",
+      "shippingTo": "سيتم الشحن إلى:",
+      "onlyPaymentMethod": "طريقة الدفع الوحيدة المقبولة",
+      "active": "نشط",
+      "discountOptional": "كود الخصم (اختياري)",
+      "apply": "تطبيق",
+      "applied": "تم التطبيق!",
+      "chatOnWhatsApp": "هل تحتاج لمساعدة؟ تواصل معنا عبر واتساب",
+      "orderSummary": "ملخص الطلب",
+      "size": "المقاس",
+      "subtotal": "المجموع الفرعي",
+      "dueNow": "المدفوع الآن (٥٠٪)",
+      "onDelivery": "عند الاستلام"
     },
     "track": {
       "title": "تتبع طلبك",
@@ -125,7 +171,9 @@
     },
     "footer": {
       "copyright": "© 2025 ASO CLO. جميع الحقوق محفوظة.",
-      "privacy": "الخصوصية", "terms": "الشروط", "contact": "تواصل معنا",
+      "privacy": "الخصوصية",
+      "terms": "الشروط",
+      "contact": "تواصل معنا",
       "track": "تتبع الطلب"
     }
   },
@@ -188,9 +236,13 @@
         "delete": "حذف",
         "deleteConfirm": "هل تريد حذف هذا المنتج؟ لا يمكن التراجع.",
         "table": {
-          "product": "المنتج", "cost": "سعر الشراء", "selling": "سعر البيع",
-          "profit": "ربح/وحدة", "stock": "المخزون",
-          "availability": "التوفر", "actions": "إجراءات"
+          "product": "المنتج",
+          "cost": "سعر الشراء",
+          "selling": "سعر البيع",
+          "profit": "ربح/وحدة",
+          "stock": "المخزون",
+          "availability": "التوفر",
+          "actions": "إجراءات"
         },
         "empty": {
           "title": "لا توجد منتجات للإدارة",
@@ -211,12 +263,20 @@
         "empty": {
           "title": "لا توجد طلبات بعد",
           "desc": "سجّل بيعتك الأولى يدوياً",
-          "action": "إضافة طلب"
+          "action": "إضافة طلب",
+          "closedTitle": "لا توجد طلبات مغلقة بعد"
         },
         "table": {
-          "customer": "العميل", "phone": "الهاتف", "address": "العنوان",
-          "source": "المصدر", "items": "المنتجات", "total": "الإجمالي",
-          "paid": "المدفوع", "remaining": "المتبقي", "status": "الحالة", "date": "التاريخ",
+          "customer": "العميل",
+          "phone": "الهاتف",
+          "address": "العنوان",
+          "source": "المصدر",
+          "items": "المنتجات",
+          "total": "الإجمالي",
+          "paid": "المدفوع",
+          "remaining": "المتبقي",
+          "status": "الحالة",
+          "date": "التاريخ",
           "actions": "إجراءات"
         },
         "status": {
@@ -224,7 +284,8 @@
           "processing": "جاري التجهيز",
           "shipped": "تم الشحن",
           "closed": "مغلق"
-        }
+        },
+        "generateWhatsApp": "توليد حالة واتساب"
       },
       "financials": {
         "title": "ماليتي",
@@ -237,8 +298,12 @@
         "chart": "الربح مقابل التكلفة (آخر 30 يوم)",
         "total": "الإجمالي",
         "table": {
-          "product": "المنتج", "units": "الوحدات المباعة", "revenue": "الإيرادات",
-          "cost": "التكلفة", "profit": "الربح", "margin": "الهامش"
+          "product": "المنتج",
+          "units": "الوحدات المباعة",
+          "revenue": "الإيرادات",
+          "cost": "التكلفة",
+          "profit": "الربح",
+          "margin": "الهامش"
         },
         "chart_labels": {
           "profit": "صافي الربح",
@@ -303,10 +368,17 @@
       "submitBtn": "تأكيد الطلب",
       "submitting": "جاري الحفظ...",
       "sources": {
-        "facebook": "فيسبوك", "whatsapp": "واتساب",
-        "instagram": "إنستغرام", "walk_in": "حضوري", "manual": "أخرى"
+        "facebook": "فيسبوك",
+        "whatsapp": "واتساب",
+        "instagram": "إنستغرام",
+        "walk_in": "حضوري",
+        "manual": "أخرى"
       },
-      "headers": { "product": "المنتج", "size": "المقاس", "qty": "الكمية" },
+      "headers": {
+        "product": "المنتج",
+        "size": "المقاس",
+        "qty": "الكمية"
+      },
       "error": {
         "noItems": "أضف منتجاً واحداً على الأقل",
         "required": "اسم العميل والمنتجات مطلوبة",

@@ -293,7 +293,7 @@ export default function DashboardShell({ session, products: initProducts, orders
             <button
               onClick={() => setShowAddProduct(true)}
               className="sm:hidden w-8 h-8 bg-brand-black dark:bg-offwhite dark:text-brand-black dark:text-offwhite flex items-center justify-center text-white"
-              title="Add Product"
+              title={t("admin.dashboard.overview.addProduct")}
             >
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
@@ -448,7 +448,7 @@ export default function DashboardShell({ session, products: initProducts, orders
               </button>
             </div>
             {closedOrders.length === 0
-              ? <div className="bg-white dark:bg-brand-gray border border-dashed border-gray-200 dark:border-brand-border/20 py-16 text-center"><p className="text-sm text-gray-300 font-medium">No closed orders yet</p></div>
+              ? <div className="bg-white dark:bg-brand-gray border border-dashed border-gray-200 dark:border-brand-border/20 py-16 text-center"><p className="text-sm text-gray-300 font-medium">{t("admin.dashboard.orders.empty.closedTitle")}</p></div>
               : <OrderCards orders={closedOrders} customerOrderCount={customerOrderCount} onView={(id) => setSelectedOrderId(id)} onStatusChange={handleInlineStatusChange} t={t} lang={lang} showActions={false} />
             }
           </div>
@@ -561,9 +561,9 @@ export default function DashboardShell({ session, products: initProducts, orders
                           <span className="text-[10px] font-bold bg-green-50 text-green-700 px-2 py-0.5">{pct}%</span>
                         </div>
                         <div className="grid grid-cols-3 gap-2">
-                          <div><p className="text-[9px] text-gray-400 uppercase">Units</p><p className="text-xs font-mono font-bold">{units}</p></div>
-                          <div><p className="text-[9px] text-gray-400 uppercase">Revenue</p><p className="text-xs font-mono">{fmt(rev)}</p></div>
-                          <div><p className="text-[9px] text-gray-400 uppercase">Profit</p><p className="text-xs font-mono font-bold text-green-700">{fmt(profit)}</p></div>
+                          <div><p className="text-[9px] text-gray-400 uppercase">{t("admin.dashboard.financials.table.units")}</p><p className="text-xs font-mono font-bold">{units}</p></div>
+                          <div><p className="text-[9px] text-gray-400 uppercase">{t("admin.dashboard.financials.table.revenue")}</p><p className="text-xs font-mono">{fmt(rev)}</p></div>
+                          <div><p className="text-[9px] text-gray-400 uppercase">{t("admin.dashboard.financials.table.profit")}</p><p className="text-xs font-mono font-bold text-green-700">{fmt(profit)}</p></div>
                         </div>
                       </div>
                     );
@@ -793,18 +793,18 @@ function OrderCards({
               {/* Row 2: Financial summary */}
               <div className="grid grid-cols-3 gap-2 py-2 border-t border-b border-gray-100 my-2">
                 <div>
-                  <p className="text-[9px] text-gray-400 uppercase">Total</p>
+                  <p className="text-[9px] text-gray-400 uppercase">{t("admin.dashboard.orders.table.total")}</p>
                   <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite">EGP {o.total_amount.toLocaleString("en-EG")}</p>
                 </div>
                 <div>
-                  <p className="text-[9px] text-gray-400 uppercase">Paid</p>
+                  <p className="text-[9px] text-gray-400 uppercase">{t("admin.dashboard.orders.table.paid")}</p>
                   <p className="text-xs font-mono text-green-700">EGP {paid.toLocaleString("en-EG")}</p>
                 </div>
                 <div>
-                  <p className="text-[9px] text-gray-400 uppercase">Due</p>
+                  <p className="text-[9px] text-gray-400 uppercase">{t("admin.dashboard.orders.table.remaining")}</p>
                   {remaining > 0
                     ? <p className="text-xs font-mono font-bold text-red-600">EGP {remaining.toLocaleString("en-EG")}</p>
-                    : <p className="text-xs font-bold text-green-600">✓ Paid</p>}
+                    : <p className="text-xs font-bold text-green-600">✓ {lang === "ar" ? "مدفوع" : "Paid"}</p>}
                 </div>
               </div>
 
@@ -945,13 +945,12 @@ function ManageTab({ products, deletingId, togglingId, onAdd, onEdit, onDelete, 
                         </td>
                         <td className="px-4 py-3">
                           <div className="flex items-center gap-2">
-                            {/* Generate WA Status */}
                             <button
                               onClick={async () => {
                                 const { generateWhatsAppStatus } = await import("@/lib/generateStatus");
                                 generateWhatsAppStatus(p);
                               }}
-                              title="Generate WhatsApp Status"
+                              title={t("admin.dashboard.orders.generateWhatsApp")}
                               className="w-7 h-7 flex items-center justify-center border border-gray-200 dark:border-brand-border/30 text-gray-400 hover:text-green-600 hover:border-green-300 transition-colors"
                             >
                               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="9" y="3" width="6" height="9" rx="1"/><path d="M5 12v2a7 7 0 0 0 14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>

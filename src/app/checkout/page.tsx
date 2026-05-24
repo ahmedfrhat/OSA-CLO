@@ -163,15 +163,15 @@ export default function CheckoutPage() {
   // Client-side validation
   function validate(): FormErrors {
     const e: FormErrors = {};
-    if (!name.trim())                    e.name            = "الاسم مطلوب";
-    else if (!isLettersOnly(name))       e.name            = "الاسم يحتوي على حروف غير مقبولة";
-    if (!phone.trim())                   e.phone           = "رقم الهاتف مطلوب";
-    else if (!isValidPhone(phone))       e.phone           = "رقم الهاتف غير صحيح (ابدأ بـ 010 أو 011 أو 012 أو 015)";
-    if (!governorate)                    e.governorate     = "اختر المحافظة";
-    if (!city)                           e.city            = "اختر المدينة / المركز";
-    if (!detailedAddress.trim())         e.detailedAddress = "العنوان التفصيلي مطلوب";
-    else if (detailedAddress.trim().length < 5) e.detailedAddress = "العنوان قصير جداً";
-    if (!terms)                          e.terms           = "يجب الموافقة على الشروط";
+    if (!name.trim())                    e.name            = t("storefront.checkout.errors.nameRequired");
+    else if (!isLettersOnly(name))       e.name            = t("storefront.checkout.errors.nameInvalid");
+    if (!phone.trim())                   e.phone           = t("storefront.checkout.errors.phoneRequired");
+    else if (!isValidPhone(phone))       e.phone           = t("storefront.checkout.errors.phoneInvalid");
+    if (!governorate)                    e.governorate     = t("storefront.checkout.errors.governorateRequired");
+    if (!city)                           e.city            = t("storefront.checkout.errors.cityRequired");
+    if (!detailedAddress.trim())         e.detailedAddress = t("storefront.checkout.errors.detailedAddressRequired");
+    else if (detailedAddress.trim().length < 5) e.detailedAddress = t("storefront.checkout.errors.addressTooShort");
+    if (!terms)                          e.terms           = t("storefront.checkout.errors.termsRequired");
     return e;
   }
 
@@ -212,7 +212,7 @@ export default function CheckoutPage() {
       router.push(`/order/success?ids=${ids}`);
 
     } catch {
-      setErrors({ server: "حدث خطأ في السيرفر. يرجى المحاولة مرة أخرى." });
+      setErrors({ server: t("storefront.checkout.errors.serverError") });
       setLoading(false);
     }
   }
@@ -270,18 +270,18 @@ export default function CheckoutPage() {
             {/* ── Address — 3 Fields ──────────────────────────────────────── */}
             <div className="border border-gray-100 bg-white dark:bg-brand-gray p-4 flex flex-col gap-4">
               <p className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400">
-                📍 بيانات الشحن
+                📍 {t("storefront.checkout.shippingInfo")}
               </p>
 
               {/* Governorate */}
-              <Field label="المحافظة *" error={errors.governorate}>
+              <Field label={t("storefront.checkout.governorate")} error={errors.governorate}>
                 <div className="relative">
                   <select
                     value={governorate}
                     onChange={(e) => { setGovernorate(e.target.value); setErrors((p) => ({ ...p, governorate: undefined, city: undefined })); }}
                     className={selectStyle(errors.governorate)}
                   >
-                    <option value="">— اختر المحافظة —</option>
+                    <option value="">{t("storefront.checkout.selectGovernorate")}</option>
                     {Object.keys(EGYPT_GOVERNORATES).map((gov) => (
                       <option key={gov} value={gov}>{gov}</option>
                     ))}
@@ -291,7 +291,7 @@ export default function CheckoutPage() {
               </Field>
 
               {/* City / Region */}
-              <Field label="المدينة / المركز *" error={errors.city}>
+              <Field label={t("storefront.checkout.city")} error={errors.city}>
                 <div className="relative">
                   <select
                     value={city}
@@ -299,7 +299,7 @@ export default function CheckoutPage() {
                     disabled={!governorate}
                     className={`${selectStyle(errors.city)} disabled:opacity-40 disabled:cursor-not-allowed`}
                   >
-                    <option value="">— اختر المدينة —</option>
+                    <option value="">{t("storefront.checkout.selectCity")}</option>
                     {availableCities.map((c) => (
                       <option key={c} value={c}>{c}</option>
                     ))}
@@ -309,12 +309,12 @@ export default function CheckoutPage() {
               </Field>
 
               {/* Detailed Address */}
-              <Field label="العنوان التفصيلي * (اسم الشارع، رقم المبنى، الدور)" error={errors.detailedAddress}>
+              <Field label={t("storefront.checkout.detailedAddress")} error={errors.detailedAddress}>
                 <input
                   type="text"
                   value={detailedAddress}
                   onChange={(e) => { setDetailedAddress(e.target.value); setErrors((p) => ({ ...p, detailedAddress: undefined })); }}
-                  placeholder="مثال: شارع التحرير، مبنى 12، شقة 3"
+                  placeholder={t("storefront.checkout.addressPlaceholder")}
                   className={`input-style ${errors.detailedAddress ? "border-red-400 bg-red-50" : ""}`}
                 />
               </Field>
@@ -322,7 +322,7 @@ export default function CheckoutPage() {
               {/* Composed address preview */}
               {fullAddress && (
                 <div className="bg-gray-50 dark:bg-brand-black border border-gray-100 px-3 py-2 text-[10px] text-gray-500 dark:text-gray-400 leading-relaxed">
-                  📦 سيتم الشحن إلى: <span className="font-semibold text-brand-black dark:text-offwhite">{fullAddress}</span>
+                  📦 {t("storefront.checkout.shippingTo")} <span className="font-semibold text-brand-black dark:text-offwhite">{fullAddress}</span>
                 </div>
               )}
             </div>
@@ -347,9 +347,9 @@ export default function CheckoutPage() {
                 <span className="text-lg">📱</span>
                 <div>
                   <p className="text-xs font-bold text-brand-black dark:text-offwhite">{t("storefront.checkout.vodafoneCash")}</p>
-                  <p className="text-[10px] text-gray-400">Only accepted payment method</p>
+                  <p className="text-[10px] text-gray-400">{t("storefront.checkout.onlyPaymentMethod")}</p>
                 </div>
-                <span className="ml-auto text-[10px] font-bold text-green-600 border border-green-200 bg-green-50 px-2 py-0.5">Active</span>
+                <span className="ml-auto text-[10px] font-bold text-green-600 border border-green-200 bg-green-50 px-2 py-0.5">{t("storefront.checkout.active")}</span>
               </div>
 
               {/* Full vs Deposit toggle */}
@@ -392,7 +392,7 @@ export default function CheckoutPage() {
 
             {/* Discount Code */}
             <div className="flex flex-col gap-2">
-              <label className="label-style">Discount Code (اختياري)</label>
+              <label className="label-style">{t("storefront.checkout.discountOptional")}</label>
               <div className="flex gap-2">
                 <input
                   type="text"
@@ -404,11 +404,11 @@ export default function CheckoutPage() {
                 />
                 <button type="button" onClick={applyDiscount} disabled={discountLoading || !discountCode.trim()}
                   className="px-4 py-2 border border-gray-300 text-xs font-bold text-gray-600 hover:border-gray-500 disabled:opacity-40 transition-all active:scale-95 shrink-0">
-                  {discountLoading ? "..." : "Apply"}
+                  {discountLoading ? "..." : t("storefront.checkout.apply")}
                 </button>
               </div>
               {discountError && <p className="text-xs text-red-500">{discountError}</p>}
-              {discountLabel && <p className="text-xs text-green-600 font-bold">✓ {discountLabel} applied!</p>}
+              {discountLabel && <p className="text-xs text-green-600 font-bold">✓ {discountLabel} {t("storefront.checkout.applied")}</p>}
             </div>
 
             {/* Server error */}
@@ -432,7 +432,7 @@ export default function CheckoutPage() {
               target="_blank" rel="noreferrer"
               className="text-center text-[10px] text-gray-400 hover:text-green-600 transition-colors"
             >
-              💬 Need help? Chat on WhatsApp
+              💬 {t("storefront.checkout.chatOnWhatsApp")}
             </a>
           </form>
 
@@ -473,11 +473,12 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
   payType: PayType;
   lang: string;
 }) {
+  const { t } = useLanguage();
   const fmtP       = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
   const finalTotal = Math.max(0, total - discountAmount);
   return (
     <div className="bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/20 p-5 h-fit sticky top-20">
-      <h2 className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">Order Summary</h2>
+      <h2 className="text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 mb-4">{t("storefront.checkout.orderSummary")}</h2>
       <ul className="space-y-3 mb-4">
         {items.map((item) => (
           <li key={`${item.nameEn}-${item.size}`} className="flex items-center gap-3">
@@ -490,7 +491,7 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-xs font-semibold text-brand-black dark:text-offwhite truncate">{lang === "ar" && item.nameAr ? item.nameAr : item.nameEn}</p>
-              {item.size && <p className="text-[9px] text-gray-400">Size: {item.size}</p>}
+              {item.size && <p className="text-[9px] text-gray-400">{t("storefront.checkout.size")}: {item.size}</p>}
               <p className="text-[10px] text-gray-500 dark:text-gray-400">× {item.quantity}</p>
             </div>
             <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite shrink-0">{fmtP(item.price * item.quantity)}</p>
@@ -499,7 +500,7 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
       </ul>
       <div className="border-t border-gray-100 pt-4 space-y-2">
         <div className="flex justify-between text-xs">
-          <span className="text-gray-500 dark:text-gray-400">Subtotal</span>
+          <span className="text-gray-500 dark:text-gray-400">{t("storefront.checkout.subtotal")}</span>
           <span className="font-mono font-bold text-brand-black dark:text-offwhite">{fmtP(total)}</span>
         </div>
         {discountAmount > 0 && discountLabel && (
@@ -509,17 +510,17 @@ function OrderSummary({ items, total, discountAmount = 0, discountLabel, paidNow
           </div>
         )}
         <div className="flex justify-between text-xs border-t border-gray-100 pt-2 mt-1">
-          <span className="font-bold text-brand-black dark:text-offwhite">Total</span>
+          <span className="font-bold text-brand-black dark:text-offwhite">{t("storefront.checkout.total")}</span>
           <span className="font-mono font-black text-brand-black dark:text-offwhite">{fmtP(finalTotal)}</span>
         </div>
         {payType === "deposit" && (
           <>
             <div className="flex justify-between text-xs">
-              <span className="text-blue-600">Due Now (50%)</span>
+              <span className="text-blue-600">{t("storefront.checkout.dueNow")}</span>
               <span className="font-mono font-bold text-blue-700">{fmtP(paidNow)}</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-orange-600">On Delivery</span>
+              <span className="text-orange-600">{t("storefront.checkout.onDelivery")}</span>
               <span className="font-mono font-bold text-orange-600">{fmtP(finalTotal - paidNow)}</span>
             </div>
           </>

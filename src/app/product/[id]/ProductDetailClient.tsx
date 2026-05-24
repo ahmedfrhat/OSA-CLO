@@ -46,6 +46,7 @@ function StarRating({ value, onChange }: { value: number; onChange?: (n: number)
 
 // ── Reviews Section ───────────────────────────────────────────────────────────
 function ReviewsSection({ productId }: { productId: string }) {
+  const { t } = useLanguage();
   const [name,    setName]    = useState("");
   const [rating,  setRating]  = useState(0);
   const [comment, setComment] = useState("");
@@ -56,7 +57,7 @@ function ReviewsSection({ productId }: { productId: string }) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!name.trim() || rating === 0) {
-      setError("Please enter your name and select a rating.");
+      setError(t("storefront.product.reviewError"));
       return;
     }
     setLoading(true); setError("");
@@ -71,40 +72,39 @@ function ReviewsSection({ productId }: { productId: string }) {
         setSuccess(true);
         setName(""); setRating(0); setComment("");
       }
-    } catch { setError("Network error."); }
+    } catch { setError(t("storefront.checkout.errors.serverError")); }
     setLoading(false);
   }
 
   return (
     <section className="max-w-6xl mx-auto px-4 sm:px-6 py-10 border-t border-gray-100">
       <p className="text-[10px] font-bold tracking-[0.2em] uppercase text-gray-400 mb-6 text-center">
-        Customer Reviews — آراء العملاء
+        {t("storefront.product.customerReviews")}
       </p>
 
       {success ? (
         <div className="max-w-md mx-auto bg-green-50 border border-green-200 px-6 py-5 text-center">
-          <p className="text-sm font-bold text-green-700">✓ Thank you! Your review is pending approval.</p>
-          <p className="text-xs text-green-500 mt-1">شكراً! مراجعتك قيد المراجعة.</p>
+          <p className="text-sm font-bold text-green-700">✓ {t("storefront.product.reviewSuccess")}</p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="max-w-md mx-auto bg-white dark:bg-brand-gray border border-gray-200 dark:border-brand-border/30 p-6 flex flex-col gap-4">
-          <h3 className="text-xs font-bold tracking-widest uppercase text-brand-black dark:text-offwhite">Write a Review</h3>
+          <h3 className="text-xs font-bold tracking-widest uppercase text-brand-black dark:text-offwhite">{t("storefront.product.writeReview")}</h3>
 
           {/* Name */}
           <div className="flex flex-col gap-1.5">
-            <label className="label-style">Your Name</label>
+            <label className="label-style">{t("storefront.product.yourName")}</label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Ahmed Mohamed"
+              placeholder={t("storefront.product.reviewNamePlaceholder")}
               className="input-style"
             />
           </div>
 
           {/* Rating */}
           <div className="flex flex-col gap-1.5">
-            <label className="label-style">Rating</label>
+            <label className="label-style">{t("storefront.product.rating")}</label>
             <StarRating value={rating} onChange={setRating} />
             {rating > 0 && (
               <p className="text-[10px] text-gray-400">
@@ -115,12 +115,12 @@ function ReviewsSection({ productId }: { productId: string }) {
 
           {/* Comment */}
           <div className="flex flex-col gap-1.5">
-            <label className="label-style">Comment (optional)</label>
+            <label className="label-style">{t("storefront.product.commentOptional")}</label>
             <textarea
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               rows={3}
-              placeholder="Great quality, fits perfectly..."
+              placeholder={t("storefront.product.greatQuality")}
               className="input-style resize-none"
             />
           </div>
@@ -132,7 +132,7 @@ function ReviewsSection({ productId }: { productId: string }) {
             disabled={loading}
             className="w-full py-3 bg-brand-black dark:bg-offwhite text-white dark:text-brand-black dark:text-offwhite text-[11px] font-black tracking-[0.15em] uppercase hover:bg-[#333] disabled:opacity-40 transition-colors"
           >
-            {loading ? "Submitting..." : "Submit Review"}
+            {loading ? t("storefront.checkout.submitting") : t("storefront.product.submitReview")}
           </button>
         </form>
       )}
