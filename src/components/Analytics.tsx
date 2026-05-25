@@ -4,14 +4,18 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 
-// Only use IDs if they're actually set (not empty strings)
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "";
+// Strictly validate IDs - only render scripts with known-good formats
+const rawGA = (process.env.NEXT_PUBLIC_GA_ID ?? "").trim();
+const rawPixel = (process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "").trim();
+
+// GA4 IDs are like "G-XXXXXXXXXX", legacy UA IDs are "UA-XXXXXX-X"
+const GA_ID = /^(G-[A-Z0-9]+|UA-\d+-\d+)$/.test(rawGA) ? rawGA : "";
+// Meta Pixel IDs are numeric strings (typically 15-16 digits)
+const PIXEL_ID = /^\d{6,20}$/.test(rawPixel) ? rawPixel : "";
 
 const hasGA = GA_ID.length > 0;
 const hasPixel = PIXEL_ID.length > 0;
 
-// Extend window for gtag + fbq
 declare global {
   interface Window {
     gtag?: (...args: unknown[]) => void;
@@ -24,22 +28,20 @@ declare global {
 export default function Analytics() {
   const pathname = usePathname();
 
-  // Track GA pageviews on route change
   useEffect(() => {
-    if (hasGA && window.gtag) {
+    if (hasGA && typeof window !== "undefined" && window.gtag) {
       window.gtag("config", GA_ID, { page_path: pathname });
     }
-    if (hasPixel && window.fbq) {
+    if (hasPixel && typeof window !== "undefined" && window.fbq) {
       window.fbq("track", "PageView");
     }
   }, [pathname]);
 
-  // Don't render any scripts if no IDs are configured
+  // No valid analytics IDs configured — render nothing
   if (!hasGA && !hasPixel) return null;
 
   return (
     <>
-      {/* ── Google Analytics 4 ── */}
       {hasGA && (
         <>
           <Script
@@ -50,35 +52,18 @@ export default function Analytics() {
             id="ga-init"
             strategy="afterInteractive"
             dangerouslySetInnerHTML={{
-              __html: `
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_ID}', { page_path: window.location.pathname });
-              `,
+              __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{page_path:window.location.pathname});`,
             }}
           />
         </>
       )}
 
-      {/* ── Meta Pixel ── */}
       {hasPixel && (
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
-            __html: `
-              !function(f,b,e,v,n,t,s)
-              {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)}(window, document,'script',
-              'https://connect.facebook.net/en_US/fbevents.js');
-              fbq('init', '${PIXEL_ID}');
-              fbq('track', 'PageView');
-            `,
+            __html: `!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${PIXEL_ID}');fbq('track','PageView');`,
           }}
         />
       )}
