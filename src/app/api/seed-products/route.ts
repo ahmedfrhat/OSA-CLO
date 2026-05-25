@@ -205,6 +205,34 @@ async function seed() {
   return { total, inserted, errors };
 }
 
+/**
+ * SEEDING DISABLED - Database was successfully seeded on 2026-05-25.
+ * The code below is commented out to prevent accidental re-seeding in production.
+ * To re-enable, uncomment the POST and GET handlers.
+ */
+
+export async function POST() {
+  return NextResponse.json(
+    {
+      success: false,
+      error: "Seeding is disabled. Database was already seeded successfully.",
+    },
+    { status: 403 }
+  );
+}
+
+export async function GET() {
+  return NextResponse.json(
+    {
+      success: false,
+      error: "Seeding is disabled. Database was already seeded successfully.",
+    },
+    { status: 403 }
+  );
+}
+
+/*
+// ORIGINAL SEEDING HANDLERS - COMMENTED OUT FOR PRODUCTION SAFETY
 export async function POST() {
   try {
     const result = await seed();
@@ -223,3 +251,4 @@ export async function GET() {
   // Convenience: allow seeding via GET in dev so it can be hit from the browser.
   return POST();
 }
+*/
