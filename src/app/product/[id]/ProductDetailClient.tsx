@@ -214,13 +214,13 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
           {/* ── Image Gallery ── */}
           <div className="flex flex-col gap-3">
             {/* Main image */}
-            <div className="relative aspect-[3/4] bg-gray-100 dark:bg-brand-black overflow-hidden">
+            <div className="group relative aspect-[3/4] bg-gray-100 dark:bg-brand-black overflow-hidden cursor-zoom-in">
               {allImages.length > 0 ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
                   src={allImages[activeImg]}
                   alt={`${displayName} ${activeImg + 1}`}
-                  className="w-full h-full object-cover transition-opacity duration-300"
+                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                 />
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
