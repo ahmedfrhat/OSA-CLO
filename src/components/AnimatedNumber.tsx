@@ -4,11 +4,17 @@ import { useEffect, useRef, useState } from "react";
 
 interface AnimatedNumberProps {
   value: number;
-  duration?: number;       // ms
+  duration?: number;
   className?: string;
   prefix?: string;
   suffix?: string;
   decimals?: number;
+  startFrom?: number; // custom starting point (default: 0 on mount)
+}
+
+// easeOutExpo — starts fast, lands smooth
+function easeOutExpo(t: number) {
+  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
 }
 
 export default function AnimatedNumber({
@@ -18,25 +24,21 @@ export default function AnimatedNumber({
   prefix = "",
   suffix = "",
   decimals = 0,
+  startFrom = 0,
 }: AnimatedNumberProps) {
-  const [display, setDisplay] = useState(value);
-  const prevRef  = useRef(value);
+  const [display, setDisplay] = useState(startFrom); // always start from 0 (or startFrom) on mount
+  const prevRef  = useRef(startFrom);                // so first render always animates
   const rafRef   = useRef<number>();
   const startRef = useRef<number>();
 
   useEffect(() => {
     const from = prevRef.current;
     const to   = value;
+
     if (from === to) return;
 
-    // إلغاء أي animation شغالة
     if (rafRef.current) cancelAnimationFrame(rafRef.current);
     startRef.current = undefined;
-
-    // easeOutExpo
-    function easeOutExpo(t: number) {
-      return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-    }
 
     function tick(timestamp: number) {
       if (!startRef.current) startRef.current = timestamp;
@@ -64,7 +66,7 @@ export default function AnimatedNumber({
     : Math.round(display).toLocaleString("en-EG");
 
   return (
-    <span className={className}>
+    <span className={`tabular-nums ${className}`}>
       {prefix}{formatted}{suffix}
     </span>
   );

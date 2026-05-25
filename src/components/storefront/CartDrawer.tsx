@@ -15,7 +15,6 @@ export default function CartDrawer() {
   if (pathname?.startsWith("/admin")) return null;
   if (!isOpen) return null;
 
-  const fmtP = (n: number) => `EGP ${n.toLocaleString("en-EG")}`;
 
   return (
     <>
@@ -96,7 +95,7 @@ export default function CartDrawer() {
                       </p>
                     )}
                     <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite mt-1">
-                      {fmtP(item.price)}
+                      EGP <AnimatedNumber value={item.price} duration={400} />
                     </p>
 
                     {/* Qty Controls */}
@@ -122,7 +121,7 @@ export default function CartDrawer() {
                   {/* Line total */}
                   <div className="shrink-0 text-right">
                     <p className="text-xs font-mono font-bold text-brand-black dark:text-offwhite">
-                      {fmtP(item.price * item.quantity)}
+                      EGP <AnimatedNumber value={item.price * item.quantity} duration={500} />
                     </p>
                   </div>
                 </li>
