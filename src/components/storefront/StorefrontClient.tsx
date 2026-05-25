@@ -10,6 +10,7 @@ import { supabase } from "@/lib/supabase";
 import FuzzySearch from "@/components/FuzzySearch";
 import CategoryFilter from "@/components/CategoryFilter";
 import Fuse from "fuse.js";
+import WishlistButton from "@/components/WishlistButton";
 
 // ── Types ─────────────────────────────────────────────────────────────────────
 export interface StorefrontProduct {
@@ -349,6 +350,26 @@ function ProductCard({
             <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
           </svg>
         </button>
+
+        {/* Wishlist Button */}
+        <div
+          className={`absolute bottom-2 ${isRTL ? "left-2" : "right-2"} z-10`}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="bg-white dark:bg-brand-gray/90 backdrop-blur w-7 h-7 flex items-center justify-center shadow-sm hover:bg-gray-50 dark:hover:bg-brand-gray transition-colors">
+            <WishlistButton
+              product={{
+                id:            product.id,
+                name_en:       product.name_en,
+                name_ar:       product.name_ar,
+                selling_price: product.selling_price,
+                image_url:     product.image_url,
+                category:      product.category,
+              }}
+              size="sm"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Info */}
