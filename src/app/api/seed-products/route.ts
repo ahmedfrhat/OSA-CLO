@@ -24,7 +24,6 @@ const premiumImages = [
 const categoryImageMap: Record<string, number[]> = {
   "T-Shirts": [0, 5],
   Hoodies: [1],
-  Shirts: [2],
   Pants: [3],
   Outerwear: [2, 6],
   Accessories: [4, 7, 8],
@@ -32,9 +31,8 @@ const categoryImageMap: Record<string, number[]> = {
 };
 
 const categories = [
-  "T-Shirts",
   "Hoodies",
-  "Shirts",
+  "T-Shirts",
   "Pants",
   "Outerwear",
   "Accessories",
@@ -138,10 +136,6 @@ function buildProduct(i: number) {
     case "T-Shirts":
       itemBaseEn = "Tee";
       itemBaseAr = "تيشيرت";
-      break;
-    case "Shirts":
-      itemBaseEn = "Overshirt";
-      itemBaseAr = "قميص";
       break;
     case "Pants":
       itemBaseEn = "Cargo Pants";
