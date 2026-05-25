@@ -45,6 +45,7 @@ export const metadata: Metadata = {
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import PromotionalPopup from "@/components/PromotionalPopup";
 import { WishlistProvider } from "@/context/WishlistContext";
+import CustomCursor from "@/components/CustomCursor";
 
 export default function RootLayout({
   children,
@@ -59,6 +60,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         <Analytics />
+        <CustomCursor />
         <ThemeProvider>
           <LanguageProvider>
             <CartProvider>

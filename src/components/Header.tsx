@@ -8,6 +8,7 @@ import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
 import WishlistBell from "./WishlistBell";
+import AnimatedNumber from "./AnimatedNumber";
 import { useLang } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
 import { usePathname } from "next/navigation";
@@ -118,8 +119,8 @@ export default function Header() {
               <path d="M16 10a4 4 0 0 1-8 0" />
             </svg>
             {cartCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-brand-accent text-brand-black text-[10px] font-bold flex items-center justify-center">
-                {cartCount > 9 ? "9+" : cartCount}
+              <span className="absolute -top-0.5 -right-0.5 min-w-[16px] h-4 px-0.5 rounded-full bg-brand-accent text-brand-black text-[10px] font-bold flex items-center justify-center">
+                {cartCount > 9 ? "9+" : <AnimatedNumber value={cartCount} duration={400} />}
               </span>
             )}
           </button>

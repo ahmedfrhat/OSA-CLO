@@ -5,6 +5,7 @@ import { useLanguage } from "@/context/LanguageContext";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import AnimatedNumber from "@/components/AnimatedNumber";
 
 export default function CartDrawer() {
   const pathname = usePathname();
@@ -137,7 +138,9 @@ export default function CartDrawer() {
               <span className="text-xs font-bold tracking-[0.1em] uppercase text-gray-500 dark:text-gray-400">
                 {t("storefront.cart.total")}
               </span>
-              <span className="text-base font-black text-brand-black dark:text-offwhite font-mono">{fmtP(total)}</span>
+              <span className="text-base font-black text-brand-black dark:text-offwhite font-mono">
+              <AnimatedNumber value={total} duration={500} prefix="EGP " />
+              </span>
             </div>
             <CheckoutTrigger onClose={() => setIsOpen(false)} />
             <button

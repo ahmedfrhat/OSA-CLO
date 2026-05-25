@@ -260,3 +260,12 @@ input:focus, textarea:focus, select:focus {
   background-color: #1C1C1C;
   color: #f3f4f6;
 }
+
+/* ── Custom Cursor — Desktop Only ─────────────────────────────── */
+@media (pointer: fine) {
+  * { cursor: none !important; }
+}
+
+.dark [data-cursor-ring] {
+  border-color: rgba(250, 249, 246, 0.35) !important;
+}

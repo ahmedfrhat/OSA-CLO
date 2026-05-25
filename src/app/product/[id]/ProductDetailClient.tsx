@@ -6,6 +6,8 @@ import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
 import SmartSizeGuide from "@/components/SmartSizeGuide";
 import WishlistButton from "@/components/WishlistButton";
+import { useParallax } from "@/hooks/useParallax";
+import AnimatedNumber from "@/components/AnimatedNumber";
 
 const WA_NUMBER = "201038856486";
 
@@ -149,6 +151,7 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
   const { addItem } = useCart();
 
   const [selectedSize, setSelectedSize] = useState("");
+  const parallaxRef = useParallax(0.25);
   const [sizeError,    setSizeError]    = useState(false);
   const [added,        setAdded]        = useState(false);
   const [shared,       setShared]       = useState(false);
@@ -216,14 +219,16 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
           {/* ── Image Gallery ── */}
           <div className="flex flex-col gap-3">
             {/* Main image */}
-            <div className="group relative aspect-[3/4] bg-gray-100 dark:bg-brand-black overflow-hidden cursor-zoom-in">
+            <div className="group relative aspect-[3/4] bg-gray-100 dark:bg-brand-black overflow-hidden cursor-zoom-in" style={{overflow:"hidden"}}>
               {allImages.length > 0 ? (
                 // eslint-disable-next-line @next/next/no-img-element
+                <div ref={parallaxRef} className="absolute inset-0 scale-[1.15]">
                 <img
                   src={allImages[activeImg]}
                   alt={`${displayName} ${activeImg + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                  className="w-full h-full object-cover"
                 />
+                </div>
               ) : (
                 <div className="absolute inset-0 flex items-center justify-center">
                   <span className="text-6xl font-black text-gray-200">{displayName.slice(0, 2).toUpperCase()}</span>
@@ -388,8 +393,9 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
             </div>
 
             {/* Stock info */}
-            <p className="text-[10px] text-gray-500 dark:text-gray-400">
-              {t("storefront.product.stock")}: {product.stock_quantity} units
+            <p className="text-[10px] text-gray-500 dark:text-gray-400 flex items-center gap-1">
+              {t("storefront.product.stock")}:
+              <AnimatedNumber value={product.stock_quantity} duration={800} suffix=" units" />
             </p>
           </div>
         </div>
