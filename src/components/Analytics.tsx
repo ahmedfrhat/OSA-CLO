@@ -4,8 +4,12 @@ import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import Script from "next/script";
 
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID || "";
-const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID || "";
+// Only use IDs if they're actually set (not empty strings)
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID ?? "";
+const PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "";
+
+const hasGA = GA_ID.length > 0;
+const hasPixel = PIXEL_ID.length > 0;
 
 // Extend window for gtag + fbq
 declare global {
@@ -22,21 +26,21 @@ export default function Analytics() {
 
   // Track GA pageviews on route change
   useEffect(() => {
-    if (GA_ID && window.gtag) {
+    if (hasGA && window.gtag) {
       window.gtag("config", GA_ID, { page_path: pathname });
     }
-    if (PIXEL_ID && window.fbq) {
+    if (hasPixel && window.fbq) {
       window.fbq("track", "PageView");
     }
   }, [pathname]);
 
   // Don't render any scripts if no IDs are configured
-  if (!GA_ID && !PIXEL_ID) return null;
+  if (!hasGA && !hasPixel) return null;
 
   return (
     <>
       {/* ── Google Analytics 4 ── */}
-      {GA_ID && (
+      {hasGA && (
         <>
           <Script
             src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
@@ -58,7 +62,7 @@ export default function Analytics() {
       )}
 
       {/* ── Meta Pixel ── */}
-      {PIXEL_ID && (
+      {hasPixel && (
         <Script
           id="meta-pixel"
           strategy="afterInteractive"
