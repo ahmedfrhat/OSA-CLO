@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
+import SmartSizeGuide from "@/components/SmartSizeGuide";
+import WishlistButton from "@/components/WishlistButton";
 
 const WA_NUMBER = "201038856486";
 
@@ -343,6 +345,15 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
                     </button>
                   ))}
                 </div>
+
+                {/* Smart Size Guide */}
+                <div className="mt-3">
+                  <SmartSizeGuide
+                    category={product.category}
+                    availableSizes={product.sizes}
+                    onSizeSelect={(size) => { setSelectedSize(size); setSizeError(false); }}
+                  />
+                </div>
               </div>
             )}
 
@@ -369,6 +380,11 @@ export default function ProductDetailClient({ product }: { product: PDPProduct }
                 </svg>
                 {t("storefront.products.buyWhatsApp")}
               </button>
+
+              {/* Wishlist button */}
+              <div className="flex justify-center pt-1">
+                <WishlistButton product={product} showLabel />
+              </div>
             </div>
 
             {/* Stock info */}

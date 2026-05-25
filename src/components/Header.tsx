@@ -7,6 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import ThemeToggle from "./ThemeToggle";
 import LangToggle from "./LangToggle";
+import WishlistBell from "./WishlistBell";
 import { useLang } from "@/context/LanguageContext";
 import { useCart } from "@/context/CartContext";
 import { usePathname } from "next/navigation";
@@ -97,6 +98,7 @@ export default function Header() {
         <div className={`flex items-center gap-2 ${isRTL ? "flex-row-reverse" : ""}`}>
           <ThemeToggle />
           <LangToggle />
+          <WishlistBell />
 
           {/* Cart button */}
           <button

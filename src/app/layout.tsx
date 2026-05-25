@@ -44,6 +44,7 @@ export const metadata: Metadata = {
 
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import PromotionalPopup from "@/components/PromotionalPopup";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 export default function RootLayout({
   children,
@@ -61,6 +62,7 @@ export default function RootLayout({
         <ThemeProvider>
           <LanguageProvider>
             <CartProvider>
+              <WishlistProvider>
               <ToastProvider>
                 {/* Feature 4: subtle branded background texture */}
                 <div className="fixed inset-0 -z-10 pointer-events-none">
@@ -88,6 +90,7 @@ export default function RootLayout({
                 <main className="min-h-screen page-content relative z-10">{children}</main>
                 <PWAInstall />
               </ToastProvider>
+              </WishlistProvider>
             </CartProvider>
           </LanguageProvider>
         </ThemeProvider>
